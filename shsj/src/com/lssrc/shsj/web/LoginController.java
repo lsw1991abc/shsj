@@ -115,9 +115,8 @@ public class LoginController {
 		
 		if (StringUtils.isNotEmpty(username) && 
 				StringUtils.isNotEmpty(password) &&
-				StringUtils.equals(password, password2)) {
-			System.out.println("----------1 -------" + userService.isNotExist(username));
-			if(userService.isNotExist(username)) {
+				StringUtils.equals(password, password2) &&
+				userService.isNotExist(username)) {
 				Map<String, String> contations = new HashMap<String, String>();
 				contations.put("username", username);
 				contations.put("password", MD5.getMD5Code(password));
@@ -129,9 +128,6 @@ public class LoginController {
 				} else {
 					model.addAttribute("msg", "error");
 				}
-			} else {
-				model.addAttribute("msg", "error");
-			}
 		} else {
 			model.addAttribute("msg", "error");
 		}

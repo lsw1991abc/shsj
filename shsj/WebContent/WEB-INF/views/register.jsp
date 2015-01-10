@@ -1,4 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%
 	String path = request.getContextPath();
 	String basePath = request.getScheme() + "://"
@@ -62,13 +64,28 @@
 					<h2 class="text-center" style="background: #F9F9F9; margin: 0; height: 70px; line-height: 70px; border-bottom: 1px solid #E9E9E9;">用户注册</h2>
 					<div style="width: 600px; margin: 35px auto;">
 						<form class="form-horizontal" id="register-form" role="form" action="<%=basePath%>/login/reg" method="post">
+							<div id="result-msg">
+								<c:choose>
+									<c:when test="${msg eq 'success'}">
+										<div class="alert alert-success">注册成功，去<a href="<%=basePath%>/login/">登录&gt;&gt;</a></div>
+									</c:when>
+									<c:when test="${msg eq 'error'}">
+										<div class="alert alert-danger">注册失败</div>
+									</c:when>
+								</c:choose>
+							</div>
+							<div id="username-description"></div>
+							<div id="password-description"></div>
+							<div id="password2-description"></div>
 							<div id="qq-description"></div>
+							<div id="phoneno-description"></div>
+							<div id="email-description"></div>
 							<div class="form-group">
 								<label for="inputUsername" class="col-md-2 control-label">用户名<span style="color: #f00;">*</span></label>
 								<div class="col-md-10">
 									<input type="text" class="form-control" id="inputUsername"
 										data-required="true" data-pattern="^[a-z0-9A-Z_]{6,32}$"
-										data-describedby="qq-description" data-description="username"  placeholder="长度6～32" name="username" />
+										data-describedby="username-description" data-description="username"  placeholder="长度6～32" name="username" />
 								</div>
 							</div>
 							<div class="form-group">
@@ -76,16 +93,15 @@
 								<div class="col-md-10">
 									<input type="password" class="form-control" id="inputPassword"
 										data-required="true" data-pattern="^[a-z0-9A-Z_]{6,32}$"
-										data-describedby="description" data-description="password"  placeholder="长度6～32" name="password"
-										maxlength="32" />
+										data-describedby="password-description" data-description="password"  placeholder="长度6～32" name="password" />
 								</div>
 							</div>
 							<div class="form-group">
 								<label for="inputPassword2" class="col-md-2 control-label">确认密码<span style="color: #f00;">*</span></label>
 								<div class="col-md-10">
 									<input type="password" class="form-control" id="inputPassword2"
-										data-required="true" data-pattern="^[a-z0-9A-Z_]{6,32}$"
-										data-describedby="description" data-description="password2" data-conditional="password2" placeholder="长度6～32" name="password2" />
+										data-required="true" data-pattern="^[a-z0-9A-Z_]{6,32}$" data-conditional="password2"
+										data-describedby="password2-description" data-description="password2" placeholder="长度6～32" name="password2" />
 								</div>
 							</div>
 							<div class="form-group">
@@ -93,7 +109,7 @@
 								<div class="col-md-10">
 									<input type="text" class="form-control" id="qq"
 										placeholder="长度5～12" name="qq" data-pattern="^[1-9][0-9]{4,11}$"
-										data-describedby="description" data-description="qq" />
+										data-describedby="qq-description" data-description="qq" />
 								</div>
 							</div>
 							<div class="form-group">
@@ -101,7 +117,7 @@
 								<div class="col-md-10">
 									<input type="text" class="form-control" id="inputPhoneno"
 										placeholder="长度11" name="phoneno" data-pattern="^[1][3-8][0-9]{9}$"
-										data-describedby="description" data-description="phoneno"  />
+										data-describedby="phoneno-description" data-description="phoneno"  />
 								</div>
 							</div>
 							<div class="form-group">
@@ -109,7 +125,7 @@
 								<div class="col-md-10">
 									<input type="text" class="form-control" id="inputEmail"
 										placeholder="示例:username@shsj.com" name="email" data-pattern="^[a-z0-9]+([._\\-]*[a-z0-9])*@([a-z0-9]+[-a-z0-9]*[a-z0-9]+.){1,63}[a-z0-9]+$"
-										data-describedby="description" data-description="email"  />
+										data-describedby="email-description" data-description="email"  />
 								</div>
 							</div>
 							<div class="form-group">
