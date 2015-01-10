@@ -65,16 +65,12 @@ public class LoginController {
 			@RequestParam(value = "username", required = false) String username,
 			@RequestParam(value = "password", required = false) String password) {
 		HashMap<String, Object> user = (HashMap<String, Object>) userService.getByUsername(username);
-		if (user != null) {
-			String pwd = user.get("passwd").toString();
-			if (pwd.equals(MD5.getMD5Code(password))) {
+		if (user != null && user.get("passwd").toString().equals(MD5.getMD5Code(password))) {
 				model.addAttribute("myself", user);
 				return "redirect:/user/";
-			} else {
-				return "redirect:/";
-			}
 		} else {
-			return "redirect:/";
+			model.addAttribute("msg", "error");
+			return "login";
 		}
 	}
 	

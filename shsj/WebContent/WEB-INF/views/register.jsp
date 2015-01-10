@@ -93,7 +93,7 @@
 								<div class="col-md-10">
 									<input type="password" class="form-control" id="inputPassword"
 										data-required="true" data-pattern="^[a-z0-9A-Z_]{6,32}$"
-										data-describedby="password-description" data-description="password"  placeholder="长度6～32" name="password" />
+										data-describedby="password-description" data-description="password" placeholder="长度6～32" name="password" />
 								</div>
 							</div>
 							<div class="form-group">

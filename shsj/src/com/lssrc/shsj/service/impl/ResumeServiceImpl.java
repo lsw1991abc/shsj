@@ -53,7 +53,12 @@ public class ResumeServiceImpl implements ResumeService {
 
 	@Override
 	public Map<String, Object> getByUserId(String userId) {
-		return resumeDao.queryByUserId(userId);
+		Map<String, Object> resume = resumeDao.queryByUserId(userId);
+		if (resume == null) {
+			return null;
+		} else {
+			return resume;
+		}
 	}
 
 	@Override
