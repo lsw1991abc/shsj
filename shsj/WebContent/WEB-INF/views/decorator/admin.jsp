@@ -9,6 +9,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN">
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<link rel="shortcut icon" href="<%=basePath %>/images/favicon.ico" />
 	<title>用户中心</title>
 	<link rel="stylesheet" href="<%=basePath %>/style/bootstrap/bootstrap.min.css" type="text/css" />
 	<link rel="stylesheet" href="<%=basePath %>/style/bootstrap/bootstrap-datetimepicker.min.css" type="text/css" />
