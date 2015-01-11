@@ -26,7 +26,7 @@ $('.header-nav li[data-menu-id="resume"]').addClass('active');
 	                  <li>
                          <div class="row" style="margin:0 0 8px;">
                         	<div class="col-md-3" style="padding:5px; border:1px solid #DFDFDF;">
-                            	<img src="<%=basePath%>/images/${resume.r_pic}" style="height:130px; width:190px;" class="img-responsive" alt="img" />
+                            	<img src="<%=basePath%>/images/resume/${resume.r_pic}" style="height:130px; width:190px;" class="img-responsive" alt="img" />
                             </div>
                             <div class="col-md-9 resume_item">
                             	<h4><a href="<%=basePath%>/rencai/${resume.r_id}" target="_blank">${resume.r_name}</a>&nbsp;<span>性别:${resume.r_sex}</span>&nbsp;<span>学校:${resume.r_college}</span>&nbsp;<span>专业:${resume.r_major}</span>&nbsp;<span>入学:${resume.r_entrance}年</span></h4>
