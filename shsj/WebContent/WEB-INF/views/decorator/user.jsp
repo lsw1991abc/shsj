@@ -73,10 +73,10 @@
     <div class="row">
       <div class="col-md-2">
         <ul class="list-unstyled user-menu">
-        	<li><a href="javascript:openPanel(0, 'cp');">控制面板</a></li>
+        	<li><a href="<%=basePath%>/user">控制面板</a></li>
             <li><a href="<%=basePath%>/user/rizhi">我的日志</a></li>
-            <li><a href="javascript:openPanel(2, 'resume');">我的简历</a></li> 
-            <li><a href="javascript:openPanel(3, 'profile');">个人资料</a></li>
+            <li><a href="<%=basePath%>/user/jianli">我的简历</a></li> 
+            <li><a href="<%=basePath%>/user/ziliao">个人资料</a></li>
             <li><a href="<%=basePath%>/user/xgmm">修改密码</a></li>
             <c:if test="${myself.issys==1}">
             	<li><a href="<%=basePath%>/admin/" target="_blank">后台管理</a></li>

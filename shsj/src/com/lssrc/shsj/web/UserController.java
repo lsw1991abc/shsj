@@ -54,7 +54,7 @@ public class UserController {
 	private ResumeService resumeService;
 	
 	/**
-	 * 个人信息
+	 * 个人中心
 	 * @param request
 	 * @param response
 	 * @param model
@@ -67,6 +67,15 @@ public class UserController {
 		return "user/index";
 	}
 	
+	/**
+	 * 日志列表
+	 * @param request
+	 * @param response
+	 * @param model
+	 * @param pageNo
+	 * @param pageSize
+	 * @return
+	 */
 	@RequestMapping({"/rizhi"})
 	public String daily(HttpServletRequest request, HttpServletResponse response, ModelMap model, 
 			@RequestParam(value = "page", required = false, defaultValue = "1")int pageNo,
@@ -82,6 +91,14 @@ public class UserController {
 		return "user/daily";
 	}
 	
+	/**
+	 * 日志编辑
+	 * @param request
+	 * @param response
+	 * @param model
+	 * @param id
+	 * @return
+	 */
 	@RequestMapping(value = {"/rizhi/edit"})
 	public String dailyEdit(HttpServletRequest request, HttpServletResponse response, ModelMap model,
 			@RequestParam(value = "id", required = false, defaultValue = "")String id){
@@ -99,6 +116,16 @@ public class UserController {
 		return "daily/edit";
 	}
 	
+	/**
+	 * 日志保存
+	 * @param request
+	 * @param response
+	 * @param model
+	 * @param id
+	 * @param title
+	 * @param content
+	 * @return
+	 */
 	@RequestMapping(value = {"/rizhi/save"}, method = RequestMethod.POST)
 	public Map<String, Object> dailySave(HttpServletRequest request, HttpServletResponse response, ModelMap model,
 			@RequestParam(value = "id", required = false, defaultValue = "")String id,
@@ -120,6 +147,14 @@ public class UserController {
 		return result;
 	}
 	
+	/**
+	 * 日志删除
+	 * @param request
+	 * @param response
+	 * @param model
+	 * @param id
+	 * @return
+	 */
 	@RequestMapping(value = {"/rizhi/del"}, method = RequestMethod.POST)
 	public Map<String, Object> dailyDelete(HttpServletRequest request, HttpServletResponse response, ModelMap model,
 			@RequestParam(value = "id", required = false, defaultValue = "")String id) {
@@ -139,7 +174,7 @@ public class UserController {
 	}
 	
 	@RequestMapping({"/jianli"})
-	public Map<String, Object> resume(HttpServletRequest request, HttpServletResponse response, ModelMap model) {
+	public String resume(HttpServletRequest request, HttpServletResponse response, ModelMap model) {
 		Map<String, Object> resume = resumeService.getByUserId(myself.get("userId").toString());
 		if (resume == null) {
 			resume = new HashMap<String, Object>();
@@ -148,7 +183,8 @@ public class UserController {
 			int count = resumeService.save(resume);
 			resume = resumeService.getByUserId(myself.get("userId").toString());
 		}
-		return resume;
+		model.addAttribute("resume", resume);
+		return "user/resume";
 	}
 	
 	@RequestMapping(value = {"/jianli/update"}, method = RequestMethod.POST)
@@ -193,13 +229,21 @@ public class UserController {
 		return result;
 	}
 	
+	/**
+	 * 个人资料
+	 * @param request
+	 * @param response
+	 * @param model
+	 * @return
+	 */
 	@RequestMapping({"/ziliao"})
-	public Map<String, Object> profile(HttpServletRequest request, HttpServletResponse response, ModelMap model) {
-		return userService.getById(myself.get("userId").toString());
+	public String profile(HttpServletRequest request, HttpServletResponse response, ModelMap model) {
+		model.addAttribute("myself", userService.getById(myself.get("userId").toString()));
+		return "user/myself";
 	}
 	
 	@RequestMapping(value = {"/ziliao/update"}, method = RequestMethod.POST)
-	public Map<String, Object> updateProfile(HttpServletRequest request, HttpServletResponse response, ModelMap model,
+	public String updateProfile(HttpServletRequest request, HttpServletResponse response, ModelMap model,
 			@RequestParam(value = "userId", required = true)String userId,
 			@RequestParam(value = "username", required = true)String username,
 			@RequestParam(value = "nickname", required = false, defaultValue = "")String nickname,
@@ -208,11 +252,8 @@ public class UserController {
 			@RequestParam(value = "email", required = false, defaultValue = "")String email,
 			@RequestParam(value = "userDesc", required = false, defaultValue = "")String userDesc) {
 		
-		Map<String, Object> result = new HashMap<String, Object>();
-		
 		Map<String, Object> user = userService.getById(userId);
-		if (user != null) {
-			if (user.get("username").equals(username)) {
+		if (user != null && user.get("username").equals(username)) {
 				if (StringUtils.isEmpty(nickname)) {
 					nickname = username;
 				}
@@ -223,25 +264,38 @@ public class UserController {
 				user.put("userDesc", userDesc);
 				int count = userService.update(user);
 				if (count == 1) {
-					result.put("result", "success");
+					model.addAttribute("msg", "success");
 				} else {
-					result.put("result", "error");
+					model.addAttribute("msg", "error");
 				}
-			} else {
-				result.put("result", "error");
-			}
 		} else {
-			result.put("result", "error");
+			model.addAttribute("msg", "error");
 		}
-		
-		return result;
+		return "user/myself";
 	}
 	
+	/**
+	 * 密码修改页面
+	 * @param request
+	 * @param response
+	 * @param model
+	 * @return
+	 */
 	@RequestMapping(value = {"/xgmm"})
 	public String password(HttpServletRequest request, HttpServletResponse response, ModelMap model) {
 		return "user/password";
 	}
 	
+	/**
+	 * 密码修改
+	 * @param request
+	 * @param response
+	 * @param model
+	 * @param oldPasswd
+	 * @param newPasswd1
+	 * @param newPasswd2
+	 * @return
+	 */
 	@RequestMapping(value = {"/passwd"}, method = RequestMethod.POST)
 	public Map<String, Object> updatePassword(HttpServletRequest request, HttpServletResponse response, ModelMap model,
 			@RequestParam(value = "oldPasswd", required = false, defaultValue = "")String oldPasswd,
@@ -253,8 +307,7 @@ public class UserController {
 			Map<String, Object> user = userService.getById(userId);
 			if (user != null && user.get("passwd").equals(MD5.getMD5Code(oldPasswd))) {
 				user.put("passwd", MD5.getMD5Code(newPasswd1));
-				int count = userService.changePasswd(user);
-				if (count == 1) {
+				if (userService.changePasswd(user) == 1) {
 					result.put("result", "success");
 				} else {
 					result.put("result", "error");
@@ -268,6 +321,10 @@ public class UserController {
 		return result;
 	}
 	
+	/**
+	 * 获取当前session
+	 * @param session
+	 */
 	@SuppressWarnings("unchecked")
 	@ModelAttribute(value  = "myself")
 	public void name(HttpSession session ) {
