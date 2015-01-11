@@ -65,16 +65,12 @@ public class LoginController {
 			@RequestParam(value = "username", required = false) String username,
 			@RequestParam(value = "password", required = false) String password) {
 		HashMap<String, Object> user = (HashMap<String, Object>) userService.getByUsername(username);
-		if (user != null) {
-			String pwd = user.get("passwd").toString();
-			if (pwd.equals(MD5.getMD5Code(password))) {
+		if (user != null && user.get("passwd").toString().equals(MD5.getMD5Code(password))) {
 				model.addAttribute("myself", user);
 				return "redirect:/user/";
-			} else {
-				return "redirect:/";
-			}
 		} else {
-			return "redirect:/";
+			model.addAttribute("msg", "error");
+			return "login";
 		}
 	}
 	
@@ -115,9 +111,8 @@ public class LoginController {
 		
 		if (StringUtils.isNotEmpty(username) && 
 				StringUtils.isNotEmpty(password) &&
-				StringUtils.equals(password, password2)) {
-			System.out.println("----------1 -------" + userService.isNotExist(username));
-			if(userService.isNotExist(username)) {
+				StringUtils.equals(password, password2) &&
+				userService.isNotExist(username)) {
 				Map<String, String> contations = new HashMap<String, String>();
 				contations.put("username", username);
 				contations.put("password", MD5.getMD5Code(password));
@@ -129,9 +124,6 @@ public class LoginController {
 				} else {
 					model.addAttribute("msg", "error");
 				}
-			} else {
-				model.addAttribute("msg", "error");
-			}
 		} else {
 			model.addAttribute("msg", "error");
 		}

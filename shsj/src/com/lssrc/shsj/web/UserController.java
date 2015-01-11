@@ -136,7 +136,10 @@ public class UserController {
 	
 	@RequestMapping({"/jianli"})
 	public Map<String, Object> resume(HttpServletRequest request, HttpServletResponse response, ModelMap model) {
-		return resumeService.getByUserId(myself.get("userId").toString());
+		Map<String, Object> resume = resumeService.getByUserId(myself.get("userId").toString());
+		if (resume == null) {
+		}
+		return resume;
 	}
 	
 	@RequestMapping(value = {"/jianli/update"}, method = RequestMethod.POST)
