@@ -78,8 +78,13 @@ public class BaseDao {
 	 * @param contations
 	 * @return
 	 */
-	public Map<String, Object> queryForMap(String sql, Object[] contations) throws DataAccessException {
-		return jdbcTemplate.queryForMap(sql, contations);
+	public Map<String, Object> queryForMap(String sql, Object[] contations) {
+		try {
+			return jdbcTemplate.queryForMap(sql, contations);
+		} catch (Exception e) {
+			return null;
+		}
+		
 	}
 
 	/**
