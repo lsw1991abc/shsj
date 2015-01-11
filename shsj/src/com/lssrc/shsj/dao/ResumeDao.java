@@ -45,4 +45,10 @@ public interface ResumeDao {
 	 */
 	int update(Map<String, Object> resume);
 
+	/**
+	 * @param resume
+	 * @return
+	 */
+	int save(Map<String, Object> resume);
+
 }

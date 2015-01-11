@@ -66,4 +66,9 @@ public class ResumeServiceImpl implements ResumeService {
 		return resumeDao.update(resume);
 	}
 
+	@Override
+	public int save(Map<String, Object> resume) {
+		return resumeDao.save(resume);
+	}
+
 }

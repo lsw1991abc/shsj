@@ -15,6 +15,7 @@ import org.springframework.stereotype.Repository;
 import com.lssrc.shsj.dao.ResumeDao;
 import com.lssrc.util.BaseDao;
 import com.lssrc.util.DateFormater;
+import com.lssrc.util.UUID;
 
 /**
  * @author Carl_Li
@@ -68,19 +69,13 @@ public class ResumeDaoImpl extends BaseDao implements ResumeDao {
 										+ DATETIME_UPDATE;
 	private static String INSERT_COLUMN = ID + ", "
 										+ NAME + ", "
-										+ SEX + ", "
-										+ AGE + ", "
 										+ COLLEGE + ", "
 										+ MAJOR + ", "
-										+ ENTRANCE + ", "
 										+ HEIGHT + ", "
 										+ WEIGHT + ", "
 										+ PROFILE + ", "
 										+ EXPERIENCE + ", "
-										+ QQ + ", "
-										+ PHONENO + ", "
-										+ EMAIL + ", "
-										+ PIC + ", "
+										//+ PIC + ", "
 										+ USER + ", "
 										+ DATETIME_UPDATE;
 	
@@ -139,6 +134,24 @@ public class ResumeDaoImpl extends BaseDao implements ResumeDao {
 		contations.add(DateFormater.getDateTime());
 		contations.add(resume.get("show"));
 		contations.add(resume.get("r_id"));
+		return super.saveOrUpdate(sql, contations.toArray());
+	}
+
+	@Override
+	public int save(Map<String, Object> resume) {
+		String sql = BASE_INSERT_SQL + "(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+
+		List<Object> contations = new ArrayList<Object>();
+		contations.add(UUID.generateRandomUUID());
+		contations.add(resume.get("user"));
+		contations.add("");
+		contations.add("");
+		contations.add(0);
+		contations.add(0);
+		contations.add("");
+		contations.add("");
+		contations.add(resume.get("userId"));
+		contations.add(DateFormater.getDateTime());
 		return super.saveOrUpdate(sql, contations.toArray());
 	}
 	
