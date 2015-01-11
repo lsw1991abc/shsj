@@ -48,13 +48,14 @@
       <div class="col-md-9"> <img src="<%=basePath %>/images/201408271409108212749.jpg" style="width:100%; height:95px;" class="img-responsive" alt="Responsive image"  /> </div>
     </div>
     <ul class="nav nav-tabs header-nav" role="tablist" style="margin-bottom:10px; background:url('<%=basePath %>/images/syimgs.png') 0px -30px repeat-x; padding:0 20px;">
-      <li role="presentation" data-menu-id="index" class="active"><a href="<%=basePath %>/">首页</a></li>
+      <li role="presentation" data-menu-id="index"><a href="<%=basePath %>/">首页</a></li>
       <li role="presentation" data-menu-id="parttime"><a href="<%=basePath %>/jianzhi">兼职工作</a></li>
       <li role="presentation" data-menu-id="job"><a href="<%=basePath %>/zhaopin">全职工作</a></li>
       <li role="presentation" data-menu-id="resume"><a href="<%=basePath %>/rencai">会员简历</a></li>
       <!-- <li role="presentation" data-menu-id="candidate"><a href="<%=basePath %>/qiuzhi">会员求职</a></li> -->
       <li role="presentation" data-menu-id="avtivit"><a href="<%=basePath %>/huodong">活动案例</a></li>
       <li role="presentation" data-menu-id="help"><a href="<%=basePath %>/help/gywm">关于我们</a></li>
+      <li role="presentation" data-menu-id="myself"  class="active"><a href="<%=basePath %>/user">个人中心</a></li>
     </ul>
     <style type="text/css">
 		.nav>li>a{ color:#fff;}
