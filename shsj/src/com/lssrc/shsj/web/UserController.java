@@ -68,14 +68,18 @@ public class UserController {
 	}
 	
 	@RequestMapping({"/rizhi"})
-	public DailyListDto daily(HttpServletRequest request, HttpServletResponse response, ModelMap model, 
+	public String daily(HttpServletRequest request, HttpServletResponse response, ModelMap model, 
 			@RequestParam(value = "page", required = false, defaultValue = "1")int pageNo,
 			@RequestParam(value = "pageSize", required = false, defaultValue = "10")int pageSize) {
 		
 		String userId = myself.get("userId").toString();
 		Map<String, Integer> navigator = dailyService.getNavigatorByUser(pageNo, pageSize, userId);
+		List<Map<String, Object>> dailies = dailyService.getByPageByUser(navigator, userId);
 		
-		return new DailyListDto(navigator, dailyService.getByPageByUser(navigator, userId));
+		model.addAttribute("navigator", navigator);
+		model.addAttribute("dailies", dailies);
+		
+		return "user/daily";
 	}
 	
 	@RequestMapping(value = {"/rizhi/edit"})
@@ -138,6 +142,11 @@ public class UserController {
 	public Map<String, Object> resume(HttpServletRequest request, HttpServletResponse response, ModelMap model) {
 		Map<String, Object> resume = resumeService.getByUserId(myself.get("userId").toString());
 		if (resume == null) {
+			resume = new HashMap<String, Object>();
+			resume.put("user", myself.get("nickname").toString());
+			resume.put("userId", myself.get("userId").toString());
+			int count = resumeService.save(resume);
+			resume = resumeService.getByUserId(myself.get("userId").toString());
 		}
 		return resume;
 	}
@@ -226,6 +235,11 @@ public class UserController {
 		}
 		
 		return result;
+	}
+	
+	@RequestMapping(value = {"/xgmm"})
+	public String password(HttpServletRequest request, HttpServletResponse response, ModelMap model) {
+		return "user/password";
 	}
 	
 	@RequestMapping(value = {"/passwd"}, method = RequestMethod.POST)
