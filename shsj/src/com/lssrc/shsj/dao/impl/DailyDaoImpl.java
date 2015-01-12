@@ -53,9 +53,9 @@ public class DailyDaoImpl extends BaseDao implements DailyDao {
 
 	@Override
 	public int queryCount(String userId) {
-		StringBuffer sql = new StringBuffer("select count(*) from " + TABLE_NAME);
+		StringBuffer sql = new StringBuffer("select count(*) from " + TABLE_NAME + ", " + UserDaoImpl.TABLE_NAME + " where d_builder=user_id ");
 		if (StringUtils.isNotEmpty(userId)) {
-			sql.append(" where " + BUILDER + "=?");
+			sql.append(" and " + BUILDER + "=?");
 			return super.queryForInt(sql.toString(), new Object[]{ userId });
 		} else {
 			return super.queryForInt(sql.toString());

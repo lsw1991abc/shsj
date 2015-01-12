@@ -8,61 +8,74 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN">
 <head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<title>编辑日志</title>
 </head>
 
 <body>
-  <div class="container">
-    <div class="row">
-    	<div class="col-md-10">
-      	  <div style="border:1px solid #DFDFDF;">
-      	  	<h6 style="margin:0; height:32px; line-height:32px; border-bottom:1px solid #DFDFDF; text-indent:20px;">位置：首页 &gt; 校友日志 &gt; 日志编辑</h6>
-      	  	<div style="display:none" class="alert alert-dismissible" role="alert" id="alertMsg">
-           		<button type="button" class="close" data-dismiss="alert">
-           			<span aria-hidden="true">&times;</span>
-           			<span class="sr-only">Close</span>
-           		</button>
-           		<strong>修改成功</strong>
-           	</div> 
-                  	
-      	  	<div class="form-group">
-		      <div class="input-group" style="margin:10px 20px;">
-		        <div class="input-group-addon">标题</div>
-		        <input type="email" class="form-control" id="daily_title" placeholder="标题" value="${daily.d_title}" />
-		      </div>
-		    </div>
-            <div class="lead daily_content" style="padding:15px 20px;">
-            	<textarea class="form-control" rows="3" style="resize:vertical;" id="daily_content">${daily.d_content}</textarea>
-            </div>
-            <p class="text-center"><button type="button" class="btn btn-primary" onclick="saveOrUpdate(this, '${daily.d_id}');">保存</button></p>
-            <style type="text/css">
-				.daily_content p{  text-indent:32px;}
-            </style>
-            <script type="text/javascript">
-            function saveOrUpdate(btn ,id) {
-            	var title = $.trim($("#daily_title").val());
-            	var content = $.trim($("#daily_content").val());
-            	$(btn).html("保存中...").attr("disabled", "disabled");
-           		$.post("<%=basePath%>/user/rizhi/save.json", {id:id, title:title, content:content}, function(data) {
-           			console.log(data);
-           			if(data.result == "success") {
-        	  			$('#alertMsg>strong').html("保存成功");
-        	  			$('#alertMsg').addClass('alert-success');
-        	  		} else {
-        	  			$('#alertMsg>strong').html("保存失败");
-        	  			$('#alertMsg').addClass('alert-warning');
-        	  		}
-        	  		$('#alertMsg').slideDown("fast");
-        	  		$(btn).html("保存").removeAttr("disabled");
-           		});
-            }
-            </script>
-          </div>
-        </div>
-        <div class="col-md-2">
-        	<img src="<%=basePath%>/images/201309211379756723136.jpg" class="img-responsive" style="width:100%; height:auto;" />
-        </div>
-    </div>
-  </div>
+	<div class="user-cp-item user-password">
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<h3 class="panel-title">编辑日志</h3>
+			</div>
+			<div class="panel-body">
+				<form class="form-horizontal" id="daily-form" role="form"
+					action="<%=basePath%>/user/rizhi/save" method="post">
+					<c:if test="${msg eq 'success'}">
+						<div class="alert alert-success" role="alert">修改成功</div>
+					</c:if>
+					<c:if test="${msg eq 'error'}">
+						<div class="alert alert-danger" role="alert">修改失败</div>
+					</c:if>
+					<div id="dailyTitle-description"></div>
+					<div class="form-group" style="margin-left:0; margin-right:0;">
+						<div class="input-group">
+							<div class="input-group-addon">标题</div>
+							<input type="text" class="form-control" id="daily_title"
+								placeholder="标题长度1~50" value="${daily.d_title}" data-required="true"
+								data-pattern="^\w{1,50}$" name="title"
+								data-describedby="dailyTitle-description"
+								data-description="dailyTitle" />
+						</div>
+					</div>
+					<div class="lead daily_content">
+						<textarea class="form-control" rows="3" style="resize: vertical;"
+							id="daily_content" name="content">${daily.d_content}</textarea>
+					</div>
+					<p class="text-center">
+						<input type="hidden" name="id" value="${daily.d_id}" />
+						<button type="submit" class="btn btn-primary">保存</button>
+					</p>
+					<style type="text/css">
+.daily_content p {
+	text-indent: 32px;
+}
+</style>
+				</form>
+			</div>
+		</div>
+
+	</div>
+	<script type="text/javascript"
+		src="<%=basePath%>/script/jquery/jquery-validate.js"></script>
+	<script type="text/javascript">
+$(function() {
+	$('#daily-form').validate({
+			onKeyup : true,
+			eachValidField : function() {
+				$(this).closest('div').removeClass('has-error').addClass('has-success');
+			},
+			eachInvalidField : function() {
+				$(this).closest('div').removeClass('has-success').addClass('has-error');
+			},
+			description : {
+				dailyTitle : {
+					required : '<div class="alert alert-danger">标题不能为空</div>',
+					pattern : '<div class="alert alert-danger">标题长度1～50</div>',
+				}
+			}
+		});
+	});
+</script>
 </body>
 </html>
