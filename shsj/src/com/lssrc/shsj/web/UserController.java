@@ -102,15 +102,15 @@ public class UserController {
 	@RequestMapping(value = {"/rizhi/edit"})
 	public String dailyEdit(HttpServletRequest request, HttpServletResponse response, ModelMap model,
 			@RequestParam(value = "id", required = false, defaultValue = "")String id){
-		DailyDto daily = new DailyDto();
+		Map<String, Object> daily = new HashMap<String, Object>();
 		if (StringUtils.isNotEmpty(id)) {
-			daily = dailyService.getById(id);
-			if(!daily.getDaily().get("d_builder").equals(myself.get("userId"))) {
+			daily = dailyService.getById(id).getDaily();
+			if(!daily.get("d_builder").equals(myself.get("userId"))) {
 				return "redirect:/rizhi/" + id;
 			}
 		} else {
-			daily.getDaily().put("d_title", "");
-			daily.getDaily().put("d_content", "");
+			daily.put("d_title", "");
+			daily.put("d_content", "");
 		}
 		model.addAttribute("daily", daily);
 		return "daily/edit";
@@ -127,12 +127,10 @@ public class UserController {
 	 * @return
 	 */
 	@RequestMapping(value = {"/rizhi/save"}, method = RequestMethod.POST)
-	public Map<String, Object> dailySave(HttpServletRequest request, HttpServletResponse response, ModelMap model,
+	public String dailySave(HttpServletRequest request, HttpServletResponse response, ModelMap model,
 			@RequestParam(value = "id", required = false, defaultValue = "")String id,
 			@RequestParam(value = "title", required = false, defaultValue = "")String title,
 			@RequestParam(value = "content", required = false, defaultValue = "")String content){
-		Map<String, Object> result = new HashMap<String, Object>();
-		
 		int count = 0;
 		if (StringUtils.isNotEmpty(id)) {
 			count = dailyService.update(id, title, content);
@@ -140,11 +138,12 @@ public class UserController {
 			count = dailyService.save(myself.get("userId") + "", title, content);
 		}
 		if (count == 1) {
-			result.put("result", "success");
+			return "redirect:/user/rizhi";
 		} else {
-			result.put("result", "error");
+			model.addAttribute("msg", "error");
+			return "daily/edit";
 		}
-		return result;
+		
 	}
 	
 	/**
@@ -188,10 +187,9 @@ public class UserController {
 	}
 	
 	@RequestMapping(value = {"/jianli/update"}, method = RequestMethod.POST)
-	public Map<String, Object> updateResume(HttpServletRequest request, HttpServletResponse response, ModelMap model,
-			@RequestParam(value = "userId", required = true)String userId,
+	public String updateResume(HttpServletRequest request, HttpServletResponse response, ModelMap model,
 			@RequestParam(value = "name", required = false, defaultValue = "") String name,
-			@RequestParam(value = "sex", required = false, defaultValue = "1") String sex,
+			@RequestParam(value = "sex", required = false, defaultValue = "1") int sex,
 			@RequestParam(value = "age", required = false, defaultValue = "0") int age,
 			@RequestParam(value = "height", required = false, defaultValue = "0.0") double height,
 			@RequestParam(value = "weight", required = false, defaultValue = "0.0") double weight,
@@ -199,9 +197,8 @@ public class UserController {
 			@RequestParam(value = "major", required = false, defaultValue = "") String major,
 			@RequestParam(value = "experience", required = false, defaultValue = "") String experience,
 			@RequestParam(value = "desc", required = false, defaultValue = "") String desc,
-			@RequestParam(value = "show", required = false, defaultValue = "0") String show) {
-		Map<String, Object> result = new HashMap<String, Object>();
-		Map<String, Object> resume = resumeService.getByUserId(userId);
+			@RequestParam(value = "show", required = false, defaultValue = "0") int show) {
+		Map<String, Object> resume = resumeService.getByUserId(myself.get("userId").toString());
 		if (resume != null) {
 			if (StringUtils.isEmpty(name)) {
 				name = myself.get("nickname") + "";
@@ -218,15 +215,16 @@ public class UserController {
 			resume.put("show", show);
 			int count = resumeService.update(resume);
 			if (count == 1) {
-				result.put("result", "success");
+				model.addAttribute("msg", "success");
+				model.addAttribute("resume", resumeService.getByUserId(myself.get("userId").toString()));
 			} else {
-				result.put("result", "error");
+				model.addAttribute("msg", "error");
 			}
 		} else {
-			result.put("result", "error");
+			model.addAttribute("msg", "error");
 		}
 		
-		return result;
+		return "user/resume";
 	}
 	
 	/**
@@ -242,20 +240,30 @@ public class UserController {
 		return "user/myself";
 	}
 	
+	/**
+	 * 个人资料更新
+	 * @param request
+	 * @param response
+	 * @param model
+	 * @param nickname
+	 * @param qq
+	 * @param phoneno
+	 * @param email
+	 * @param userDesc
+	 * @return
+	 */
 	@RequestMapping(value = {"/ziliao/update"}, method = RequestMethod.POST)
 	public String updateProfile(HttpServletRequest request, HttpServletResponse response, ModelMap model,
-			@RequestParam(value = "userId", required = true)String userId,
-			@RequestParam(value = "username", required = true)String username,
 			@RequestParam(value = "nickname", required = false, defaultValue = "")String nickname,
 			@RequestParam(value = "qq", required = false, defaultValue = "")String qq,
 			@RequestParam(value = "phoneno", required = false, defaultValue = "")String phoneno,
 			@RequestParam(value = "email", required = false, defaultValue = "")String email,
 			@RequestParam(value = "userDesc", required = false, defaultValue = "")String userDesc) {
 		
-		Map<String, Object> user = userService.getById(userId);
-		if (user != null && user.get("username").equals(username)) {
+		Map<String, Object> user = userService.getById(myself.get("userId").toString());
+		if (user != null) {
 				if (StringUtils.isEmpty(nickname)) {
-					nickname = username;
+					nickname = myself.get("nickname").toString();
 				}
 				user.put("nickname", nickname);
 				user.put("qq", qq);
@@ -265,6 +273,7 @@ public class UserController {
 				int count = userService.update(user);
 				if (count == 1) {
 					model.addAttribute("msg", "success");
+					model.addAttribute("myself", user);
 				} else {
 					model.addAttribute("msg", "error");
 				}

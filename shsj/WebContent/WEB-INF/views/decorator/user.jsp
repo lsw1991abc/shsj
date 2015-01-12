@@ -66,11 +66,11 @@
 </div>
 <div class="body">
   <div class="container">
-  	<div class="row">
+  	<%-- <div class="row">
     	<div class="col-md-12">
         	<h3>欢迎来到大学生社会实践中心&nbsp;&nbsp;&nbsp;&nbsp;<small>当前登录用户名：${myself.nickname}</small></h3>
         </div>
-    </div>
+    </div> --%>
     <div class="row">
       <div class="col-md-2">
         <ul class="list-unstyled user-menu">
