@@ -10,50 +10,8 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN">
 <head>
-<title>用户注册</title>
-<script type="text/javascript" src="<%=basePath%>/script/jquery/jquery-validate.js"></script>
-<script type="text/javascript">
-	$(function() {
-		$('#register-form').validate({
-				onKeyup : true,
-				eachValidField : function() {
-					$(this).closest('div').removeClass('has-error').addClass('has-success');
-				},
-				eachInvalidField : function() {
-					$(this).closest('div').removeClass('has-success').addClass('has-error');
-				},
-				description : {
-					username : {
-						required : '<div class="alert alert-danger">用户名不能为空</div>',
-						pattern : '<div class="alert alert-danger">用户名长度6～32</div>',
-					},
-					password : {
-						required : '<div class="alert alert-danger">密码不能为空</div>',
-						pattern : '<div class="alert alert-danger">密码长度长度6～32</div>',
-					}, 
-					password2 : {
-						required : '<div class="alert alert-danger">确认密码不能为空</div>',
-						pattern : '<div class="alert alert-danger">确认密码长度长度6～32</div>',
-						conditional : '<div class="alert alert-danger">两次输入密码不一致</div>',
-					}, 
-					qq : {
-						pattern : '<div class="alert alert-danger">您输入的QQ不合法</div>',
-					},
-					phoneno : {
-						pattern : '<div class="alert alert-danger">您输入的手机号码不合法</div>',
-					}, 
-					email : {
-						pattern : '<div class="alert alert-danger">您输入的Email不合法</div>',
-					}
-				},
-				conditional : {
-					password2 : function() {
-						return $(this).val() == $('#inputPassword').val();
-					}
-				}
-			});
-	});
-</script>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>用户注册</title>
 </head>
 
 <body>
@@ -67,7 +25,7 @@
 							<div id="result-msg">
 								<c:choose>
 									<c:when test="${msg eq 'success'}">
-										<div class="alert alert-success">注册成功，去<a href="<%=basePath%>/login/">登录&gt;&gt;</a></div>
+										<div class="alert alert-success">注册成功，去<a href="<%=basePath%>/login/" class="alert-link">登录&gt;&gt;</a></div>
 									</c:when>
 									<c:when test="${msg eq 'error'}">
 										<div class="alert alert-danger">注册失败</div>
@@ -141,5 +99,48 @@
 			</div>
 		</div>
 	</div>
+	<script type="text/javascript" src="<%=basePath%>/script/jquery/jquery-validate.js"></script>
+<script type="text/javascript">
+	$(function() {
+		$('#register-form').validate({
+				onKeyup : true,
+				eachValidField : function() {
+					$(this).closest('div').removeClass('has-error').addClass('has-success');
+				},
+				eachInvalidField : function() {
+					$(this).closest('div').removeClass('has-success').addClass('has-error');
+				},
+				description : {
+					username : {
+						required : '<div class="alert alert-danger">用户名不能为空</div>',
+						pattern : '<div class="alert alert-danger">用户名长度6～32</div>'
+					},
+					password : {
+						required : '<div class="alert alert-danger">密码不能为空</div>',
+						pattern : '<div class="alert alert-danger">密码长度6～32</div>'
+					}, 
+					password2 : {
+						required : '<div class="alert alert-danger">确认密码不能为空</div>',
+						pattern : '<div class="alert alert-danger">确认密码长度6～32</div>',
+						conditional : '<div class="alert alert-danger">两次输入密码不一致</div>'
+					}, 
+					qq : {
+						pattern : '<div class="alert alert-danger">您输入的QQ不合法</div>',
+					},
+					phoneno : {
+						pattern : '<div class="alert alert-danger">您输入的手机号码不合法</div>'
+					}, 
+					email : {
+						pattern : '<div class="alert alert-danger">您输入的Email不合法</div>'
+					}
+				},
+				conditional : {
+					password2 : function() {
+						return $(this).val() == $('#inputPassword').val();
+					}
+				}
+			});
+	});
+</script>
 </body>
 </html>
