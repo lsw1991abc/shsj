@@ -297,28 +297,26 @@ public class UserController {
 	 * @return
 	 */
 	@RequestMapping(value = {"/passwd"}, method = RequestMethod.POST)
-	public Map<String, Object> updatePassword(HttpServletRequest request, HttpServletResponse response, ModelMap model,
+	public String updatePassword(HttpServletRequest request, HttpServletResponse response, ModelMap model,
 			@RequestParam(value = "oldPasswd", required = false, defaultValue = "")String oldPasswd,
 			@RequestParam(value = "newPasswd1", required = false, defaultValue = "")String newPasswd1,
 			@RequestParam(value = "newPasswd2", required = false, defaultValue = "")String newPasswd2) {
-		Map<String, Object> result = new HashMap<String, Object>();
 		if (StringUtils.isNotEmpty(oldPasswd) && StringUtils.isNotEmpty(newPasswd1) && StringUtils.isNotEmpty(newPasswd2) && newPasswd1.equals(newPasswd2)) {
-			String userId = myself.get("userId") + "";
-			Map<String, Object> user = userService.getById(userId);
+			Map<String, Object> user = userService.getById(myself.get("userId") + "");
 			if (user != null && user.get("passwd").equals(MD5.getMD5Code(oldPasswd))) {
 				user.put("passwd", MD5.getMD5Code(newPasswd1));
 				if (userService.changePasswd(user) == 1) {
-					result.put("result", "success");
+					model.addAttribute("msg", "success");
 				} else {
-					result.put("result", "error");
+					model.addAttribute("msg", "error");
 				}
 			} else {
-				result.put("result", "error");
+				model.addAttribute("msg", "error");
 			}
 		} else {
-			result.put("result", "error");
+			model.addAttribute("msg", "error");
 		}
-		return result;
+		return "user/password";
 	}
 	
 	/**

@@ -10,7 +10,6 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<title>修改密码</title>
-	<link href="<%=basePath%>/style/bootstrap/bootstrap-switch.min.css" type="text/css" rel="stylesheet" />
 </head>
 
 <body>
@@ -20,61 +19,75 @@
 				<h3 class="panel-title">修改密码</h3>
 			</div>
 			<div class="panel-body">
-				<div style="display: none" class="alert alert-dismissible"
-				role="alert">
-				<button type="button" class="close" data-dismiss="alert">
-					<span aria-hidden="true">&times;</span> <span class="sr-only">Close</span>
-				</button>
-				<strong>修改成功</strong>
-			</div>
-			<div class="form-group">
-				<label for="inputPassword_old">原始密码：</label> <input type="password"
-					class="form-control" id="inputPassword_old" placeholder="原始密码">
-			</div>
-			<div class="form-group">
-				<label for="inputPassword_new">新密码：</label> <input type="password"
-					class="form-control" id="inputPassword_new" placeholder="新密码">
-			</div>
-			<div class="form-group">
-				<label for="inputPassword_new2">确认密码：</label> <input
-					type="password" class="form-control" id="inputPassword_new2"
-					placeholder="确认密码">
-			</div>
-			<button type="button" class="btn btn-primary"
-				onclick="changePassword(this);">提交修改</button>
+			<form class="form-horizontal" id="password-form" role="form" action="<%=basePath%>/user/passwd" method="post">
+				<c:if test="${msg eq 'success'}">
+					<div class="alert alert-success" role="alert">修改成功</div>
+				</c:if>
+				<c:if test="${msg eq 'error'}">
+					<div class="alert alert-danger" role="alert">修改失败</div>
+				</c:if>
+				<div id="olddescription"></div>
+				<div id="newdescription"></div>
+				<div id="new2description"></div>
+				<div class="form-group">
+					<label for="inputPassword_old">原始密码：</label> 
+					<input type="password" class="form-control" id="inputPassword_old" placeholder="原始密码"
+								data-required="true" data-pattern="^[a-z0-9A-Z_]{6,32}$" name="oldPasswd"
+								data-describedby="olddescription" data-description="oldpassword" />
+				</div>
+				<div class="form-group">
+					<label for="inputPassword_new">新密码：</label> 
+					<input type="password" class="form-control" id="inputPassword_new" placeholder="新密码，长度6～32"
+								data-required="true" data-pattern="^[a-z0-9A-Z_]{6,32}$" name="newPasswd1"
+								data-describedby="newdescription" data-description="newpassword" />
+				</div>
+				<div class="form-group">
+					<label for="inputPassword_new2">确认密码：</label> 
+					<input type="password" class="form-control" id="inputPassword_new2" placeholder="确认密码，长度6～32"
+								data-required="true" data-pattern="^[a-z0-9A-Z_]{6,32}$" name="newPasswd2" data-conditional="new2password"
+								data-describedby="new2description" data-description="new2password" />
+				</div>
+				<button type="submit" class="btn btn-primary">提交修改</button>
+			</form>
 		</div>
 	</div>
 </div>
+<style type="text/css">
+	#password-form .form-group{ margin-left:0; margin-right:0;}
+</style>
+<script type="text/javascript" src="<%=basePath%>/script/jquery/jquery-validate.js"></script>
 <script type="text/javascript">
-  function changePassword(btn) {
-	  var oldPasswd = $("#inputPassword_old").val();
-	  var newPasswd1 = $("#inputPassword_new").val();
-	  var newPasswd2 = $("#inputPassword_new2").val();
-	  $(btn).html("修改中...").attr("disabled", "disabled");
-	  $.post("<%=basePath%>
-		/user/passwd.json", {
-				oldPasswd : oldPasswd,
-				newPasswd1 : newPasswd1,
-				newPasswd2 : newPasswd2
-			}, function(data) {
-				if (data.result == "success") {
-					$('.user-password .panel-body>div.alert>strong').html(
-							"修改成功");
-					$('.user-password .panel-body>div.alert').addClass(
-							'alert-success');
-				} else {
-					$('.user-password .panel-body>div.alert>strong').html(
-							"修改失败");
-					$('.user-password .panel-body>div.alert').addClass(
-							'alert-warning');
+$(function() {
+	$('#password-form').validate({
+			onKeyup : true,
+			eachValidField : function() {
+				$(this).closest('div').removeClass('has-error').addClass('has-success');
+			},
+			eachInvalidField : function() {
+				$(this).closest('div').removeClass('has-success').addClass('has-error');
+			},
+			description : {
+				oldpassword : {
+					required : '<div class="alert alert-danger">原始密码不能为空</div>',
+					pattern : '<div class="alert alert-danger">原始密码长度6～32</div>',
+				}, 
+				newpassword : {
+					required : '<div class="alert alert-danger">新密码不能为空</div>',
+					pattern : '<div class="alert alert-danger">新密码长度6～32</div>',
+				}, 
+				new2password : {
+					required : '<div class="alert alert-danger">确认密码不能为空</div>',
+					pattern : '<div class="alert alert-danger">确认密码长度6～32</div>',
+					conditional : '<div class="alert alert-danger">两次输入密码不一致</div>',
+			},
+			conditional : {
+				new2password : function() {
+					return $(this).val() == $('#inputPassword_new').val();
 				}
-				$('.user-password .panel-body>div.alert').slideDown("fast");
-				$(btn).html("提交修改").removeAttr("disabled");
-				$("#inputPassword_old").val("");
-				$("#inputPassword_new").val("");
-				$("#inputPassword_new2").val("");
-			});
+			}
 		}
-	</script>
+	});
+});
+</script>
 </body>
 </html>
