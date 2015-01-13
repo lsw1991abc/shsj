@@ -10,6 +10,8 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<title>编辑日志</title>
+	<link rel="stylesheet" href="<%=basePath%>/style/wysiwyg/jquery.wysiwyg.css" type="text/css"/>
+
 </head>
 
 <body>
@@ -39,27 +41,30 @@
 						</div>
 					</div>
 					<div class="lead daily_content">
-						<textarea class="form-control" rows="3" style="resize: vertical;"
-							id="daily_content" name="content">${daily.d_content}</textarea>
+						<textarea class="form-control" rows="3" style="resize: vertical;" id="daily_content" name="content">${daily.d_content}</textarea>
 					</div>
 					<p class="text-center">
 						<input type="hidden" name="id" value="${daily.d_id}" />
 						<button type="submit" class="btn btn-primary">保存</button>
 					</p>
 					<style type="text/css">
-.daily_content p {
-	text-indent: 32px;
-}
-</style>
+					.daily_content p {
+						text-indent: 32px;
+					}
+					</style>
 				</form>
 			</div>
 		</div>
 
 	</div>
-	<script type="text/javascript"
-		src="<%=basePath%>/script/jquery/jquery-validate.js"></script>
+	<script type="text/javascript" src="<%=basePath%>/script/jquery/jquery-validate.js"></script>
+	<script type="text/javascript" src="<%=basePath%>/script/wysiwyg/jquery.wysiwyg.js"></script>
+	<script type="text/javascript" src="<%=basePath%>/script/wysiwyg/wysiwyg.image.js"></script>
+	<script type="text/javascript" src="<%=basePath%>/script/wysiwyg/wysiwyg.link.js"></script>
+	<script type="text/javascript" src="<%=basePath%>/script/wysiwyg/wysiwyg.table.js"></script>
 	<script type="text/javascript">
 $(function() {
+	$('#daily_content').wysiwyg();
 	$('#daily-form').validate({
 			onKeyup : true,
 			eachValidField : function() {
