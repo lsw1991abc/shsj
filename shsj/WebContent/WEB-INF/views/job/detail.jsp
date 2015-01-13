@@ -35,7 +35,7 @@ $('.header-nav li[data-menu-id="${type}"]').addClass('active');
             		<table class="job-detail">
             			<tr>
             				<td style="width:10%;">职位类型：</td>
-            				<td style="width:40%;">${job.j_type}</td>
+            				<td style="width:40%;">${job.jb_name}</td>
             				<td style="width:10%;">工作区域：</td>
             				<td style="width:40%;">${job.j_work_place}</td>
             			</tr>

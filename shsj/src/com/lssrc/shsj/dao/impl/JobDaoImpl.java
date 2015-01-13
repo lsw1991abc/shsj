@@ -84,16 +84,13 @@ public class JobDaoImpl extends BaseDao implements JobDao {
 										+ DATETIME_BUILD + ", "
 										+ BELONG;
 	
-	private static String BASE_SELECT_SQL = "select " + ALL_COLUMN + " from " + TABLE_NAME + " where 1=1 ";
 	private static String BASE_INSERT_SQL = "insert into " + TABLE_NAME + "(" + INSERT_COLUMN + ") values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 	
-	/* (non-Javadoc)
-	 * @see com.lssrc.shsj.dao.JobDao#queryByPage(int, int, int)
-	 */
 	@Override
 	public List<Map<String, Object>> queryByPage(int start, int pageSize, String type) {
 		StringBuffer sql = new StringBuffer();
-		sql.append(BASE_SELECT_SQL);
+		sql.append("select * from shsj_view_job where 1=1 ");
+		//sql.append(BASE_SELECT_SQL);
 		if (StringUtils.isNotEmpty(type)) {
 			sql.append("and " + TYPE + "=" + type + " ");
 		}
@@ -103,13 +100,13 @@ public class JobDaoImpl extends BaseDao implements JobDao {
 
 	@Override
 	public Map<String, Object> queryById(String id) {
-		String sql = BASE_SELECT_SQL + "and " + ID + "=?";
+		String sql = "select * from shsj_view_job where 1=1 and " + ID + "=?";
 		return super.queryForMap(sql, new Object[]{ id });
 	}
 
 	@Override
 	public int queryCount(String type) {
-		String sql = "select count(*) from " + TABLE_NAME;
+		String sql = "select count(*) from shsj_view_job";
 		if (StringUtils.isNotEmpty(type)) {
 			sql += " where " + TYPE + "=" + type;
 		}

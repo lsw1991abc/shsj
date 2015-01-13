@@ -146,7 +146,7 @@
               	<c:forEach items="${partTimes}" var="partTime" begin="0" step="1">
 	                <tr>
 	                  <td><a href="<%=basePath %>/jianzhi/${partTime.j_id}" target="_blank">${partTime.j_title}</a></td>
-	                  <td class="text-center">dddddd</td>
+	                  <td class="text-center">${partTime.jb_name}</td>
 	                  <td class="text-center">${partTime.j_salary}${job.j_salary_type}</td>
 	                  <td class="text-center">${partTime.j_work_place}</td>
 	                  <td class="text-center">${partTime.j_audition_time}</td>
@@ -194,7 +194,7 @@
                 <c:forEach items="${jobs}" var="job" begin="0" step="1">
 	                <tr>
 	                  <td><a href="<%=basePath %>/zhaopin/${job.j_id}" target="_blank">${job.j_title}</a></td>
-	                  <td class="text-center">dddddd</td>
+	                  <td class="text-center">${job.jb_name}</td>
 	                  <td class="text-center">${job.j_salary}${job.j_salary_type}</td>
 	                  <td class="text-center">${job.j_work_place}</td>
 	                  <td class="text-center">${job.j_audition_time}</td>

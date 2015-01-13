@@ -28,14 +28,14 @@ $('.header-nav li[data-menu-id="${type}"]').addClass('active');
                     <td><input type="checkbox" /></td>
                     <c:choose>
                     	<c:when test="${type=='job'}">
-                    		<td style="width:485px;">[${job.j_type}]<a href="<%=basePath%>/zhaopin/${job.j_id}" target="_blank">${job.j_title}</a></td>
+                    		<td style="width:485px;">[${job.jt_name}]<a href="<%=basePath%>/zhaopin/${job.j_id}" target="_blank">${job.j_title}</a></td>
                     	</c:when>
                     	<c:when test="${type=='parttime'}">
-                    		<td style="width:485px;">[${job.j_type}]<a href="<%=basePath%>/jianzhi/${job.j_id}" target="_blank">${job.j_title}</a></td>
+                    		<td style="width:485px;">[${job.jt_name}]<a href="<%=basePath%>/jianzhi/${job.j_id}" target="_blank">${job.j_title}</a></td>
                     	</c:when>
                     </c:choose>
                     
-                    <td>${job.j_belong}</td>
+                    <td>${job.jb_name}</td>
                     <td>${job.j_work_place}</td>
                     <td>${fn:substring(job.j_datetime_build, 0, 10)}</td>
                   </tr>
