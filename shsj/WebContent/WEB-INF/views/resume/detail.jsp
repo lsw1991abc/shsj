@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%
 	String path = request.getContextPath();
 	String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + path;
@@ -28,28 +29,31 @@ $('.header-nav li[data-menu-id="resume"]').addClass('active');
             				<td style="width:10%;">姓名：</td>
             				<td style="width:20%;">${resume.r_name}</td>
             				<td style="width:10%;">性别：</td>
-            				<td style="width:30%;">${resume.r_sex}</td>
+            				<td style="width:30%;">
+            					<c:if test="${resume.r_sex == 1}">男</c:if> 
+            					<c:if test="${resume.r_sex == 0}">女</c:if> 
+            				</td>
             				<td rowspan="4" style="width:30%">
             					<img src="<%=basePath%>/images/resume/${resume.r_pic}" class="img-responsive" style="width:100%; height:180px;" />
             				</td>
             			</tr>
             			<tr>
             				<td>年龄：</td>
-            				<td>${resume.r_age}人</td>
+            				<td>${resume.r_age}岁</td>
             				<td>学校：</td>
             				<td>${resume.r_college}</td>
             			</tr>
             			<tr>
             				<td>专业：</td>
-            				<td>${resume.r_major}人</td>
+            				<td>${resume.r_major}</td>
             				<td>入学：</td>
-            				<td>${resume.r_entrance}</td>
+            				<td>${resume.r_entrance}级</td>
             			</tr>
             			<tr>
             				<td>身高：</td>
-            				<td>${resume.r_height}人</td>
+            				<td>${resume.r_height}cm</td>
             				<td>体重：</td>
-            				<td>${resume.r_weight}</td>
+            				<td>${resume.r_weight}kg</td>
             			</tr>
             		</table>
             	</div>
