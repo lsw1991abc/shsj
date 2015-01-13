@@ -89,9 +89,9 @@
             		<c:when test="${myself != null}">
             			<h4>大学生社会实践服务中心</h4>
 			               <p>登录用户：${myself.username }</p>
-			              <button type="button" class="btn btn-warning">用户中心</button>
+			              <button type="button" class="btn btn-warning" onclick="javascript:location.href='<%=basePath%>/user'">用户中心</button>
 			              &nbsp;&nbsp;&nbsp;
-			              <button type="button" class="btn btn-default" onclick="avascript:location.href='<%=basePath%>/login/logout'">退出</button>
+			              <button type="button" class="btn btn-default" onclick="javascript:location.href='<%=basePath%>/login/logout'">退出</button>
             		</c:when>
             		<c:otherwise>
             			<form class="form-inline" role="form" action="<%=basePath %>/login/login" method="post">
