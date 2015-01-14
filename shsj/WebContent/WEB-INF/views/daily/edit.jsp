@@ -10,8 +10,6 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<title>编辑日志</title>
-	<link rel="stylesheet" href="<%=basePath%>/style/wysiwyg/jquery.wysiwyg.css" type="text/css"/>
-
 </head>
 
 <body>
