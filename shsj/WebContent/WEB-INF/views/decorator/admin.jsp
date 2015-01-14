@@ -10,7 +10,7 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<link rel="shortcut icon" href="<%=basePath %>/images/favicon.ico" />
-	<title>用户中心</title>
+	<title><sitemesh:write property="title">管理中心</sitemesh:write> - 大学生社会实践</title>
 	<link rel="stylesheet" href="<%=basePath %>/style/bootstrap/bootstrap.min.css" type="text/css" />
 	<link rel="stylesheet" href="<%=basePath %>/style/bootstrap/bootstrap-datetimepicker.min.css" type="text/css" />
 	<script src="<%=basePath %>/script/jquery-1.11.1.js"></script>

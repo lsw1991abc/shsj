@@ -9,7 +9,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN">
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	<title>用户中心</title>
+	<title>公告管理</title>
 </head>
 
 <body>
@@ -31,6 +31,15 @@
 		  </div>
 		  <button type="submit" class="btn btn-default">发布</button>
 		</form>
+		
+		<script type="text/javascript" src="<%=basePath%>/ckeditor/ckeditor.js"></script>  
+		<script type="text/javascript">
+			$(function() {
+				CKEDITOR.replace('notice-content', {
+					customConfig : '<%=basePath%>/ckeditor/daily-edit-config.js' 
+				});
+			});
+		</script>
          <table class="table table-striped">
          	<thead>
          		<tr>

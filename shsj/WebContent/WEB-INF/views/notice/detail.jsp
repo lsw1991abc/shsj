@@ -9,6 +9,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN">
 <head>
 	<title>${notice.n_title}</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 </head>
 
 <body>
@@ -22,9 +23,6 @@
             <div class="lead notice_content" style="padding:15px 20px;">
             	${notice.n_desc}
             </div>
-            <style type="text/css">
-				.notice_content p{  text-indent:32px;}
-            </style>
           </div>
         </div>
         <div class="col-md-2">

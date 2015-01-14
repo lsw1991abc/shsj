@@ -9,7 +9,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN">
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	<title>用户中心</title>
+	<title>招聘管理</title>
 </head>
 
 <body>
@@ -22,63 +22,112 @@
        <div class="panel-body">
        	<form role="form" action="<%=basePath%>/admin/zhaopin/save" method="post">
        		<table style="width: 100%;" class="form-table">
-       			<tr>
-       				<td style="width:10%;">招聘单位：</td>
-       				<td style="width:40%;"><input type="text" style="width:75%;" name="organnizer" /></td>
-       				<td style="width:10%;">职位名称：</td>
-       				<td style="width:40%;"><input type="text" style="width:75%;" name="title" /></td>
+       			<tr style="height:32px; line-height:32px;">
+       				<td style="width:10%; padding-bottom:15px;">招聘单位：</td>
+       				<td style="width:40%;">
+       					<div class="form-group">
+				    		<input type="text" class="form-control" style="width:75%;" id="job_organnizer" name="organnizer" placeholder="招聘单位" />
+						 </div>
+       				</td>
+       				<td style="width:10%; padding-bottom:15px;">职位名称：</td>
+       				<td style="width:40%;">
+       					<div class="form-group">
+				    		<input type="text" class="form-control" style="width:75%;" id="job_title" name="title" placeholder="职位名称" />
+						 </div>
+       				</td>
        			</tr>
        			<tr>
-       				<td style="width:10%;">职位分类：</td>
-       				<td style="width:40%;"><input type="text" style="width:75%;" name="belong" /></td>
-       				<td style="width:10%;">工作类型：</td>
-       				<td style="width:40%;"><input type="text" style="width:75%;" name="type" placeholder="1全职 2兼职"/></td>
+       				<td style="width:10%; padding-bottom:15px;">职位分类：</td>
+       				<td style="width:40%;">
+       					<div class="form-group">
+				    		<input type="text" class="form-control" style="width:75%;" id="job_belong"  name="belong" placeholder="职位分类"  />
+						 </div>
+       				</td>
+       				<td style="width:10%; padding-bottom:15px;">工作类型：</td>
+       				<td style="width:40%;">
+       					<div class="form-group">
+				    		<input type="text" class="form-control" style="width:75%;" id="job_type"  name="type" placeholder="工作类型 1全职 2兼职"  />
+						 </div>
+       				</td>
        			</tr>
        			<tr>
-       				<td style="width:10%;">工作区域：</td>
-       				<td style="width:90%;" colspan="3"><input type="text" style="width:75%;" name="place" /></td>
+       				<td style="width:10%; padding-bottom:15px;">工作区域：</td>
+       				<td style="width:90%;" colspan="3">
+       					<div class="form-group">
+				    		<input type="text" class="form-control" style="width:89%;" id="job_place"  name="place" placeholder="工作区域"  />
+						 </div>
+       				</td>
        			</tr>
        			<tr>
-       				<td style="width:10%;">工作待遇：</td>
-       				<td style="width:40%;"><input type="text" style="width:75%;" name="salary" /></td>
-       				<td style="width:10%;">工作时间：</td>
-       				<td style="width:40%;"><input type="text" style="width:75%;" name="datetime-work" /></td>
+       				<td style="width:10%; padding-bottom:15px;">工作待遇：</td>
+       				<td style="width:40%;">
+       					<div class="form-group">
+				    		<input type="text" class="form-control" style="width:75%;" id="job_salary"  name="salary" placeholder="工作待遇"  />
+						 </div>
+       				</td>
+       				<td style="width:10%; padding-bottom:15px;">工作时间：</td>
+       				<td style="width:40%;">
+       					<div class="form-group">
+				    		<input type="text" class="form-control" style="width:75%;" id="job_datetime-work"  name="datetime-work" placeholder="工作时间"  />
+						 </div>
+					 </td>
        			</tr>
        			<tr>
-       				<td style="width:10%;">招聘人数：</td>
-       				<td style="width:40%;"><input type="text" style="width:75%;" name="number" /></td>
-       				<td style="width:10%;">人数限制：</td>
-       				<td style="width:40%;"><input type="text" style="width:75%;" name="number-limit" /></td>
+       				<td style="width:10%; padding-bottom:15px;">招聘人数：</td>
+       				<td style="width:40%;">
+       					<div class="form-group">
+				    		<input type="text" class="form-control" style="width:75%;" id="job_number"  name="number" placeholder="招聘人数"  />
+						 </div>
+       				</td>
+       				<td style="width:10%; padding-bottom:15px;">人数限制：</td>
+       				<td style="width:40%;">
+       					<div class="form-group">
+				    		<input type="text" class="form-control" style="width:75%;" id="job_number-limit"  name="number-limit" placeholder="人数限制"  />
+						 </div>
+					</td>
        			</tr>
        			<tr>
-       				<td style="width:10%;">联系电话：</td>
-       				<td style="width:40%;"><input type="text" style="width:75%;" name="contact" /></td>
-       				<td style="width:10%;">面试时间：</td>
-       				<td style="width:40%;"><input type="text" id="datetime-start" name="datetime-start" />至<input type="text"  id="datetime-end" name="datetime-end" /></td>
+       				<td style="width:10%; padding-bottom:15px;">联系电话：</td>
+       				<td style="width:40%;">
+       					<div class="form-group">
+				    		<input type="text" class="form-control" style="width:75%;" id="job_contact"  name="contact" placeholder="联系电话"  />
+						 </div>
+       				</td>
+       				<td style="width:10%; padding-bottom:15px;">面试时间：</td>
+       				<td style="width:40%;">
+       					<div class="form-group">
+				    		<input type="text" class="form-control" style="width:75%;" id="job_datetime-start"  name="datetime-start" placeholder="开始时间"  />
+				    		<input type="text" class="form-control" style="width:75%;" id="job_datetime-end"  name="datetime-end" placeholder="结束时间"  />
+						 </div>
+       				</td>
        			</tr>
        			<tr>
-       				<td style="width:10%;">面试地址：</td>
-       				<td style="width:90%;" colspan="3"><input type="text" style="width:75%;" name="audition-place" /></td>
+       				<td style="width:10%; padding-bottom:15px;">面试地址：</td>
+       				<td style="width:90%;" colspan="3">
+       					<div class="form-group">
+				    		<input type="text" class="form-control" style="width:89%;" id="job_audition-place"  name="audition-place" placeholder="面试地址"  />
+						 </div>
+       				</td>
        			</tr>
        			<tr>
-       				<td style="width:10%;">工作详情：</td>
-       				<td style="width:90%;" colspan="3"><textarea rows="3" style="width:75%;resize:vertical;" name="content"></textarea></td>
+       				<td style="width:10%; padding-bottom:15px;">工作详情：</td>
+       				<td style="width:90%;" colspan="3">
+       					<textarea rows="3" style="width:89%;resize:vertical;" name="content"></textarea>
+       				</td>
        			</tr>
        		</table>
-       		<style type="text/css">
-       			.form-table tr{ height:32px; line-height:32px;}
-       			.form-table tr input{ height:30px; line-height:30px;}
-       		</style>
-       		<script type="text/javascript">
-       			$("#datetime-start").datetimepicker({
-       			    format: 'yyyy-mm-dd'
-       			});
-       			$("#datetime-end").datetimepicker({
-       			    format: 'yyyy-mm-dd'
-       			});
-       		</script>
 		  <button type="submit" class="btn btn-default">发布</button>
 		</form>
+		<style type="text/css">
+   		</style>
+   		<script type="text/javascript">
+   			$("#datetime-start").datetimepicker({
+   			    format: 'yyyy-mm-dd'
+   			});
+   			$("#datetime-end").datetimepicker({
+   			    format: 'yyyy-mm-dd'
+   			});
+   		</script>
          <table class="table table-striped">
          	<thead>
          		<tr>
