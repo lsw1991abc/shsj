@@ -4,16 +4,11 @@
  */
 
 CKEDITOR.editorConfig = function( config ) {
-	config.height = "400px";
+	config.width = "90%";
 	config.toolbar = [
-      	{ name: 'clipboard', groups: [ 'clipboard', 'undo' ], items: [ 'Cut', 'Copy', 'Paste', 'PasteText', 'PasteFromWord', '-', 'Undo', 'Redo' ] },
-      	{ name: 'editing', groups: [ 'find', 'selection', 'spellchecker' ], items: [ 'Scayt' ] },
-      	{ name: 'links', items: [ 'Link', 'Unlink', 'Anchor' ] },
+	    { name: 'basicstyles', groups: [ 'basicstyles', 'cleanup' ], items: [ 'Bold', 'Italic', 'Strike', '-', 'RemoveFormat' ] },
       	{ name: 'insert', items: [ 'Table', 'HorizontalRule', 'SpecialChar' ] },
-      	{ name: 'styles', items: [ 'Styles', 'Format' ] },
-      	{ name: 'tools', items: [ 'Maximize' ] },
-      	'/',
-      	{ name: 'basicstyles', groups: [ 'basicstyles', 'cleanup' ], items: [ 'Bold', 'Italic', 'Strike', '-', 'RemoveFormat' ] },
+      	{ name: 'styles', items: [ 'Format' ] },
       	{ name: 'paragraph', groups: [ 'list', 'indent', 'blocks', 'align', 'bidi' ], items: [ 'NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'Blockquote' ] }
       ];
 	/*

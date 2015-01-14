@@ -31,8 +31,18 @@ $('.header-nav li[data-menu-id="resume"]').addClass('active');
                             	</a>
                             </div>
                             <div class="col-md-9 resume_item">
-                            	<h4><a href="<%=basePath%>/rencai/${resume.r_id}" target="_blank">${resume.r_name}</a>&nbsp;<span>性别:${resume.r_sex}</span>&nbsp;<span>学校:${resume.r_college}</span>&nbsp;<span>专业:${resume.r_major}</span>&nbsp;<span>入学:${resume.r_entrance}年</span></h4>
-                                <div class="lead hdal_item_content">${resume.r_profile}</div>
+                            	<h4>
+                            		<a href="<%=basePath%>/rencai/${resume.r_id}" target="_blank">${resume.r_name}</a>&nbsp;
+                            		<span>性别:
+                            			<c:if test="${resume.r_sex == 1}">男</c:if>
+                            			<c:if test="${resume.r_sex == 0}">女</c:if>
+                            		</span>
+                            	</h4>
+                                <div class="lead hdal_item_content" style="font-size:12px; height:50px;">
+                                	<c:if test="${fn:length(resume.r_profile) >150}">
+                                		${fn:substring(resume.r_profile, 0, 150)} ...
+                                	</c:if>
+                                </div>
                                 <p style="height:28px; line-height:28px; margin:0;">更新时间：${fn:substring(resume.r_datetime_update, 0, 10)}&nbsp;&nbsp;人气值: ${resume.r_hot} 次</p>
                             </div>
                         </div>

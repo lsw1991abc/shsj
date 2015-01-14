@@ -9,6 +9,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN">
 <head>
 	<title>${resume.r_name}的个人简历</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 </head>
 
 <body>
@@ -87,7 +88,6 @@ $('.header-nav li[data-menu-id="resume"]').addClass('active');
             	<style type="text/css">
            			.resume-detail{ width:85%; margin:20px auto;}
            			.resume-detail tr{ height:45px; line-hight:45px;}
-           			.resume-detail p{text-indent:32px; line-height:24px;}
            		</style>
             </div>
         </div>

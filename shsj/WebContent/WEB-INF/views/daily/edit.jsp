@@ -56,10 +56,9 @@
 	<script type="text/javascript" src="<%=basePath%>/ckeditor/ckeditor.js"></script>   
 	<script type="text/javascript">
 $(function() {
-	
 	CKEDITOR.replace('daily_content', {
-			customConfig : '<%=basePath%>/ckeditor/daily-edit-config.js' 
-		});
+		customConfig : '<%=basePath%>/ckeditor/daily-edit-config.js' 
+	});
 	$('#daily-form').validate({
 			onKeyup : true,
 			eachValidField : function() {
