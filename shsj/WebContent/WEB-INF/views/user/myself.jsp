@@ -31,7 +31,7 @@
 				<div id="phoneno-description"></div>
 				<div id="email-description"></div>
 	  		<table class="user-profile-content">
-				<tr>
+				<tr style="height:45px;">
 	  				<td style="width:12%;">用户名：</td>
 		  			<td style="width:40%;">${myself.username}</td>
 		  			<td style="width:12%;">昵称：</td>
@@ -44,7 +44,7 @@
 			 			</div>
 			  		</td>
 			  	</tr>
-			 	<tr>
+			 	<tr style="height:45px;">
 			  		<td>QQ：</td>
 			  		<td>
 				  		<div>
@@ -64,12 +64,12 @@
 						</div>
 					</td>
 			  	</tr>
-			  	<tr>
+			  	<tr style="height:45px;">
 			  		<td>邮箱：</td>
 			  		<td colspan="3">
 			  			<div>
 			  				<label class="sr-only" for="user-nickname">邮箱</label>
-			  				<input type="text" class="form-control" id="inputEmail" value="${myself.email}" style="width:85%"
+			  				<input type="text" class="form-control" id="inputEmail" value="${myself.email}" style="width:96%"
 										placeholder="示例:username@shsj.com" name="email" data-pattern="^[a-z0-9]+([._\\-]*[a-z0-9])*@([a-z0-9]+[-a-z0-9]*[a-z0-9]+.){1,63}[a-z0-9]+$"
 										data-describedby="email-description" data-description="email"  />
 			  			</div>
@@ -78,14 +78,14 @@
 			  	<tr>
 			  		<td>个人描述：</td>
 			  		<td colspan="3">
-			  			<textarea class="form-control" rows="3" id="user-desc" style="width:85%; resize:vertical;" name="userDesc">${myself.userDesc}</textarea>
+			  			<textarea class="form-control" rows="3" id="user-desc" style="width:96%; resize:vertical;" name="userDesc">${myself.userDesc}</textarea>
 			  		</td>
 			  	</tr>
-			  	<tr>
+			  	<tr style="height:45px;">
 			  		<td>注册时间：</td>
 			  		<td colspan="3">${fn:substring(myself.buildDate, 0, 19)}</td>
 			  	</tr>
-			  	<tr>
+			  	<tr style="height:45px;">
 			  		<td colspan="4">
 			  			<button type="submit" class="btn btn-primary">保存</button>
 			  		</td>
@@ -95,9 +95,6 @@
         </div>
       </div>
   </div>
-  <style type="text/css">
-  	.user-profile-content tr{height:45px;ne-height:45px;} 
-  </style>
 <script type="text/javascript" src="<%=basePath%>/script/jquery/jquery-validate.js"></script>
 <script type="text/javascript">
 $(function() {

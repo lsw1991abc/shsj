@@ -22,9 +22,6 @@
             <div class="lead daily_content" style="padding:15px 20px;">
             	${daily.daily.d_content}
             </div>
-            <style type="text/css">
-				.daily_content p{  text-indent:32px;}
-            </style>
           </div>
         </div>
         <div class="col-md-2">

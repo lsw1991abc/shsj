@@ -34,14 +34,14 @@
 				<div id="college-description"></div>
 				<div id="major-description"></div>
 								<table class="user-resume-content">
-									<tr>
+									<tr style="height:45px; line-height:45px;">
 										<td style="width: 10%;">姓名：</td>
 										<td style="width: 40%;">
 											<div>
 												<label class="sr-only" for="resume-name">姓名</label> 
 												<input type="text" id="resume-name" class="form-control" value="${resume.r_name}" style="width: 80%"
-															data-required="true" data-pattern="^\w{2,32}$" name="name"
-															data-describedby="name-description" data-description="name"  placeholder="长度2～32"  />
+															data-required="true" data-pattern="^[\u4E00-\u9FA5]{2,5}$" name="name"
+															data-describedby="name-description" data-description="name"  placeholder="汉字，长度2～5"  />
 											</div>
 										</td>
 										<td style="width: 10%;">简历状态：</td>
@@ -50,7 +50,7 @@
 											<c:if test="${resume.r_show == 1 }">显示</c:if>
 										</td>
 									</tr>
-									<tr>
+									<tr style="height:45px; line-height:45px;">
 										<td>性别：</td>
 										<td>
 											<div>
@@ -63,14 +63,14 @@
 											</div>
 										</td>
 										<td>年龄：</td>
-										<td><input type="text" class="form-control" id="resume-age" value="${resume.r_age}" style="width: 40%"
+										<td><input type="text" class="form-control" id="resume-age" value="${resume.r_age}" style="width: 78%"
 															data-pattern="^([0-9]|[0-9]{2}|100)$" name="age"
 															data-describedby="age-description" data-description="age"  placeholder="年龄范围：1～100"  /></td>
 									</tr>
-									<tr>
+									<tr style="height:45px; line-height:45px;">
 										<td>身高：</td>
 										<td>
-											<div class="input-group" style="width: 60%">
+											<div class="input-group" style="width: 78%">
 												<input type="text" class="form-control" id="resume-height" value="${resume.r_height}" 
 															data-pattern="^[0-9]{3}.[0-9]{1}$" name="height"
 															data-describedby="height-description" data-description="height"  placeholder="范围0～999，格式：175.0" />
@@ -79,7 +79,7 @@
 										</td>
 										<td>体重：</td>
 										<td>
-											<div class="input-group" style="width: 60%">
+											<div class="input-group" style="width: 78%">
 												<input type="text" class="form-control" id="resume-weight" value="${resume.r_weight}" 
 															data-pattern="^[0-9]{2,3}.[0-9]{1}$" name="weight"
 															data-describedby="weight-description" data-description="weight"  placeholder="范围10~999，格式：55.0" />
@@ -87,13 +87,13 @@
 											</div>
 										</td>
 									</tr>
-									<tr>
+									<tr style="height:45px; line-height:45px;">
 										<td>学校：</td>
 										<td>
 											<div>
 												<label class="sr-only" for="resume-college">学校</label> 
-												<input type="text" class="form-control" id="resume-college" value="${resume.r_college}" style="width: 80%"
-															data-pattern="^\w{0,40}$" name="college"
+												<input type="text" class="form-control" id="resume-college" value="${resume.r_college}" style="width: 78%"
+															data-pattern="^([\u4E00-\u9FA5]|\w){0,40}$" name="college"
 															data-describedby="college-description" data-description="college"  placeholder="长度0~40"  />
 											</div>
 										</td>
@@ -101,8 +101,8 @@
 										<td>
 											<div>
 												<label class="sr-only" for="resume-major">专业</label> 
-												<input type="text" class="form-control" id="resume-major" value="${resume.r_major}" style="width: 80%"
-															data-pattern="^\w{0,40}$" name="major"
+												<input type="text" class="form-control" id="resume-major" value="${resume.r_major}" style="width: 78%"
+															data-pattern="^([\u4E00-\u9FA5]|\w){0,40}$" name="major"
 															data-describedby="major-description" data-description="major"  placeholder="长度0~40"  />
 											</div>
 										</td>
@@ -110,16 +110,19 @@
 									<tr>
 										<td>社会经历：</td>
 										<td colspan="3">
-											<textarea class="form-control" rows="3" id="resume-experience" name="experience" style="width: 80%; resize: vertical;">${resume.r_experience}</textarea>
-										</td>
+											<textarea class="form-control" rows="3" 
+												id="resume-experience" name="experience"
+												style="width: 80%; resize: vertical;margin:5px 0;">${resume.r_experience}</textarea>
+							</td>
 									</tr>
 									<tr>
 										<td>个人评价：</td>
 										<td colspan="3">
-											<textarea class="form-control" rows="3" id="resume-desc" name="desc" style="width: 80%; resize: vertical;">${resume.r_profile}</textarea>
-										</td>
+											<textarea class="form-control" rows="3" id="resume-desc" 
+												name="desc" style="width: 90%; resize: vertical;margin:5px 0;">${resume.r_profile}</textarea>
+							</td>
 									</tr>
-									<tr>
+									<tr style="height:45px; line-height:45px;">
 										<td>是否显示：</td>
 										<td>
 											<input type="checkbox" id="resume-show"  data-conditional="isShow" <c:if test="${resume.r_show == 1 }">checked="checked" </c:if> />
@@ -128,7 +131,7 @@
 										<td>更新时间：</td>
 										<td>${fn:substring(resume.r_datetime_update, 0, 19)}</td>
 									</tr>
-									<tr>
+									<tr style="height:45px; line-height:45px;">
 										<td colspan="4"><button type="submit" class="btn btn-primary">保存</button></td>
 									</tr>
 								</table>
@@ -138,9 +141,12 @@
             </div>
 <script type="text/javascript" src="<%=basePath%>/script/bootstrap/bootstrap-switch.min.js"></script>
 <script type="text/javascript" src="<%=basePath%>/script/jquery/jquery-validate.js"></script>
+<script type="text/javascript" src="<%=basePath%>/ckeditor/ckeditor.js"></script>
 <script type="text/javascript">
 	$(function() {
-		$('.user-resume-content tr').css({'height':'45px','line-height':'45px'});
+		CKEDITOR.replace('resume-experience', {
+			customConfig : '<%=basePath%>/ckeditor/resume-edit-config.js' 
+		});
 		$("#resume-show").bootstrapSwitch();
 		$('#resume-form').validate({
 				onKeyup : true,
@@ -153,7 +159,7 @@
 				description : {
 					name : {
 						required : '<div class="alert alert-danger">姓名不能为空</div>',
-						pattern : '<div class="alert alert-danger">姓名长度2～32</div>'
+						pattern : '<div class="alert alert-danger">汉字，长度2～5</div>'
 					},
 					age : {
 						pattern : '<div class="alert alert-danger">年龄不合法</div>'
