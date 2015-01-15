@@ -4,14 +4,14 @@
  */
 
 CKEDITOR.editorConfig = function( config ) {
-	config.height = "400px";
+	config.height = "200px";
+	config.width = "89%";
 	config.toolbar = [
-        { name: 'basicstyles', groups: [ 'basicstyles', 'cleanup' ], items: [ 'Bold', 'Italic', 'Strike', '-', 'RemoveFormat' ] },
+	    { name: 'basicstyles', groups: [ 'basicstyles', 'cleanup' ], items: [ 'Bold', 'Italic', 'Strike', '-', 'RemoveFormat' ] },
 	    { name: 'paragraph', groups: [ 'list', 'indent', 'blocks', 'align', 'bidi' ], items: [ 'NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'Blockquote' ] },
       	{ name: 'links', items: [ 'Link', 'Unlink', 'Anchor' ] },
       	{ name: 'insert', items: [ 'Table', 'HorizontalRule', 'SpecialChar' ] },
       	{ name: 'styles', items: [ 'Styles', 'Format' ] }
-      	
       ];
 	/*
 	config.toolbarGroups = [

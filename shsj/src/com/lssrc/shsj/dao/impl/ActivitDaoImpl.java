@@ -112,5 +112,12 @@ public class ActivitDaoImpl extends BaseDao implements ActivitDao {
 		String sql = "delete from " + TABLE_NAME + " where " + ID + "=?";
 		return super.delete(sql, new Object[]{ id });
 	}
+
+	@Override
+	public List<Map<String, Object>> queryStatus() {
+		StringBuffer sql = new StringBuffer();
+		sql.append("select * from shsj_activit_statu order by as_id asc");
+		return super.queryForList(sql.toString(), new Object[]{});
+	}
 	
 }

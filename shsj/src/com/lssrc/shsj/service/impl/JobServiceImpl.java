@@ -58,8 +58,8 @@ public class JobServiceImpl implements JobService {
 
 	@Override
 	public int save(String organnizer, String title, String type, String place,
-			String salary, String datetimeWork, String number,
-			String numberLimit, String contact, String datetimeStart,
+			String salary, String datetimeWork, int number,
+			int numberLimit, String contact, String datetimeStart,
 			String datetimeEnd, String auditionPlace, String content, String belong, 
 			String userId) {
 		return jobDao.save(organnizer, title, type, place, salary,
@@ -70,6 +70,11 @@ public class JobServiceImpl implements JobService {
 	@Override
 	public int delete(String id) {
 		return jobDao.delete(id);
+	}
+
+	@Override
+	public List<Map<String, Object>> getBelong() {
+		return jobDao.queryBelong();
 	}
 
 }

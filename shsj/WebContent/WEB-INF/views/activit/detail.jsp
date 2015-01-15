@@ -7,6 +7,7 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN">
 <head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<title>${activit.a_title}</title>
 </head>
 
@@ -55,7 +56,7 @@ $('.header-nav li[data-menu-id="avtivit"]').addClass('active');
             	<style type="text/css">
            			.activit-detail{ width:85%; margin:20px auto;}
            			.activit-detail tr{ height:45px; line-hight:45px;}
-           			.activit-detail p{text-indent:32px; line-height:24px;}
+           			.activit-detail p{line-height:24px;}
            		</style>
             </div>
         </div>
