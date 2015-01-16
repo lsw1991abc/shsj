@@ -18,20 +18,20 @@ public interface ActivitDao {
 	/**
 	 * @return
 	 */
-	int queryCount();
+	public int queryCount();
 
 	/**
 	 * @param start
 	 * @param pageSize
 	 * @return
 	 */
-	List<Map<String, Object>> queryByPage(int start, int pageSize);
+	public List<Map<String, Object>> queryByPage(int start, int pageSize);
 
 	/**
 	 * @param id
 	 * @return
 	 */
-	Map<String, Object> queryById(String id);
+	public Map<String, Object> queryById(String id);
 
 	/**
 	 * @param title
@@ -45,7 +45,7 @@ public interface ActivitDao {
 	 * @param userId
 	 * @return
 	 */
-	int save(String title, String organizer, String plotter, String number,
+	public int save(String title, String organizer, String plotter, String number,
 			String statu, String dateTimeStart, String dateTimeEnd,
 			String content, String userId);
 
@@ -53,6 +53,8 @@ public interface ActivitDao {
 	 * @param id
 	 * @return
 	 */
-	int delete(String id);
+	public int delete(String id);
+
+	public List<Map<String, Object>> queryStatus();
 
 }

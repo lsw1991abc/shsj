@@ -60,4 +60,6 @@ public interface ActivitService {
 	 */
 	public int delete(String id);
 
+	public List<Map<String, Object>> getStatus();
+
 }

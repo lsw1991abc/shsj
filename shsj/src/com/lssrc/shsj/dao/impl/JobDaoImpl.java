@@ -115,8 +115,8 @@ public class JobDaoImpl extends BaseDao implements JobDao {
 
 	@Override
 	public int save(String organnizer, String title, String type, String place,
-			String salary, String datetimeWork, String number,
-			String numberLimit, String contact, String datetimeStart,
+			String salary, String datetimeWork, int number,
+			int numberLimit, String contact, String datetimeStart,
 			String datetimeEnd, String auditionPlace, String content, String belong,
 			String userId) {
 		List<Object> contations = new ArrayList<Object>();
@@ -145,6 +145,13 @@ public class JobDaoImpl extends BaseDao implements JobDao {
 	public int delete(String id) {
 		String sql = "delete from " + TABLE_NAME + " where " + ID + "=?";
 		return super.delete(sql, new Object[]{ id });
+	}
+
+	@Override
+	public List<Map<String, Object>> queryBelong() {
+		StringBuffer sql = new StringBuffer();
+		sql.append("select * from shsj_job_belong order by jb_id asc");
+		return super.queryForList(sql.toString(), new Object[]{});
 	}
 
 }

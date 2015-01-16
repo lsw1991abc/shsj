@@ -20,16 +20,19 @@
          <h3 class="panel-title">公告管理</h3>
        </div>
        <div class="panel-body">
-       	<form role="form" action="<%=basePath%>/admin/gonggao/save" method="post">
+       	<form role="form" action="<%=basePath%>/admin/gonggao/save" method="post" id="notice-form">
+       		<div id="title-description"></div>
 		  <div class="form-group">
 		    <label for="notice-title">标题</label>
-		    <input type="text" class="form-control" id="notice-title" name="title" placeholder="标题">
+		    <input type="text" class="form-control" id="notice-title" name="title" placeholder="标题长度1～50"
+		    			data-required="true" data-pattern="^([\u4E00-\u9FA5]|\w){1,50}$"
+						data-describedby="title-description" data-description="title"   />
 		  </div>
 		  <div class="form-group">
 		    <label for="notice-content">内容</label>
 		    <textarea class="form-control" rows="3" style="resize:vertical;" id="notice-content" name="content"></textarea>
 		  </div>
-		  <button type="submit" class="btn btn-default">发布</button>
+		  <button type="submit" class="btn btn-primary">发布</button>
 		</form>
 		
 		<script type="text/javascript" src="<%=basePath%>/ckeditor/ckeditor.js"></script>  
@@ -37,6 +40,22 @@
 			$(function() {
 				CKEDITOR.replace('notice-content', {
 					customConfig : '<%=basePath%>/ckeditor/daily-edit-config.js' 
+				});
+				
+				$('#notice-form').validate({
+					onKeyup : true,
+					eachValidField : function() {
+						$(this).closest('div').removeClass('has-error').addClass('has-success');
+					},
+					eachInvalidField : function() {
+						$(this).closest('div').removeClass('has-success').addClass('has-error');
+					},
+					description : {
+						title : {
+							required : '<div class="alert alert-danger">标题不能为空</div>',
+							pattern : '<div class="alert alert-danger">标题长度1～50</div>'
+						}
+					}
 				});
 			});
 		</script>
@@ -52,7 +71,7 @@
 	            <c:forEach var="notice" items="${notices}">
 	              <tr>
                     <td style="width:70%;"><a href="<%=basePath%>/gonggao/${notice.n_id}" target="_blank">${notice.n_title}</a></td>
-                    <td style="width:15%;" class="text-center">${fn:substring(notice.n_datetime_build, 0, 10)}</td>
+                    <td style="width:15%;" class="text-center">${fn:substring(notice.n_datetime_build, 0, 19)}</td>
                     <td style="width:15%;" class="text-center"><a href="<%=basePath%>/admin/gonggao/delete/${notice.n_id}">删除</a></td>
                   </tr>
 	            </c:forEach>

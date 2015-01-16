@@ -17,6 +17,7 @@
 	<script src="<%=basePath %>/script/bootstrap/bootstrap.min.js"></script>
 	<script src="<%=basePath %>/script/bootstrap/bootstrap-datetimepicker.min.js"></script>
 	<script type="text/javascript" src="<%=basePath%>/script/lssrc/dateFormater.lssrc.js"></script>
+	<script type="text/javascript" src="<%=basePath%>/script/jquery/jquery-validate.js"></script>
 	<sitemesh:write property="head" />
 </head>
 
@@ -30,13 +31,13 @@
     <div class="row">
       <div class="col-md-2">
         <ul class="list-unstyled admin-menu">
+        	<li><a href="<%=basePath%>/admin">管理中心</a></li>
         	<li><a href="<%=basePath%>/admin/gonggao">公告管理</a></li>
             <li><a href="<%=basePath%>/admin/zhaopin">招聘管理</a></li>
             <li><a href="<%=basePath%>/admin/huodong">活动管理</a></li> 
             <li><a href="<%=basePath%>/user/">返回</a></li>
         </ul>
         <style type="text/css">
-        	.admin-menu{}
         	.admin-menu li{ height:45px; line-height:45px; text-indent:32px;}
         </style>
       </div>

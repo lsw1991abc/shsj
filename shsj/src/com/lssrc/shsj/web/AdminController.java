@@ -98,6 +98,8 @@ public class AdminController {
 			@RequestParam(value = "page", required = false, defaultValue = "1") int pageNo,
 			@RequestParam(value = "pageSize", required = false, defaultValue = "10") int pageSize) {
 
+		model.addAttribute("belongs", jobService.getBelong());
+		
 		Map<String, Integer> navigator = jobService.getNavigator(pageNo,
 				pageSize, null);
 
@@ -112,20 +114,20 @@ public class AdminController {
 			HttpServletRequest request,
 			HttpServletResponse response,
 			ModelMap model,
-			@RequestParam(value = "organnizer", required = false, defaultValue = "") String organnizer,
-			@RequestParam(value = "title", required = false, defaultValue = "") String title,
-			@RequestParam(value = "type", required = false, defaultValue = "") String type,
-			@RequestParam(value = "place", required = false, defaultValue = "") String place,
-			@RequestParam(value = "salary", required = false, defaultValue = "") String salary,
+			@RequestParam(value = "organnizer", required = true) String organnizer,
+			@RequestParam(value = "title", required = true) String title,
+			@RequestParam(value = "type", required = true) String type,
+			@RequestParam(value = "place", required = true) String place,
+			@RequestParam(value = "salary", required = false, defaultValue = "0") String salary,
 			@RequestParam(value = "datetime-work", required = false, defaultValue = "") String datetimeWork,
-			@RequestParam(value = "number", required = false, defaultValue = "") String number,
-			@RequestParam(value = "number-limit", required = false, defaultValue = "") String numberLimit,
+			@RequestParam(value = "number", required = false, defaultValue = "0") int number,
+			@RequestParam(value = "number-limit", required = false, defaultValue = "0") int numberLimit,
 			@RequestParam(value = "contact", required = false, defaultValue = "") String contact,
 			@RequestParam(value = "datetime-start", required = false, defaultValue = "") String datetimeStart,
 			@RequestParam(value = "datetime-end", required = false, defaultValue = "") String datetimeEnd,
 			@RequestParam(value = "audition-place", required = false, defaultValue = "") String auditionPlace,
 			@RequestParam(value = "content", required = false, defaultValue = "") String content,
-			@RequestParam(value = "belong", required = false, defaultValue = "") String belong) {
+			@RequestParam(value = "belong", required = true) String belong) {
 
 		String userId = myself.get("userId") + "";
 		int count = jobService.save(organnizer, title, type, place, salary,
@@ -155,6 +157,8 @@ public class AdminController {
 
 		model.addAttribute("navigator", navigator);
 		model.addAttribute("activits", activitService.getByPage(navigator));
+		
+		model.addAttribute("status", activitService.getStatus());
 
 		return "admin/activit";
 	}

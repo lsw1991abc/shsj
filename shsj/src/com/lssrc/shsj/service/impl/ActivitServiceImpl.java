@@ -70,5 +70,10 @@ public class ActivitServiceImpl implements ActivitService {
 	public int delete(String id) {
 		return activitDao.delete(id);
 	}
+
+	@Override
+	public List<Map<String, Object>> getStatus() {
+		return activitDao.queryStatus();
+	}
 	
 }

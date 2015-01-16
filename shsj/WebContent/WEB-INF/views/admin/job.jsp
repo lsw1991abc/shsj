@@ -10,6 +10,7 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<title>招聘管理</title>
+	<link href="<%=basePath %>/jquery-ui-1.11.2/jquery-ui.css" type="text/css" rel="stylesheet" />
 </head>
 
 <body>
@@ -40,13 +41,20 @@
        				<td style="width:10%; padding-bottom:15px;">职位分类：</td>
        				<td style="width:40%;">
        					<div class="form-group">
-				    		<input type="text" class="form-control" style="width:75%;" id="job_belong"  name="belong" placeholder="职位分类"  />
+       						<select class="form-control" style="width:75%;" id="job_belong"  name="belong" >
+       							<c:forEach items="${belongs}" var="belong">
+       								<option value="${belong.jb_id}">${belong.jb_name}</option>
+       							</c:forEach>
+							</select>
 						 </div>
        				</td>
        				<td style="width:10%; padding-bottom:15px;">工作类型：</td>
        				<td style="width:40%;">
-       					<div class="form-group">
-				    		<input type="text" class="form-control" style="width:75%;" id="job_type"  name="type" placeholder="工作类型 1全职 2兼职"  />
+       					<div class="form-group" >
+       						<select class="form-control" style="width:75%;" id="job_type"  name="type" >
+							  <option value="1">全职</option>
+							  <option value="2">兼职</option>
+							</select>
 						 </div>
        				</td>
        			</tr>
@@ -95,9 +103,11 @@
        				</td>
        				<td style="width:10%; padding-bottom:15px;">面试时间：</td>
        				<td style="width:40%;">
-       					<div class="form-group">
-				    		<input type="text" class="form-control" style="width:75%;" id="job_datetime-start"  name="datetime-start" placeholder="开始时间"  />
-				    		<input type="text" class="form-control" style="width:75%;" id="job_datetime-end"  name="datetime-end" placeholder="结束时间"  />
+       					<div class="form-group" style="margin-top:-15px;">
+				    		<input type="text" class="form-control" style="width:35%; display:block; float:left;" readonly="readonly" id="job_datetime-start"  name="datetime-start" placeholder="开始时间"  />
+				    		<span style="display:block; float:left; width:15px; text-align:center;">~</span>
+				    		<input type="text" class="form-control" style="width:35%;display:block; float:left;" readonly="readonly" id="job_datetime-end"  name="datetime-end" placeholder="结束时间"  />
+				    		<br style="clean:both;" />
 						 </div>
        				</td>
        			</tr>
@@ -112,27 +122,33 @@
        			<tr>
        				<td style="width:10%; padding-bottom:15px;">工作详情：</td>
        				<td style="width:90%;" colspan="3">
-       					<textarea rows="3" style="width:89%;resize:vertical;" name="content"></textarea>
+       					<textarea rows="3" style="width:89%;resize:vertical;" name="content" id="job_content"></textarea>
        				</td>
        			</tr>
        		</table>
-		  <button type="submit" class="btn btn-default">发布</button>
+		  <button type="submit" class="btn btn-primary">发布</button>
 		</form>
-		<style type="text/css">
-   		</style>
+   		<script type="text/javascript" src="<%=basePath%>/ckeditor/ckeditor.js"></script> 
+   		<script type="text/javascript" src="<%=basePath%>/jquery-ui-1.11.2/jquery-ui.js"></script> 
    		<script type="text/javascript">
-   			$("#datetime-start").datetimepicker({
-   			    format: 'yyyy-mm-dd'
-   			});
-   			$("#datetime-end").datetimepicker({
-   			    format: 'yyyy-mm-dd'
+   			$(function(){
+   				CKEDITOR.replace('job_content', {
+   					customConfig : '<%=basePath%>/ckeditor/job-edit-config.js' 
+   				});
+   				
+   				$( "#job_datetime-start" ).datepicker({
+   					inline: true
+   				});
+   				$( "#job_datetime-end" ).datepicker({
+   					inline: true
+   				});
    			});
    		</script>
          <table class="table table-striped">
          	<thead>
          		<tr>
          			<th style="width:40%;">标题</th>
-         			<th style="width:15%;" class="text-center">类型</th>
+         			<th style="width:15%;" class="text-center">职位</th>
          			<th style="width:15%;" class="text-center">地点</th>
          			<th style="width:15%;" class="text-center">时间</th>
          			<th style="width:15%;" class="text-center">操作</th>
@@ -143,14 +159,14 @@
 	              <tr>
 	              	<c:choose>
 	              		<c:when test="${job.j_type == '1' || job.j_type == '3'}">
-	              			<td style="width:40%;">[${job.j_type}]<a href="<%=basePath%>/zhaopin/${job.j_id}" target="_blank">${job.j_title}</a></td>
+	              			<td style="width:40%;">[${job.jt_name}]<a href="<%=basePath%>/zhaopin/${job.j_id}" target="_blank">${job.j_title}</a></td>
 	              		</c:when>
 	              		<c:when test="${job.j_type == '2'}">
-	              			<td style="width:40%;">[${job.j_type}]<a href="<%=basePath%>/jianzhi/${job.j_id}" target="_blank">${job.j_title}</a></td>
+	              			<td style="width:40%;">[${job.jt_name}]<a href="<%=basePath%>/jianzhi/${job.j_id}" target="_blank">${job.j_title}</a></td>
 	              		</c:when>
 	              	</c:choose>
                     
-                    <td style="width:15%;" class="text-center">${job.j_belong}</td>
+                    <td style="width:15%;" class="text-center">${job.jb_name}</td>
                     <td style="width:15%;" class="text-center">${job.j_work_place}</td>
                     <td style="width:15%;" class="text-center">${fn:substring(job.j_datetime_build, 0, 10)}</td>
                     <td style="width:15%;" class="text-center"><a href="<%=basePath%>/admin/zhaopin/delete/${job.j_id}">删除</a></td>
