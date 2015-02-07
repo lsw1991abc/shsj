@@ -57,10 +57,10 @@ public class ActivitServiceImpl implements ActivitService {
 	@Override
 	public int save(String title, String organizer, String plotter,
 			String number, String statu, String dateTimeStart,
-			String dateTimeEnd, String content, String userId) {
+			String dateTimeEnd, String content, String imgPath, String userId) {
 		return activitDao.save(title, organizer, plotter,
 				number, statu, dateTimeStart,
-				dateTimeEnd, content, userId);
+				dateTimeEnd, content, imgPath, userId);
 	}
 
 	/* (non-Javadoc)

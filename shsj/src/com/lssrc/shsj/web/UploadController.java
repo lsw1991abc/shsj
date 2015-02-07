@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.lssrc.shsj.dto.FileInfoDto;
 import com.lssrc.util.FileUtils;
 
 /**
@@ -31,12 +32,14 @@ public class UploadController {
 	}
 	
 	@RequestMapping(value = "/upload")
-	public String upload(HttpServletRequest request, HttpServletResponse response, Model model,
+	public FileInfoDto upload(HttpServletRequest request, HttpServletResponse response, Model model,
 			@RequestParam(value = "file", required = false) MultipartFile file) {
-		if (FileUtils.save(request, file, "/data/upload")) {
-			return "result";
+		String path = "/images/activit";
+		String fileName = FileUtils.save(request, file, path);
+		if (fileName != null) {
+			return new FileInfoDto("success", path + "/" + fileName);
 		} else {
-			return "error";
+			return new FileInfoDto("error", null);
 		}
 		
 	}

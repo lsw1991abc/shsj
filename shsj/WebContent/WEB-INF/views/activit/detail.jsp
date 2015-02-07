@@ -31,7 +31,7 @@ $('.header-nav li[data-menu-id="avtivit"]').addClass('active');
             				<td style="width:10%;">活动策划：</td>
             				<td style="width:30%;">${activit.a_plotter}</td>
             				<td rowspan="3" style="width:30%">
-            					<img src="<%=basePath%>/images/activit/${activit.a_pic}" class="img-responsive" style="width:100%; height:135px;" />
+            					<img src="<%=basePath%>/${activit.a_pic}" class="img-responsive" style="width:100%; height:135px;" />
             				</td>
             			</tr>
             			<tr>

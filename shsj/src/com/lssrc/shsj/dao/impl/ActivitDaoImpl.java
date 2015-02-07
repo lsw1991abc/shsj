@@ -91,7 +91,7 @@ public class ActivitDaoImpl extends BaseDao implements ActivitDao {
 	@Override
 	public int save(String title, String organizer, String plotter,
 			String number, String statu, String dateTimeStart,
-			String dateTimeEnd, String content, String userId) {
+			String dateTimeEnd, String content, String imgPath, String userId) {
 		List<Object> contations = new ArrayList<Object>();
 		contations.add(UUID.generateRandomUUID());
 		contations.add(title);
@@ -103,7 +103,7 @@ public class ActivitDaoImpl extends BaseDao implements ActivitDao {
 		contations.add(dateTimeEnd);
 		contations.add(DateFormater.getDateTime());
 		contations.add(userId);
-		contations.add("s_201310151381812039172.jpg");
+		contations.add(imgPath);
 		return super.saveOrUpdate(BASE_INSERT_SQL, contations.toArray());
 	}
 

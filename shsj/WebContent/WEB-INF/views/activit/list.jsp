@@ -26,7 +26,7 @@ $('.header-nav li[data-menu-id="avtivit"]').addClass('active');
 	                    <li>
 	                    	<div class="row" style="margin:0 0 8px;">
 	                        	<div class="col-md-3" style="padding:5px; border:1px solid #DFDFDF;">
-	                            	<img src="<%=basePath%>/images/activit/${activit.a_pic}" style="height:130px; width:190px;" class="img-responsive" alt="img" />
+	                            	<img src="<%=basePath%>/${activit.a_pic}" style="height:130px; width:190px;" class="img-responsive" alt="img" />
 	                            </div>
 	                            <div class="col-md-9">
 	                            	<h4><a href="<%=basePath%>/huodong/${activit.a_id}" target="_blank">${activit.a_title}</a></h4>

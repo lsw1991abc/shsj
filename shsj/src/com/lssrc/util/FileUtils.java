@@ -27,23 +27,14 @@ public class FileUtils {
 	 * 
 	 * @author Carl_Li
 	 */
-	public static boolean save(HttpServletRequest request, MultipartFile file, String path) {
-		return save(file, request.getServletContext().getRealPath("/") + path, file.getOriginalFilename()) ? true : false;
-	}
-	
-	/**
-	 * 
-	 * @param request
-	 * @param file
-	 * @param path
-	 * @param fileName
-	 * @return
-	 * 
-	 * @author Carl_Li
-	 */
-	public static boolean save(HttpServletRequest request, MultipartFile file, String path, String fileName) {
-		fileName = fileName + file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf("."));
-		return save(file, request.getServletContext().getRealPath("/") + path, fileName) ? true : false;
+	public static String save(HttpServletRequest request, MultipartFile file, String path) {
+		String fileName = file.getOriginalFilename();
+		fileName = System.currentTimeMillis() + fileName.substring(fileName.lastIndexOf("."));
+		if (save(file, request.getServletContext().getRealPath("/") + path, fileName)) {
+			return path + "/" + fileName;
+		}else {
+			return null;
+		}
 	}
 	
 	/**

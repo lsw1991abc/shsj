@@ -23,11 +23,14 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
+import com.lssrc.shsj.dto.FileInfoDto;
 import com.lssrc.shsj.service.ActivitService;
 import com.lssrc.shsj.service.JobService;
 import com.lssrc.shsj.service.NoticeService;
 import com.lssrc.shsj.service.UserService;
+import com.lssrc.util.FileUtils;
 
 /**
  * @author Carl_Li
@@ -175,11 +178,24 @@ public class AdminController {
 			@RequestParam(value = "statu", required = false, defaultValue = "") String statu,
 			@RequestParam(value = "datetime-start", required = false, defaultValue = "") String dateTimeStart,
 			@RequestParam(value = "datetime-end", required = false, defaultValue = "") String dateTimeEnd,
-			@RequestParam(value = "content", required = false, defaultValue = "") String content) {
+			@RequestParam(value = "content", required = false, defaultValue = "") String content,
+			@RequestParam(value = "imgPath", required = false, defaultValue = "#")String imgPath) {
 		String userId = myself.get("userId") + "";
 		
-		int count = activitService.save(title, organizer, plotter, number, statu, dateTimeStart, dateTimeEnd, content, userId);
+		int count = activitService.save(title, organizer, plotter, number, statu, dateTimeStart, dateTimeEnd, content, imgPath, userId);
 		return "redirect:/admin/huodong";
+	}
+	
+	@RequestMapping(value = { "/huodong/img" })
+	public FileInfoDto activitImg(HttpServletRequest request, HttpServletResponse response, Model model,
+			@RequestParam(value = "file", required = false) MultipartFile file) {
+		String path = "/images/activit";
+		String url = FileUtils.save(request, file, path);
+		if (url != null) {
+			return new FileInfoDto("success", url);
+		} else {
+			return new FileInfoDto("error", null);
+		}
 	}
 	
 	@RequestMapping(value = { "/huodong/delete/{id}" })

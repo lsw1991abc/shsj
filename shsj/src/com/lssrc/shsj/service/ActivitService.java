@@ -52,7 +52,7 @@ public interface ActivitService {
 	 */
 	public int save(String title, String organizer, String plotter,
 			String number, String statu, String dateTimeStart,
-			String dateTimeEnd, String content, String userId);
+			String dateTimeEnd, String content, String imgPath, String userId);
 
 	/**
 	 * @param id
