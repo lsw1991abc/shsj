@@ -69,6 +69,11 @@ public class NoticeServiceImpl implements NoticeService {
 	}
 
 	@Override
+	public int update(String id, String title, String content, String userId) {
+		return noticeDao.update(id, title, content, userId);
+	}
+
+	@Override
 	public int delete(String id) {
 		return noticeDao.delete(id);
 	}

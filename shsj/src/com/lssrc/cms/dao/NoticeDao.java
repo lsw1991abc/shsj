@@ -53,4 +53,13 @@ public interface NoticeDao {
 	 */
 	int delete(String id);
 
+	/**
+	 * @param id
+	 * @param title
+	 * @param content
+	 * @param userId
+	 * @return
+	 */
+	int update(String id, String title, String content, String userId);
+
 }

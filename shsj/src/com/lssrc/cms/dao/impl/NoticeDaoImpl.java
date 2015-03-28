@@ -78,6 +78,17 @@ public class NoticeDaoImpl extends BaseDao implements NoticeDao {
 		contations.add(DateFormater.getDateTime());
 		return super.saveOrUpdate(BASE_INSERT_SQL, contations.toArray());
 	}
+	
+	@Override
+	public int update(String id, String title, String content, String userId) {
+		String sql = "update shsj_notice set n_title=?, n_desc=?, n_builder=? where n_id=?";
+		List<Object> contations = new ArrayList<Object>();
+		contations.add(title);
+		contations.add(content);
+		contations.add(userId);
+		contations.add(id);
+		return super.saveOrUpdate(sql, contations.toArray());
+	}
 
 	@Override
 	public int delete(String id) {
