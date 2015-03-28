@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -23,7 +24,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.lssrc.cms.common.Constants;
 import com.lssrc.cms.dao.NoticeDao;
+import com.lssrc.cms.dto.NoticeDto;
 import com.lssrc.cms.service.NoticeService;
+import com.lssrc.util.ErrorCode;
 
 /**
  * @author Carl_Li
@@ -63,10 +66,15 @@ public class TreasureAdminController {
 			HttpServletRequest request,
 			HttpServletResponse response,
 			ModelMap model,
+			@RequestParam(value = "id", required = false, defaultValue = "") String id,
 			@RequestParam(value = "title", required = false, defaultValue = "") String title,
 			@RequestParam(value = "content", required = false, defaultValue = "") String content) {
 		String userId = myself.get("userId") + "";
-		noticeService.save(title, content, userId, NoticeDao.TREASURE);
+		if (StringUtils.isEmpty(id)) {
+			noticeService.save(title, content, userId, NoticeDao.NOTICE);
+		} else {
+			noticeService.update(id, title, content, userId);
+		}
 		return "redirect:/admin/baodian";
 	}
 	
@@ -74,14 +82,13 @@ public class TreasureAdminController {
 	public String edit(
 			ModelMap model,
 			@PathVariable("id")String id) {
-		return Constants.ADMIN_PATH_NAME + "/treasure/edit";
-	}
-	
-	@RequestMapping(value = { "/update" })
-	public String update(
-			ModelMap model,
-			@PathVariable("id")String id) {
-		return Constants.ADMIN_PATH_NAME + "/treasure/edit";
+		NoticeDto noticeDto = noticeService.getById(id);
+		if(noticeDto != null) {
+			model.addAttribute("treasure", noticeDto.getNotice());
+			return Constants.ADMIN_PATH_NAME + "/treasure/edit";
+		} else {
+			return ErrorCode.OBJECT_NOT_FOUND;
+		}
 	}
 	
 	@RequestMapping(value = { "/delete/{id}" })

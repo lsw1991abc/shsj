@@ -47,18 +47,21 @@
 		<div id="title-description"></div>      
       <div class="panel-body">
        	<form role="form" action="<%=adminPath %>/baodian/save" method="post" id="treasure-form">
-       	
+       	  <input type="hidden" value="${treasure.n_id }" name="id" />
 		  <div class="form-group">
 		    <label for="notice-title">标题</label>
-		    <input type="text" class="form-control" id="treasure-title" name="title" placeholder="标题长度1～50"
-		    			data-required="true" data-pattern="^([\u4E00-\u9FA5]|\w){1,50}$"
-						data-describedby="title-description" data-description="title" />
+		    <input type="text" class="form-control" value="${treasure.n_title }" 
+		    		id="treasure-title" name="title" placeholder="标题长度1～50"
+		    		data-required="true" data-pattern="^([\u4E00-\u9FA5]|\w){1,50}$"
+					data-describedby="title-description" data-description="title" />
 		  </div>
 		  <div class="form-group">
 		    <label for="valuable-content">内容</label>
-		    <textarea class="form-control" rows="3" style="resize:vertical;" id="treasure-content" name="content"></textarea>
+		    <textarea class="form-control" rows="3" style="resize:vertical;" id="treasure-content" name="content">
+		    	${treasure.n_desc }
+		    </textarea>
 		  </div>
-		  <button type="submit" class="btn btn-primary">发布</button>
+		  <button type="submit" class="btn btn-primary">保存修改</button>
 		</form>
 		
 		<script type="text/javascript" src="<%=basePath%>/ckeditor/ckeditor.js"></script>  
