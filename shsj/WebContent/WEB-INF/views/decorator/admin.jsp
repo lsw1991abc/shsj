@@ -10,7 +10,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title><sitemesh:write property="title">管理平台</sitemesh:write> - WITCMS</title>
+<title><sitemesh:write property="title">管理平台</sitemesh:write> - 大学生社会实践服务中心</title>
 <link rel="shortcut icon" href="<%=basePath %>/images/favicon.ico" />
 <link rel="stylesheet" href="<%=basePath %>/lib/bootstrap/css/bootstrap.css" type="text/css" />
 <link rel="stylesheet" href="<%=basePath %>/lib/font-awesome/css/font-awesome.css" type="text/css" />
@@ -41,25 +41,28 @@
 	<div class="navbar">
         <div class="navbar-inner">
                 <ul class="nav pull-right">
-                	<li style="padding: 10px 15px;">您好：admin，欢迎使用WITCMS!</li>
-                	<li><a href="#" class="hidden-phone visible-tablet visible-desktop" role="button">网站主页</a></li>
+                	<li><a href="<%=basePath %>/" target="_blank" class="hidden-phone visible-tablet visible-desktop" role="button">网站主页</a></li>
+                	<!-- 
                     <li><a href="#" class="hidden-phone visible-tablet visible-desktop" role="button">设置</a></li>
+                     -->
                     <li id="fat-menu" class="dropdown">
                         <a href="#" role="button" class="dropdown-toggle" data-toggle="dropdown">
-                            <i class="fa fa-user"></i> Carl Li
+                            <i class="fa fa-user"></i> ${myself.username}
                             <i class="fa fa-caret-down"></i>
                         </a>
                         <ul class="dropdown-menu dropdown-menu-right">
+                        	<!-- 
                             <li><a tabindex="-1" href="#">我的帐号</a></li>
                             <li class="divider"></li>
                             <li><a tabindex="-1" class="visible-phone" href="#">设置</a></li>
                             <li class="divider visible-phone"></li>
+                             -->
                             <li><a tabindex="-1" href="<%=basePath %>/login/logout">退出</a></li>
                         </ul>
                     </li>
                     
                 </ul>
-                <a class="brand" href="index.html"><span class="first">WIT</span> <span class="second">CMS</span></a>
+                <a class="brand"><span class="second">大学生社会实践服务中心</span> <span class="first">管理平台</span></a>
         </div>
     </div>
     
@@ -75,7 +78,7 @@
              -->
         </ul>
 
-        <a href="#contents-menu" class="nav-header" data-toggle="collapse"><i class="fa fa-database"></i>内容管理<span class="label label-info">+3</span></a>
+        <a href="#contents-menu" class="nav-header" data-toggle="collapse"><i class="fa fa-database"></i>内容管理<!-- <span class="label label-info">+3</span> --></a>
         <ul id="contents-menu" class="nav nav-list collapse">
             <li id="contents-huodong"><a href="<%=adminPath %>/huodong">活动管理</a></li>
             <li id="contents-zhaopin"><a href="<%=adminPath %>/zhaopin">招聘管理</a></li>

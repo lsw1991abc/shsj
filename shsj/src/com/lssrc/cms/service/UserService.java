@@ -66,5 +66,11 @@ public interface UserService {
 	 */
 	int changePasswd(Map<String, Object> user);
 
+	/**
+	 * @param id
+	 * @param issys
+	 */
+	int changeRole(String id, int issys);
+
 
 }

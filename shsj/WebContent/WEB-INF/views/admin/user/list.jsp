@@ -69,8 +69,12 @@
                     <td style="width:15%;" class="text-center">${user.email}</td>
                     <td style="width:15%;" class="text-center">${fn:substring(user.buildDate, 0, 19)}</td>
                     <td style="width:15%;" class="text-center">
+                    	
+						<!-- 
                     	<a href="<%=adminPath %>/user/edit/${user.userId}"><i class="fa fa-pencil"></i></a> 
 						<a href="#myModal" role="button" data-toggle="modal"><i class="fa fa-remove"></i></a>
+						 -->
+						<a href="<%=adminPath %>/user/edit/1/${user.userId}">升级管理</a>
 					</td>
                   </tr>
 	            </c:forEach>

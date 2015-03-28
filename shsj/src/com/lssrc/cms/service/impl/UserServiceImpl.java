@@ -82,4 +82,9 @@ public class UserServiceImpl implements UserService {
 		return userDao.changePasswd(user);
 	}
 
+	@Override
+	public int changeRole(String id, int issys) {
+		return userDao.changeRole(id, issys);
+	}
+
 }

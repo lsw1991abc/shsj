@@ -19,6 +19,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -27,6 +28,7 @@ import com.lssrc.cms.common.Constants;
 import com.lssrc.cms.dao.UserDao;
 import com.lssrc.cms.service.UserService;
 import com.lssrc.util.MD5;
+import com.sun.org.glassfish.gmbal.ParameterNames;
 
 /**
  * @author Carl_Li
@@ -99,118 +101,18 @@ public class UserAdminController {
 		return Constants.ADMIN_PATH + "/user/groups";
 	}
 	
-	/**
-	 * 
-	 * @param request
-	 * @param response
-	 * @param model
-	 * @return
-	 */
-	@RequestMapping(value = {"/save"})
-	public String save(HttpServletRequest request, HttpServletResponse response, ModelMap model) {
-		return  "redirect:" + Constants.ADMIN_PATH + "/user/";
-	}
-	
-	/**
-	 * 个人资料
-	 * @param request
-	 * @param response
-	 * @param model
-	 * @return
-	 */
-	@RequestMapping(value = {"/ziliao"})
-	public String profile(HttpServletRequest request, HttpServletResponse response, ModelMap model) {
-		model.addAttribute("myself", userService.getById(myself.get("userId").toString()));
-		return "user/myself";
-	}
-	
-	/**
-	 * 个人资料更新
-	 * @param request
-	 * @param response
-	 * @param model
-	 * @param nickname
-	 * @param qq
-	 * @param phoneno
-	 * @param email
-	 * @param userDesc
-	 * @return
-	 */
-	@RequestMapping(value = {"/ziliao/update"}, method = RequestMethod.POST)
-	public String updateProfile(HttpServletRequest request, HttpServletResponse response, ModelMap model,
-			@RequestParam(value = "nickname", required = false, defaultValue = "")String nickname,
-			@RequestParam(value = "qq", required = false, defaultValue = "")String qq,
-			@RequestParam(value = "phoneno", required = false, defaultValue = "")String phoneno,
-			@RequestParam(value = "email", required = false, defaultValue = "")String email,
-			@RequestParam(value = "userDesc", required = false, defaultValue = "")String userDesc) {
-		
-		Map<String, Object> user = userService.getById(myself.get("userId").toString());
-		if (user != null) {
-				if (StringUtils.isEmpty(nickname)) {
-					nickname = myself.get("nickname").toString();
-				}
-				user.put("nickname", nickname);
-				user.put("qq", qq);
-				user.put("phoneno", phoneno);
-				user.put("email", email);
-				user.put("userDesc", userDesc);
-				int count = userService.update(user);
-				if (count == 1) {
-					model.addAttribute("msg", "success");
-					model.addAttribute("myself", user);
-				} else {
-					model.addAttribute("msg", "error");
-				}
+	@RequestMapping(value = {"/edit/{issys}/{id}"})
+	public String changeRole(HttpServletRequest request, HttpServletResponse response, ModelMap model,
+			@PathVariable("issys") int issys,
+			@PathVariable("id") String id) {
+		int count = userService.changeRole(id, issys);
+		if (issys == 1) {
+			return  "redirect:" + Constants.ADMIN_PATH + "/user/";
 		} else {
-			model.addAttribute("msg", "error");
+			return  "redirect:" + Constants.ADMIN_PATH + "/user/admin";
 		}
-		return "user/myself";
 	}
 	
-	/**
-	 * 密码修改页面
-	 * @param request
-	 * @param response
-	 * @param model
-	 * @return
-	 */
-	@RequestMapping(value = {"/xgmm"})
-	public String password(HttpServletRequest request, HttpServletResponse response, ModelMap model) {
-		return "user/password";
-	}
-	
-	/**
-	 * 密码修改
-	 * @param request
-	 * @param response
-	 * @param model
-	 * @param oldPasswd
-	 * @param newPasswd1
-	 * @param newPasswd2
-	 * @return
-	 */
-	@RequestMapping(value = {"/passwd"}, method = RequestMethod.POST)
-	public String updatePassword(HttpServletRequest request, HttpServletResponse response, ModelMap model,
-			@RequestParam(value = "oldPasswd", required = false, defaultValue = "")String oldPasswd,
-			@RequestParam(value = "newPasswd1", required = false, defaultValue = "")String newPasswd1,
-			@RequestParam(value = "newPasswd2", required = false, defaultValue = "")String newPasswd2) {
-		if (StringUtils.isNotEmpty(oldPasswd) && StringUtils.isNotEmpty(newPasswd1) && StringUtils.isNotEmpty(newPasswd2) && newPasswd1.equals(newPasswd2)) {
-			Map<String, Object> user = userService.getById(myself.get("userId") + "");
-			if (user != null && user.get("passwd").equals(MD5.getMD5Code(oldPasswd))) {
-				user.put("passwd", MD5.getMD5Code(newPasswd1));
-				if (userService.changePasswd(user) == 1) {
-					model.addAttribute("msg", "success");
-				} else {
-					model.addAttribute("msg", "error");
-				}
-			} else {
-				model.addAttribute("msg", "error");
-			}
-		} else {
-			model.addAttribute("msg", "error");
-		}
-		return "user/password";
-	}
 	
 	/**
 	 * 获取当前session

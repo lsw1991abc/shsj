@@ -227,9 +227,11 @@
         	<h5 style=" height:33px; text-indent:35px; line-height:28px; margin:0; background:url('<%=basePath %>/images/title.png') -1px -141px repeat-x; color:#fff;">活动案例<a href="<%=basePath %>/huodong" style="float:right; margin-right:15px; color:#fff;">更多&gt;&gt;</a></h5>
             <ul class="list-inline hdal" style="margin:15px 10px 5px;">
               <c:forEach items="${activits}" var="activit">
-            	<li class="text-center">
-                	<a href="<%=basePath %>/huodong/${activit.a_id}" target="_blank"><img src="<%=basePath %>/${activit.a_pic}" title="${activit.a_title}" alt="${activit.a_title}" class="img-responsive" style="height:80px; width:110px;" /></a>
-                    <label><a href="<%=basePath %>/huodong/${activit.a_id}" target="_blank">${activit.a_title}</a></label>
+            	<li class="text-center" >
+                	<a href="<%=basePath %>/huodong/${activit.a_id}" target="_blank">
+                		<img src="<%=basePath %>/${activit.a_pic}" title="${activit.a_title}" alt="${activit.a_title}" class="img-responsive" style="height:80px; width:110px;" />
+                	</a>
+                    <label><a href="<%=basePath %>/huodong/${activit.a_id}" target="_blank">${fn:substring(activit.a_title, 0, 8)}</a></label>
                 </li>
                </c:forEach>
             </ul>

@@ -69,4 +69,11 @@ public interface UserDao {
 	 */
 	int queryCountByIssys(int issys);
 
+	/**
+	 * @param id
+	 * @param issys
+	 * @return
+	 */
+	int changeRole(String id, int issys);
+
 }

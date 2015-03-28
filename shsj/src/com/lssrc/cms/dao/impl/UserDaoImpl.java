@@ -107,10 +107,19 @@ public class UserDaoImpl extends BaseDao implements UserDao {
 
 	@Override
 	public int changePasswd(Map<String, Object> user) {
-		String sql = "update " + TABLE_NAME + " set user_password=? where user_id=?";
+		String sql = "update sys_user set user_password=? where user_id=?";
 		List<Object> contations = new ArrayList<Object>();
 		contations.add(user.get("passwd"));
 		contations.add(user.get("userId"));
+		return super.saveOrUpdate(sql, contations.toArray());
+	}
+
+	@Override
+	public int changeRole(String id, int issys) {
+		String sql = "update sys_user set issys=? where user_id=?";
+		List<Object> contations = new ArrayList<Object>();
+		contations.add(issys);
+		contations.add(id);
 		return super.saveOrUpdate(sql, contations.toArray());
 	}
 
