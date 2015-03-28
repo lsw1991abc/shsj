@@ -57,12 +57,23 @@ public class JobServiceImpl implements JobService {
 	}
 
 	@Override
-	public int save(String organnizer, String title, String type, String place,
+	public int save(String organizer, String title, String type, String place,
 			String salary, String datetimeWork, int number,
 			int numberLimit, String contact, String datetimeStart,
 			String datetimeEnd, String auditionPlace, String content, String belong, 
 			String userId) {
-		return jobDao.save(organnizer, title, type, place, salary,
+		return jobDao.save(organizer, title, type, place, salary,
+				datetimeWork, number, numberLimit, contact, datetimeStart,
+				datetimeEnd, auditionPlace, content, belong, userId);
+	}
+	
+	@Override
+	public int update(String id, String organnizer, String title, String type,
+			String place, String salary, String datetimeWork, int number,
+			int numberLimit, String contact, String datetimeStart,
+			String datetimeEnd, String auditionPlace, String content,
+			String belong, String userId) {
+		return jobDao.update(id, organnizer, title, type, place, salary,
 				datetimeWork, number, numberLimit, contact, datetimeStart,
 				datetimeEnd, auditionPlace, content, belong, userId);
 	}

@@ -65,9 +65,9 @@
        				<td style="width:40%;">
        					<div class="form-group">
 				    		<input type="text" class="form-control" style="width:75%;" 
-				    		id="job_organnizer" name="organnizer" placeholder="名称长度1～50"
+				    		id="job_organizer" name="organizer" placeholder="名称长度1～50"
 				    		data-required="true" data-pattern="^([\u4E00-\u9FA5]|\w){1,50}$" 
-				    		data-describedby="organnizer-description" data-description="organnizer" />
+				    		data-describedby="organizer-description" data-description="organizer" />
 						 </div>
        				</td>
        				<td style="width:10%; padding-bottom:15px;">职位名称：</td>

@@ -34,7 +34,7 @@ public interface JobDao {
 	public int queryCount(String type);
 
 	/**
-	 * @param organnizer
+	 * @param organizer
 	 * @param title
 	 * @param type
 	 * @param place
@@ -50,7 +50,7 @@ public interface JobDao {
 	 * @param userId
 	 * @return
 	 */
-	public int save(String organnizer, String title, String type, String place,
+	public int save(String organizer, String title, String type, String place,
 			String salary, String datetimeWork, int number,
 			int numberLimit, String contact, String datetimeStart,
 			String datetimeEnd, String auditionPlace, String content, String belong,
@@ -62,6 +62,34 @@ public interface JobDao {
 	 */
 	public int delete(String id);
 
+	/**
+	 * @return
+	 */
 	public List<Map<String, Object>> queryBelong();
+
+	/**
+	 * @param id
+	 * @param organnizer
+	 * @param title
+	 * @param type
+	 * @param place
+	 * @param salary
+	 * @param datetimeWork
+	 * @param number
+	 * @param numberLimit
+	 * @param contact
+	 * @param datetimeStart
+	 * @param datetimeEnd
+	 * @param auditionPlace
+	 * @param content
+	 * @param belong
+	 * @param userId
+	 * @return
+	 */
+	public int update(String id, String organnizer, String title, String type,
+			String place, String salary, String datetimeWork, int number,
+			int numberLimit, String contact, String datetimeStart,
+			String datetimeEnd, String auditionPlace, String content,
+			String belong, String userId);
 
 }

@@ -118,13 +118,13 @@
 					<td style="width: 90%;" colspan="3">
 						<div class="form-group">
 							<input type="text" class="form-control" style="width: 35%; display: block; float: left;"
-								value="${activit.a_datetime_start }"
+								value="${fn:substring(activit.a_datetime_start, 0, 10) }"
 								readonly="readonly" id="activit-datetime-start" name="datetime-start" placeholder="开始时间"
 								data-required="true" data-pattern="^[0-9]{4}-[0-9]{2}-[0-9]{2}$" 
 								data-describedby="datetime-start-description" data-description="datetimeStart" /> 
 							<span style="display: block; float: left; width: 15px; text-align: center;">~</span>
 							<input type="text" class="form-control" style="width: 35%; display: block; float: left;"
-								value="${activit.a_datetime_end }"
+								value="${fn:substring(activit.a_datetime_end, 0, 10) }"
 								readonly="readonly" id="activit-datetime-end" name="datetime-end" placeholder="结束时间"
 								data-required="true" data-pattern="^[0-9]{4}-[0-9]{2}-[0-9]{2}$"
 								data-describedby="datetime-end-description" data-description="datetimeEnd" />

@@ -126,7 +126,7 @@ public class JobDaoImpl extends BaseDao implements JobDao {
 	}
 
 	@Override
-	public int save(String organnizer, String title, String type, String place,
+	public int save(String organizer, String title, String type, String place,
 			String salary, String datetimeWork, int number,
 			int numberLimit, String contact, String datetimeStart,
 			String datetimeEnd, String auditionPlace, String content, String belong,
@@ -134,7 +134,7 @@ public class JobDaoImpl extends BaseDao implements JobDao {
 		List<Object> contations = new ArrayList<Object>();
 		contations.add(UUID.generateRandomUUID());
 		contations.add(title);
-		contations.add(organnizer);
+		contations.add(organizer);
 		contations.add(type);
 		contations.add(number);
 		contations.add("0");
@@ -151,6 +151,47 @@ public class JobDaoImpl extends BaseDao implements JobDao {
 		contations.add(DateFormater.getDateTime());
 		contations.add(belong);
 		return super.saveOrUpdate(BASE_INSERT_SQL, contations.toArray());
+	}
+	
+	@Override
+	public int update(String id, String organnizer, String title, String type,
+			String place, String salary, String datetimeWork, int number,
+			int numberLimit, String contact, String datetimeStart,
+			String datetimeEnd, String auditionPlace, String content,
+			String belong, String userId) {
+		String sql = "update shsj_job set "
+				+ "j_title=?, "
+				+ "j_organizer=?, "
+				+ "j_belong=?, "
+				+ "j_type=?, "
+				+ "j_number=?, "
+				+ "j_number_limit=?, "
+				+ "j_work_place=?, "
+				+ "j_work_time=?, "
+				+ "j_salary=?, "
+				+ "j_contact=?, "
+				+ "j_content=?, "
+				+ "j_audition_place=?, "
+				+ "j_audition_time=?, "
+				+ "j_datetime_end=? "
+				+ "where j_id=?";
+		List<Object> contations = new ArrayList<Object>();
+		contations.add(title);
+		contations.add(organnizer);
+		contations.add(belong);
+		contations.add(type);
+		contations.add(number);
+		contations.add(numberLimit);
+		contations.add(place);
+		contations.add(datetimeWork);
+		contations.add(salary);
+		contations.add(contact);
+		contations.add(content);
+		contations.add(auditionPlace);
+		contations.add(datetimeStart);
+		contations.add(datetimeEnd);
+		contations.add(id);
+		return super.saveOrUpdate(sql, contations.toArray());
 	}
 
 	@Override

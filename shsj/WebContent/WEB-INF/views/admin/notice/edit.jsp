@@ -11,24 +11,24 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN">
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	<title>添加公告</title>
+	<title>修改公告</title>
 </head>
 
 <body>
 <script type="text/javascript">
 	$('#sidebar-nav ul').removeClass("in");
 	$('#sidebar-nav #contents-menu').addClass("in");
-	$('#sidebar-nav #contents-menu #contents-zhaopin').addClass("active");
+	$('#sidebar-nav #contents-menu #contents-gonggao').addClass("active");
 </script>
 <div class="header">
-	<h1 class="page-title">添加公告</h1>
+	<h1 class="page-title">修改公告</h1>
 </div>
 
 <ol class="breadcrumb">
 	<li><a href="<%=adminPath %>/">首页</a></li>
 	<li><a href="<%=adminPath %>/">内容管理</a></li>
 	<li><a href="<%=adminPath %>/gonggao">公告管理</a></li>
-	<li class="active">添加公告</li>
+	<li class="active">修改公告</li>
 </ol>
 
 <div class="container-fluid">

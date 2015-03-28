@@ -11,7 +11,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN">
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	<title>添加宝典</title>
+	<title>修改宝典</title>
 </head>
 
 <body>
@@ -21,14 +21,14 @@
 	$('#sidebar-nav #contents-menu #contents-baodian').addClass("active");
 </script>
 <div class="header">
-	<h1 class="page-title">添加宝典</h1>
+	<h1 class="page-title">修改宝典</h1>
 </div>
 
 <ol class="breadcrumb">
 	<li><a href="<%=adminPath %>/">首页</a></li>
 	<li><a href="<%=adminPath %>/">内容管理</a></li>
 	<li><a href="<%=adminPath %>/baodian">宝典管理</a></li>
-	<li class="active">添加宝典</li>
+	<li class="active">修改宝典</li>
 </ol>
 
 <div class="container-fluid">
