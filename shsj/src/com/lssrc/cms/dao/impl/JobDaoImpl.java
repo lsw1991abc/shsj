@@ -92,7 +92,7 @@ public class JobDaoImpl extends BaseDao implements JobDao {
 		StringBuffer sql = new StringBuffer();
 		sql.append("select j_id,j_title,j_organizer,j_type,j_number,j_number_ready,j_number_limit,j_work_place,j_work_time,j_salary,j_salary_type,j_contact,j_content,j_audition_time,j_audition_place,j_datetime_build,j_datetime_end,j_belong,jt_name,jb_name "
 				+ "from shsj_job, shsj_job_belong, shsj_job_type "
-				+ "where shsj_job.j_belong=shsj_job_belong.jb_id and shsj_job.j_type=shsj_job_type.jt_id ");
+				+ "where shsj_job.j_belong=shsj_job_belong.jb_id and shsj_job.j_type=shsj_job_type.jt_id and isdeled=0 ");
 		List<Object> contations = new ArrayList<Object>();
 		if (StringUtils.isNotEmpty(type)) {
 			sql.append("and j_type=? ");
@@ -116,10 +116,10 @@ public class JobDaoImpl extends BaseDao implements JobDao {
 	public int queryCount(String type) {
 		String sql = "select count(*) "
 				+ "from shsj_job, shsj_job_belong, shsj_job_type "
-				+ "where shsj_job.j_belong=shsj_job_belong.jb_id and shsj_job.j_type=shsj_job_type.jt_id";
+				+ "where shsj_job.j_belong=shsj_job_belong.jb_id and shsj_job.j_type=shsj_job_type.jt_id and isdeled=0 ";
 		List<Object> contations = new ArrayList<Object>();
 		if (StringUtils.isNotEmpty(type)) {
-			sql += " and j_type=?";
+			sql += "and j_type=?";
 			contations.add(type);
 		}
 		return super.queryForInt(sql, contations.toArray());
@@ -196,8 +196,8 @@ public class JobDaoImpl extends BaseDao implements JobDao {
 
 	@Override
 	public int delete(String id) {
-		String sql = "delete from " + TABLE_NAME + " where " + ID + "=?";
-		return super.delete(sql, new Object[]{ id });
+		String sql = "update shsj_job set isdeled=1 where j_id=?";
+		return super.saveOrUpdate(sql, new Object[]{ id });
 	}
 
 	@Override

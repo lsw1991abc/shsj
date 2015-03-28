@@ -76,8 +76,8 @@
                     <td style="width:15%;" class="text-center">${job.j_work_place}</td>
                     <td style="width:15%;" class="text-center">${fn:substring(job.j_datetime_build, 0, 10)}</td>
                     <td style="width:15%;" class="text-center">
-                    	<a href="<%=adminPath %>/zhaopin/edit/${job.j_id}"><i class="fa fa-pencil"></i></a> 
-						<a href="#myModal" role="button" data-toggle="modal"><i class="fa fa-remove"></i></a>
+                    	<a href="<%=adminPath %>/zhaopin/edit/${job.j_id}" title="编辑"><i class="fa fa-pencil"></i></a> 
+						<a href="<%=adminPath %>/zhaopin/delete/${job.j_id}" title="删除"><i class="fa fa-remove"></i></a>
 					</td>
                   </tr>
 	            </c:forEach>
@@ -89,7 +89,11 @@
                      <li><a href="<%=adminPath %>/zhaopin/?page=${navigator.prePageNo}">上一页</a></li>
                      <li><a href="<%=adminPath %>/zhaopin/?page=${navigator.nextPageNo}">下一页</a></li>
                      <li><a href="<%=adminPath %>/zhaopin/?page=${navigator.pageCount}">末页</a></li>
-                     <li>&nbsp;当前 ${navigator.nowPageNo}/${navigator.pageCount} 页&nbsp;&nbsp;每页${navigator.pageSize}条&nbsp;&nbsp;共${navigator.count}条</li>
+                     <li>&nbsp;
+                     	当前 ${navigator.nowPageNo}/${navigator.pageCount} 页&nbsp;&nbsp;
+                     	每页${navigator.pageSize}条&nbsp;&nbsp;
+                     	共${navigator.count}条
+                     </li>
                  </ul>
                </nav>
 		</div>

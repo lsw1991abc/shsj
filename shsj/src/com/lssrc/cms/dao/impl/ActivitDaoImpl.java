@@ -67,7 +67,7 @@ public class ActivitDaoImpl extends BaseDao implements ActivitDao {
 										+ BUILDER + ", "
 										+ PIC;
 	
-	private static String BASE_SELECT_SQL = "select * from " + TABLE_NAME + ", " + TABLE_NAME_STATU + " where shsj_activit.a_statu=shsj_activit_statu.as_id ";
+	private static String BASE_SELECT_SQL = "select * from " + TABLE_NAME + ", " + TABLE_NAME_STATU + " where shsj_activit.a_statu=shsj_activit_statu.as_id and isdeled=0 ";
 	private static String BASE_INSERT_SQL = "insert into " + TABLE_NAME + "(" + INSERT_COLUMN + ") values(?,?,?,?,?,?,?,?,?,?,?)";
 	
 	
@@ -77,7 +77,7 @@ public class ActivitDaoImpl extends BaseDao implements ActivitDao {
 	
 	@Override
 	public int queryCount() {
-		String sql = "select count(*) from " + TABLE_NAME;
+		String sql = "select count(*) from " + TABLE_NAME + " where isdeled=0";
 		return super.queryForInt(sql);
 	}
 
@@ -147,7 +147,7 @@ public class ActivitDaoImpl extends BaseDao implements ActivitDao {
 	
 	@Override
 	public int delete(String id) {
-		String sql = "delete from " + TABLE_NAME + " where " + ID + "=?";
+		String sql = "update shsj_activit set isdeled=1 where a_id=?";
 		return super.delete(sql, new Object[]{ id });
 	}
 

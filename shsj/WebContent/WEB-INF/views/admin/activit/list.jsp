@@ -68,8 +68,8 @@
 								<td class="text-center">${fn:substring(activit.a_datetime_start, 0, 10)}</td>
 								<td class="text-center">${fn:substring(activit.a_datetime_end, 0, 10)}</td>
 								<td class="text-center">
-									<a href="<%=adminPath %>/huodong/edit/${activit.a_id}"><i class="fa fa-pencil"></i></a> 
-									<a href="#myModal" role="button" data-toggle="modal"><i class="fa fa-remove"></i></a>
+									<a href="<%=adminPath %>/huodong/edit/${activit.a_id}" title="编辑"><i class="fa fa-pencil"></i></a> 
+									<a href="<%=adminPath %>/huodong/delete/${activit.a_id}" title="删除"><i class="fa fa-remove"></i></a>
 								</td>
 							</tr>
 						</c:forEach>
@@ -78,14 +78,14 @@
 				<nav class="text-center" style="border-top: 1px solid #DDDDDD;">
 					<ul class="pager">
 						<li><a href="<%=adminPath %>/huodong/?page=1">首页</a></li>
-						<li><a
-							href="<%=adminPath %>/huodong/?page=${navigator.prePageNo}">上一页</a></li>
-						<li><a
-							href="<%=adminPath %>/huodong/?page=${navigator.nextPageNo}">下一页</a></li>
-						<li><a
-							href="<%=adminPath %>/huodong/?page=${navigator.pageCount}">末页</a></li>
-						<li>&nbsp;当前 ${navigator.nowPageNo}/${navigator.pageCount}
-							页&nbsp;&nbsp;每页${navigator.pageSize}条&nbsp;&nbsp;共${navigator.count}条</li>
+						<li><a href="<%=adminPath %>/huodong/?page=${navigator.prePageNo}">上一页</a></li>
+						<li><a href="<%=adminPath %>/huodong/?page=${navigator.nextPageNo}">下一页</a></li>
+						<li><a href="<%=adminPath %>/huodong/?page=${navigator.pageCount}">末页</a></li>
+						<li>&nbsp;
+							当前 ${navigator.nowPageNo}/${navigator.pageCount}页&nbsp;&nbsp;
+							每页${navigator.pageSize}条&nbsp;&nbsp;
+							共${navigator.count}条
+						</li>
 					</ul>
 				</nav>
 			</div>

@@ -51,13 +51,13 @@ public class NoticeDaoImpl extends BaseDao implements NoticeDao {
 
 	@Override
 	public int queryCount(int type) {
-		String sql = "select count(*) from " + TABLE_NAME + " where n_type=?";
+		String sql = "select count(*) from " + TABLE_NAME + " where n_type=? and isdeled=0";
 		return super.queryForInt(sql, new Object[]{type});
 	}
 
 	@Override
 	public List<Map<String, Object>> queryByPage(int start, int pageSize, int type) {
-		String sql = BASE_SELECT_SQL + " and n_type=? order by " + DATETIME_BUILD + " desc limit ?,?";
+		String sql = BASE_SELECT_SQL + " and n_type=? and isdeled=0 order by " + DATETIME_BUILD + " desc limit ?,?";
 		return super.queryForList(sql, new Object[]{ type, start, pageSize});
 	}
 
@@ -92,8 +92,8 @@ public class NoticeDaoImpl extends BaseDao implements NoticeDao {
 
 	@Override
 	public int delete(String id) {
-		String sql = "delete from " + TABLE_NAME + " where " + ID + "=?";
-		return super.delete(sql, new Object[]{ id });
+		String sql = "update shsj_notice set isdeled=1 where n_id=?";
+		return super.saveOrUpdate(sql, new Object[]{ id });
 	}
 
 }

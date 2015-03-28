@@ -62,8 +62,8 @@
                     <td style="width:70%;"><a href="<%=basePath%>/gonggao/${notice.n_id}" target="_blank">${notice.n_title}</a></td>
                     <td style="width:15%;" class="text-center">${fn:substring(notice.n_datetime_build, 0, 19)}</td>
                     <td style="width:15%;" class="text-center">
-                    	<a href="<%=adminPath %>/gonggao/edit/${notice.n_id}"><i class="fa fa-pencil"></i></a> 
-						<a href="#myModal" role="button" data-toggle="modal"><i class="fa fa-remove"></i></a>
+                    	<a href="<%=adminPath %>/gonggao/edit/${notice.n_id}" title="编辑"><i class="fa fa-pencil"></i></a> 
+						<a href="<%=adminPath %>/gonggao/delete/${notice.n_id}" title="删除"><i class="fa fa-remove"></i></a>
 					</td>
                   </tr>
 	            </c:forEach>
@@ -75,7 +75,11 @@
                       <li><a href="<%=adminPath %>/gonggao/?page=${navigator.prePageNo}">上一页</a></li>
                       <li><a href="<%=adminPath %>/gonggao/?page=${navigator.nextPageNo}">下一页</a></li>
                       <li><a href="<%=adminPath %>/gonggao/?page=${navigator.pageCount}">末页</a></li>
-                      <li>&nbsp;当前 ${navigator.nowPageNo}/${navigator.pageCount} 页&nbsp;&nbsp;每页${navigator.pageSize}条&nbsp;&nbsp;共${navigator.count}条</li>
+                      <li>&nbsp;
+                      	当前 ${navigator.nowPageNo}/${navigator.pageCount} 页&nbsp;&nbsp;
+                      	每页${navigator.pageSize}条&nbsp;&nbsp;
+                      	共${navigator.count}条
+                      </li>
                   </ul>
                 </nav>
 		</div>
