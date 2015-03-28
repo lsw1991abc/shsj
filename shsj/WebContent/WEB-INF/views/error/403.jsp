@@ -12,8 +12,8 @@
 
 <body>
 <div class="container text-center">
-	<h1>您是不是忘带钥匙了？还有通行证。</h1>
-	<h1><a href="<%=basePath%>/login/">点我来领取钥匙&gt;&gt;</a></h1>
+	<h1>您未登录或登录已超时。</h1>
+	<h1><a href="<%=basePath%>/login/">点我登录&gt;&gt;</a></h1>
 </div>
 </body>
 </html>

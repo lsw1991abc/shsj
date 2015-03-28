@@ -17,7 +17,7 @@
   	<div class="col-md-10">
       	<div style="border:1px solid #DFDFDF;">
           	<h6 style="margin:0; height:32px; line-height:32px; border-bottom:1px solid #DFDFDF; text-indent:20px;">位置：首页 &gt; 校友日志</h6>
-            <h4 style="text-indent:30px;">[推广链接] <a href="http://www.lssrc.com" target="_blank">www.lssrc.com</a></h4>
+            <h4 style="text-indent:30px;">[推广链接] <a href="http://www.baidu.com" target="_blank">百度</a></h4>
           	<table class="table table-striped" style="text-indent:10px; border-bottom:1px solid #DDDDDD; margin-bottom:0;">
 	            <c:forEach var="daily" items="${dailies}">
 	              <tr>

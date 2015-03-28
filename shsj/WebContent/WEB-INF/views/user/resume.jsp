@@ -11,6 +11,7 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<title>用户中心</title>
 	<link href="<%=basePath%>/style/bootstrap/bootstrap-switch.min.css" type="text/css" rel="stylesheet" />
+	<link href="<%=basePath %>/uploadify/uploadify.css" type="text/css" rel="stylesheet" />
 </head>
 
 <body>
@@ -122,6 +123,21 @@
 												name="desc" style="width: 90%; resize: vertical;margin:5px 0;">${resume.r_profile}</textarea>
 							</td>
 									</tr>
+									
+									<tr>
+										<td>个人照片：</td>
+										<td colspan="3">
+											<div id="fileQueue" style="float:left; margin:10px 10px 10px 0; width:322px; height:242px; border:1px solid #000;">活动图片</div>
+					       					<p style="float:left;margin-top:100px; margin-left:30px;">
+										        <input id="file_upload" name="file_upload" type="file" disabled="disabled"/>
+										        <a href="javascript:$('#file_upload').uploadify('upload');">上传</a>| 
+										        <a href="javascript:$('#file_upload').uploadify('cancel');">取消上传</a>
+									        </p>
+									        <input type="hidden" id="imgPath" name="imgPath" value="">
+									        <br style="clear: both;" />
+										</td>
+									</tr>
+									
 									<tr style="height:45px; line-height:45px;">
 										<td>是否显示：</td>
 										<td>
@@ -135,13 +151,14 @@
 										<td colspan="4"><button type="submit" class="btn btn-primary">保存</button></td>
 									</tr>
 								</table>
-</form>
-							</div>
+							</form>
+						</div>
                 </div>
             </div>
 <script type="text/javascript" src="<%=basePath%>/script/bootstrap/bootstrap-switch.min.js"></script>
 <script type="text/javascript" src="<%=basePath%>/script/jquery/jquery-validate.js"></script>
 <script type="text/javascript" src="<%=basePath%>/ckeditor/ckeditor.js"></script>
+<script type="text/javascript" src="<%=basePath %>/uploadify/jquery.uploadify.js"></script>
 <script type="text/javascript">
 	$(function() {
 		CKEDITOR.replace('resume-experience', {
@@ -188,6 +205,81 @@
 					}
 				}
 			});
+		setTimeout(function() {
+			$("#file_upload").uploadify({
+		        'debug' : false,
+		        'auto':false,
+		     	'multi':false,
+		        'successTimeout':99999,
+		        /*
+		        'formData':{
+		            'userid':'用户id',
+		            'username':'用户名',
+		            'rnd':'加密密文'
+		        },
+		        */
+		        'swf': "<%=basePath %>/uploadify/uploadify.swf",
+		        'buttonText' : '选择文件',
+		        //不执行默认的onSelect事件
+		        //'overrideEvents' : ['onDialogClose'],
+		        'queueID':'fileQueue',
+		        'fileObjName':'file',
+		        'uploader':'<%=basePath %>/user/jianli/img.json',
+		        //浏览按钮的背景图片路径
+		        //'buttonImage':'upbutton.gif',
+		        //浏览按钮的宽度
+		        'width':'100',
+		        //浏览按钮的高度
+		        'height':'32',
+		        //expressInstall.swf文件的路径。
+		        //'expressInstall':'expressInstall.swf',
+		        //在浏览窗口底部的文件类型下拉菜单中显示的文本
+		        //'fileTypeDesc':'支持的格式：',
+		        //允许上传的文件后缀
+		        'fileTypeExts':'*.jpg;*.jpeg;*.gif;*.png',
+		        'fileSizeLimit':'2MB',
+		        'queueSizeLimit' : 1,
+		        //每次更新上载的文件的进展
+		        'onUploadProgress' : function(file, bytesUploaded, bytesTotal, totalBytesUploaded, totalBytesTotal) {
+		             //有时候上传进度什么想自己个性化控制，可以利用这个方法
+		             //使用方法见官方说明
+		        },
+		        'onSelect' : function(file) {
+		       		//选择上传文件后调用
+		        },
+		        'onSelectError':function(file, errorCode, errorMsg){
+		            switch(errorCode) {
+		                case -100:
+		                    alert("上传的文件数量已经超出系统限制的"+$('#file_upload').uploadify('settings','queueSizeLimit')+"个文件！");
+		                    break;
+		                case -110:
+		                    alert("文件 ["+file.name+"] 大小超出系统限制的"+$('#file_upload').uploadify('settings','fileSizeLimit')+"大小！");
+		                    break;
+		                case -120:
+		                    alert("文件 ["+file.name+"] 大小异常！");
+		                    break;
+		                case -130:
+		                    alert("文件 ["+file.name+"] 类型不正确！");
+		                    break;
+		            }
+		        },
+		        'onFallback':function(){
+		            alert("您未安装FLASH控件，无法上传图片！请安装FLASH控件后再试。");
+		        },
+		        'onUploadSuccess':function(file, data, response){
+		        	var result = JSON.parse(data);
+		        	var fileInfoDto = result.fileInfoDto;
+		        	
+		        	if(fileInfoDto.result == 'success') {
+		        		$("#imgPath").val(fileInfoDto.path);
+		        		var img = '<img src="<%=basePath %>/' + fileInfoDto.path + '" style="height:240px; width:320px;" />';
+		        		$("#fileQueue").html(img);
+		        	} else {
+		        		alert("上传失败");
+		        	}
+		        }
+		    });
+		}, 10); 
 	});
 </script>
 </body>

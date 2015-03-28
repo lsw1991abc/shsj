@@ -35,7 +35,7 @@ $('.header-nav li[data-menu-id="resume"]').addClass('active');
             					<c:if test="${resume.r_sex == 0}">女</c:if> 
             				</td>
             				<td rowspan="4" style="width:30%">
-            					<img src="<%=basePath%>/images/resume/${resume.r_pic}" class="img-responsive" style="width:100%; height:180px;" />
+            					<img src="<%=basePath%>/${resume.r_pic}" class="img-responsive" style="width:100%; height:180px;" />
             				</td>
             			</tr>
             			<tr>

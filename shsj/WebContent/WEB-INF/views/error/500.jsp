@@ -18,8 +18,8 @@
 
 <body>
 <div class="container text-center">
-	<h1>500 - 我错了...我会尽快修改好</h1>
-	<h1><a href="<%=basePath%>/">180度转身向前一步走</a>，或者<a href="<%=basePath%>/">回首页</a>吧&gt;&gt;</h1>
+	<h1>错误已提交。请耐心等待管理员处理。</h1>
+	<h1><a href="javascript:history.go(-1);">返回</a>，或者<a href="<%=basePath%>/">回首页</a>&gt;&gt;</h1>
 </div>
 </body>
 </html>

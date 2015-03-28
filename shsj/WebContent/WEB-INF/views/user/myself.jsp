@@ -59,8 +59,8 @@
 						<div>
 							<label class="sr-only" for="user-nickname">联系电话</label>
 							<input type="text" class="form-control" id="inputPhoneno" value="${myself.phoneno}" style="width:90%"
-										placeholder="长度11" name="phoneno" data-pattern="^[1][3-8][0-9]{9}$"
-										data-describedby="phoneno-description" data-description="phoneno"  />
+										placeholder="长度11" name="phoneno" 
+										data-pattern="^[1][3-8][0-9]{9}$" data-describedby="phoneno-description" data-description="phoneno"  />
 						</div>
 					</td>
 			  	</tr>
