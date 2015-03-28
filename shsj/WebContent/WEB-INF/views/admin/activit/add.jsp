@@ -138,10 +138,9 @@
 								<div id="fileQueue"
 									style="float: left; margin: 10px 10px 10px 0; width: 322px; height: 242px; border: 1px solid #000;">活动图片</div>
 								<p style="float: left; margin-top: 100px; margin-left: 30px;">
-									<input id="file-upload" name="file-upload" type="file"
-										disabled="disabled" /> <a
-										href="javascript:$('#file_upload').uploadify('upload');">上传</a>|
-									<a href="javascript:$('#file_upload').uploadify('cancel');">取消上传</a>
+									<input id="file-upload" name="file-upload" type="file" disabled="disabled" /> 
+										<a href="javascript:$('#file-upload').uploadify('upload');">上传</a>|
+									<a href="javascript:$('#file-upload').uploadify('cancel');">取消上传</a>
 								</p> <input type="hidden" id="imgPath" name="imgPath" value="">
 								<br style="clear: both;" />
 							</td>

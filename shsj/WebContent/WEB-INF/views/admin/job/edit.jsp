@@ -65,7 +65,7 @@
        				<td style="width:40%;">
        					<div class="form-group">
 				    		<input type="text" class="form-control" style="width:75%;" 
-				    		id="job_organnizer" name="organnizer" placeholder="名称长度1～50"
+				    		id="job-organnizer" name="organnizer" placeholder="名称长度1～50"
 				    		data-required="true" data-pattern="^([\u4E00-\u9FA5]|\w){1,50}$" 
 				    		data-describedby="organnizer-description" data-description="organnizer" />
 						 </div>
@@ -74,7 +74,7 @@
        				<td style="width:40%;">
        					<div class="form-group">
 				    		<input type="text" class="form-control" style="width:75%;" 
-				    		id="job_title" name="title" placeholder="名称长度1～50"
+				    		id="job-title" name="title" placeholder="名称长度1～50"
 							data-required="true" data-pattern="^([\u4E00-\u9FA5]|\w){1,50}$" 
 				    		data-describedby="title-description" data-description="title" />
 						 </div>
@@ -85,7 +85,7 @@
        				<td style="width:40%;">
        					<div class="form-group">
        						<select class="form-control" style="width:75%;" 
-       						id="job_belong"  name="belong" >
+       						id="job-belong"  name="belong" >
        							<c:forEach items="${belongs}" var="belong">
        								<option value="${belong.jb_id}">${belong.jb_name}</option>
        							</c:forEach>
@@ -107,7 +107,7 @@
        				<td style="width:90%;" colspan="3">
        					<div class="form-group">
 				    		<input type="text" class="form-control" style="width:89%;" 
-				    		id="job_place"  name="place" placeholder="地址长度1～100"
+				    		id="job-place"  name="place" placeholder="地址长度1～100"
 							data-required="true" data-pattern="^([\u4E00-\u9FA5]|\w){1,100}$" 
 				    		data-describedby="place-description" data-description="place" />
 						 </div>
@@ -118,7 +118,7 @@
        				<td style="width:40%;">
        					<div class="form-group">
 				    		<input type="text" class="form-control" style="width:75%;" 
-				    		id="job_salary"  name="salary" placeholder="工作待遇，长度1～50" 
+				    		id="job-salary"  name="salary" placeholder="工作待遇，长度1～50" 
 				    		data-required="true" data-pattern="^([\u4E00-\u9FA5]|\w){1,50}$" 
 				    		data-describedby="salary-description" data-description="salary" />
 						 </div>
@@ -127,7 +127,7 @@
        				<td style="width:40%;">
        					<div class="form-group">
 				    		<input type="text" class="form-control" style="width:75%;" 
-				    		id="job_datetime-work"  name="datetime-work" placeholder="工作时间，长度1～50"
+				    		id="job-datetime-work"  name="datetime-work" placeholder="工作时间，长度1～50"
 				    		data-required="true" data-pattern="^([\u4E00-\u9FA5]|\w){1,50}$" 
 				    		data-describedby="datetime-work-description" data-description="datetimeWork" />
 						 </div>
@@ -138,7 +138,7 @@
        				<td style="width:40%;">
        					<div class="form-group">
 				    		<input type="text" class="form-control" style="width:75%;" 
-				    		id="job_number"  name="number" placeholder="人数0～999" 
+				    		id="job-number"  name="number" placeholder="人数0～999" 
 				    		data-required="true" data-pattern="^[0-9]{1,3}$" 
 							data-describedby="number-description" data-description="number"  />
 						 </div>
@@ -147,7 +147,7 @@
        				<td style="width:40%;">
        					<div class="form-group">
 				    		<input type="text" class="form-control" style="width:75%;" 
-				    		id="job_number-limit"  name="number-limit" placeholder="限制人数0～999" 
+				    		id="job-number-limit"  name="number-limit" placeholder="限制人数0～999" 
 				    		data-required="true" data-pattern="^[0-9]{1,3}$" 
 							data-describedby="number-limit-description" data-description="numberLimit"  />
 						 </div>
@@ -158,7 +158,7 @@
        				<td style="width:40%;">
        					<div class="form-group">
 				    		<input type="text" class="form-control" style="width:75%;" 
-				    		id="job_contact"  name="contact" placeholder="长度11" 
+				    		id="job-contact"  name="contact" placeholder="长度11" 
 				    		data-required="true" data-pattern="^[1][3-8][0-9]{9}$" 
 				    		data-describedby="contact-description" data-description="contact"  />
 						 </div>
@@ -186,7 +186,7 @@
        				<td style="width:90%;" colspan="3">
        					<div class="form-group">
 				    		<input type="text" class="form-control" style="width:89%;" 
-				    		id="job_audition-place"  name="audition-place" placeholder="地址长度1～100"
+				    		id="job-audition-place"  name="audition-place" placeholder="地址长度1～100"
 							data-required="true" data-pattern="^([\u4E00-\u9FA5]|\w){1,100}$" 
 				    		data-describedby="audition-place-description" data-description="auditionPlace" />
 						 </div>

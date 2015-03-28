@@ -60,16 +60,25 @@ public class ActivitServiceImpl implements ActivitService {
 			String number, String statu, String dateTimeStart,
 			String dateTimeEnd, String content, String imgPath, String userId) {
 		if (StringUtils.isEmpty(imgPath)) {
-			imgPath = "/images/activit/1423283909435.png";
+			imgPath = "/images/activit/default.jpg";
 		}
 		return activitDao.save(title, organizer, plotter,
 				number, statu, dateTimeStart,
 				dateTimeEnd, content, imgPath, userId);
 	}
+	
+	@Override
+	public int update(String id, String title, String organizer,
+			String plotter, String number, String statu, String dateTimeStart,
+			String dateTimeEnd, String content, String imgPath, String userId) {
+		if (StringUtils.isEmpty(imgPath)) {
+			imgPath = "/images/activit/default.jpg";
+		}
+		return activitDao.update(id, title, organizer, plotter,
+				number, statu, dateTimeStart,
+				dateTimeEnd, content, imgPath, userId);
+	}
 
-	/* (non-Javadoc)
-	 * @see com.lssrc.shsj.service.ActivitService#delete(java.lang.String)
-	 */
 	@Override
 	public int delete(String id) {
 		return activitDao.delete(id);
@@ -79,5 +88,7 @@ public class ActivitServiceImpl implements ActivitService {
 	public List<Map<String, Object>> getStatus() {
 		return activitDao.queryStatus();
 	}
+
+	
 	
 }

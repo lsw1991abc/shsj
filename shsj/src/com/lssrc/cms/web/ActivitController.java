@@ -70,31 +70,4 @@ public class ActivitController {
 		}
 	}
 	
-	/**
-	 * 
-	 * @return
-	 */
-	@RequestMapping(value = "add")
-	public String add() {
-		return "avtivit/add";
-	}
-	
-	/**
-	 * 
-	 * @return
-	 */
-	@RequestMapping(value = "save")
-	public String save() {
-		return "redirect:/acivit/";
-	}
-	
-	/**
-	 * 
-	 * @return
-	 */
-	@RequestMapping(value = "delete")
-	public String delete() {
-		return "redirect:/acivit/";
-	}
-	
 }

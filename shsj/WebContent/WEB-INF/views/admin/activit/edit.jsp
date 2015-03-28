@@ -55,12 +55,14 @@
        
        <div class="panel-body">
        	<form role="form" action="<%=adminPath %>/huodong/save" method="post" id="activit-form">
+       		<input type="hidden" value="${activit.a_id }" name="id" />
 			<table style="width: 100%;" class="form-table">
 				<tr style="height: 32px; line-height: 32px;">
 					<td style="width: 10%; padding-bottom: 15px;">标题：</td>
 					<td style="width: 90%;" colspan="3">
 						<div class="form-group">
-							<input type="text" class="form-control" style="width: 89%;" id="activit-title" name="title" placeholder="标题长度1～50" 
+							<input type="text" class="form-control" style="width: 89%;" value="${activit.a_title }"
+								id="activit-title" name="title" placeholder="标题长度1～50" 
 								data-required="true" data-pattern="^([\u4E00-\u9FA5]|\w){1,50}$"
 								data-describedby="title-description" data-description="title" />
 						</div>
@@ -70,7 +72,8 @@
 					<td style="width: 10%; padding-bottom: 15px;">主办单位：</td>
 					<td style="width: 40%;">
 						<div class="form-group">
-							<input type="text" class="form-control" style="width: 85%;" id="activit-organizer" name="organizer" placeholder="长度1～50" 
+							<input type="text" class="form-control" style="width: 85%;" value="${activit.a_organizer }" 
+								id="activit-organizer" name="organizer" placeholder="长度1～50" 
 								data-required="true" data-pattern="^([\u4E00-\u9FA5]|\w){1,50}$"
 								data-describedby="organizer-description" data-description="organizer" />
 						</div>
@@ -78,7 +81,8 @@
 					<td style="width: 10%; padding-bottom: 15px;">活动策划：</td>
 					<td style="width: 40%;">
 						<div class="form-group">
-							<input type="text" class="form-control" style="width: 75%;" id="activit-plotter" name="plotter" placeholder="长度1～50"
+							<input type="text" class="form-control" style="width: 75%;" value="${activit.a_plotter }" 
+								id="activit-plotter" name="plotter" placeholder="长度1～50"
 								data-required="true" data-pattern="^([\u4E00-\u9FA5]|\w){1,50}$"
 								data-describedby="plotter-description" data-description="plotter" />
 						</div>
@@ -88,7 +92,7 @@
 					<td style="width: 10%; padding-bottom: 15px;">参与人数：</td>
 					<td style="width: 40%; padding-bottom: 15px;">
 						<div class="input-group" style="width: 85%;">
-							<input type="text" class="form-control" 
+							<input type="text" class="form-control" value="${activit.a_number }"
 							id="activit-number" name="number" placeholder="人数0～999" 
 							data-required="true" data-pattern="^[0-9]{1,3}$" 
 							data-describedby="number-description" data-description="number" />
@@ -98,12 +102,14 @@
 					<td style="width: 10%; padding-bottom: 15px;">活动状态：</td>
 					<td style="width: 40%;">
 						<div class="form-group">
-							<select class="form-control" style="width: 75%;"
-								id="activit-statu" name="statu">
+							<select class="form-control" style="width: 75%;" id="activit-statu" name="statu">
 								<c:forEach items="${status }" var="statu">
 									<option value="${statu.as_id}">${statu.as_name}</option>
 								</c:forEach>
 							</select>
+							<script type="text/javascript">
+								$("#activit-statu option[value='${activit.a_statu}']").attr("selected", "selected");
+							</script>
 						</div>
 					</td>
 				</tr>
@@ -112,11 +118,13 @@
 					<td style="width: 90%;" colspan="3">
 						<div class="form-group">
 							<input type="text" class="form-control" style="width: 35%; display: block; float: left;"
+								value="${activit.a_datetime_start }"
 								readonly="readonly" id="activit-datetime-start" name="datetime-start" placeholder="开始时间"
 								data-required="true" data-pattern="^[0-9]{4}-[0-9]{2}-[0-9]{2}$" 
 								data-describedby="datetime-start-description" data-description="datetimeStart" /> 
 							<span style="display: block; float: left; width: 15px; text-align: center;">~</span>
 							<input type="text" class="form-control" style="width: 35%; display: block; float: left;"
+								value="${activit.a_datetime_end }"
 								readonly="readonly" id="activit-datetime-end" name="datetime-end" placeholder="结束时间"
 								data-required="true" data-pattern="^[0-9]{4}-[0-9]{2}-[0-9]{2}$"
 								data-describedby="datetime-end-description" data-description="datetimeEnd" />
@@ -127,19 +135,20 @@
 				<tr>
 					<td style="width: 10%;">活动详情：</td>
 					<td style="width: 90%;" colspan="3"><textarea rows="3"
-							style="resize: vertical;" name="content" id="activit-content"></textarea>
+							style="resize: vertical;" name="content" id="activit-content">${activit.a_desc }</textarea>
 					</td>
 				</tr>
 				<tr>
 					<td style="width: 10%;">图片：</td>
 					<td style="width: 90%;" colspan="3">
-						<div id="fileQueue"
-							style="float: left; margin: 10px 10px 10px 0; width: 322px; height: 242px; border: 1px solid #000;">活动图片</div>
+						<div id="fileQueue" style="float: left; margin: 10px 10px 10px 0; width: 322px; height: 242px; border: 1px solid #000;">
+							<img src="<%=basePath %>/${activit.a_pic }" style="height:240px; width:320px;" />
+						</div>
 						<p style="float: left; margin-top: 100px; margin-left: 30px;">
 							<input id="file-upload" name="file-upload" type="file"
 								disabled="disabled" /> <a
-								href="javascript:$('#file_upload').uploadify('upload');">上传</a>|
-							<a href="javascript:$('#file_upload').uploadify('cancel');">取消上传</a>
+								href="javascript:$('#file-upload').uploadify('upload');">上传</a>|
+							<a href="javascript:$('#file-upload').uploadify('cancel');">取消上传</a>
 						</p> <input type="hidden" id="imgPath" name="imgPath" value="">
 						<br style="clear: both;" />
 					</td>

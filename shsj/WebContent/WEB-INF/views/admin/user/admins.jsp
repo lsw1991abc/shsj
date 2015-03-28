@@ -31,6 +31,7 @@
 </ol>
 
 <div class="container-fluid">
+<!-- 
 	<div class="row-fluid" style="margin-bottom:10px;">
 		<div class="btn-toolbar" role="toolbar">
 			<div class="btn-group" role="group">
@@ -43,6 +44,7 @@
 			</div>
 		</div>
 	</div>
+ -->
 	<div class="row-fluid">
 		<div class="well">
 			<table class="table table-striped">

@@ -30,7 +30,7 @@ public class NoticeDaoImpl extends BaseDao implements NoticeDao {
 	public static String TITLE = "n_title";
 	public static String DESC = "n_desc";
 	public static String BUILDER = "n_builder";
-	public static String TYPE = "n_builder";
+	public static String TYPE = "n_type";
 	public static String DATETIME_BUILD = "n_datetime_build";
 	
 	

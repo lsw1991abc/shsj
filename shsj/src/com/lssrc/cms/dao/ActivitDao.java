@@ -57,4 +57,22 @@ public interface ActivitDao {
 
 	public List<Map<String, Object>> queryStatus();
 
+	/**
+	 * @param id
+	 * @param title
+	 * @param organizer
+	 * @param plotter
+	 * @param number
+	 * @param statu
+	 * @param dateTimeStart
+	 * @param dateTimeEnd
+	 * @param content
+	 * @param imgPath
+	 * @param userId
+	 * @return
+	 */
+	public int update(String id, String title, String organizer,
+			String plotter, String number, String statu, String dateTimeStart,
+			String dateTimeEnd, String content, String imgPath, String userId);
+
 }

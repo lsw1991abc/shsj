@@ -113,6 +113,39 @@ public class ActivitDaoImpl extends BaseDao implements ActivitDao {
 	}
 
 	@Override
+	public int update(String id, String title, String organizer,
+			String plotter, String number, String statu, String dateTimeStart,
+			String dateTimeEnd, String content, String imgPath, String userId) {
+		String sql = "update shsj_activit "
+				+ "set a_title=?, "
+				+ "a_desc=?, "
+				+ "a_organizer=?, "
+				+ "a_plotter=?, "
+				+ "a_number=?, "
+				+ "a_datetime_start=?, "
+				+ "a_datetime_end=?, "
+				+ "a_datetime_build=?, "
+				+ "a_builder=?, "
+				+ "a_pic=?, "
+				+ "a_statu=? "
+				+ "where a_id=?";
+		List<Object> contations = new ArrayList<Object>();
+		contations.add(title);
+		contations.add(content);
+		contations.add(organizer);
+		contations.add(plotter);
+		contations.add(number);
+		contations.add(dateTimeStart);
+		contations.add(dateTimeEnd);
+		contations.add(DateFormater.getDateTime());
+		contations.add(userId);
+		contations.add(imgPath);
+		contations.add(statu);
+		contations.add(id);
+		return super.saveOrUpdate(sql, contations.toArray());
+	}
+	
+	@Override
 	public int delete(String id) {
 		String sql = "delete from " + TABLE_NAME + " where " + ID + "=?";
 		return super.delete(sql, new Object[]{ id });

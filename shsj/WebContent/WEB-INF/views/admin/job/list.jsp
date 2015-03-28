@@ -33,6 +33,7 @@
 </ol>
 
 <div class="container-fluid">
+
 	<div class="row-fluid" style="margin-bottom:10px;">
 		<div class="btn-toolbar" role="toolbar">
 			<div class="btn-group" role="group">
@@ -40,11 +41,14 @@
 					<i class="fa fa-user-plus"></i>添加招聘
 				</button>
 			</div>
+			<!-- 
 			<div class="btn-group" role="group">
 				<button type="button" class="btn btn-default">导出</button>
 			</div>
+			 -->
 		</div>
 	</div>
+
 	<div class="row-fluid">
 		<div class="well">
 			<table class="table table-striped">
