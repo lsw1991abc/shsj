@@ -27,7 +27,7 @@ $('.header-nav li[data-menu-id="resume"]').addClass('active');
                          <div class="row" style="margin:0 0 8px;">
                         	<div class="col-md-3" style="padding:5px; border:1px solid #DFDFDF;">
                         		<a href="<%=basePath%>/rencai/${resume.r_id}" target="_blank">
-                            		<img src="<%=basePath%>/images/resume/${resume.r_pic}" style="height:130px; width:190px;" class="img-responsive" alt="img" />
+                            		<img src="<%=basePath%>/${resume.r_pic}" style="height:130px; width:190px;" class="img-responsive" alt="img" />
                             	</a>
                             </div>
                             <div class="col-md-9 resume_item">

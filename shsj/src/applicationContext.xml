@@ -14,17 +14,17 @@
 	<bean id="welcomeToLssrc" init-method="welcomeToLssrc" class="com.lssrc.util.Welcome" />
 	
 	<context:annotation-config />  
-    <context:component-scan base-package="com.lssrc.shsj" />  
+    <context:component-scan base-package="com.lssrc.cms" />  
     <import resource="spring-mybatis.xml"/>  
     
     <bean id="logInterceptor" class="com.lssrc.util.LogInterceptor" />
     
     <aop:config proxy-target-class="true">
     	<aop:aspect id="logAspectSYS" ref="logInterceptor">  
-            <aop:around method="invoke" pointcut="execution(public * com.lssrc.shsj.service..*.*(..))" />  
+            <aop:around method="invoke" pointcut="execution(public * com.lssrc.cms.service..*.*(..))" />  
         </aop:aspect>  
         <aop:aspect id="logAspectDNA" ref="logInterceptor">  
-            <aop:around method="invoke" pointcut="execution(public * com.lssrc.shsj.service..*.*(..))" />  
+            <aop:around method="invoke" pointcut="execution(public * com.lssrc.cms.service..*.*(..))" />  
         </aop:aspect>
     </aop:config>
     

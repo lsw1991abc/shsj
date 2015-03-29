@@ -82,7 +82,7 @@
             <c:if test="${myself.issys==1}">
             	<li><a href="<%=basePath%>/admin/" target="_blank">后台管理</a></li>
             </c:if>
-            <li><a href="<%=basePath%>/user/logout">退出</a></li>
+            <li><a href="<%=basePath%>/login/logout">退出</a></li>
         </ul>
         <style type="text/css">
 			.user-menu{ border-right:1px solid #006699; text-indent:27px;}

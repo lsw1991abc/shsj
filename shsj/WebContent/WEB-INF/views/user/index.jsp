@@ -20,7 +20,7 @@
 		<div class="panel-heading">
 			<h3 class="panel-title">控制面板</h3>
 		</div>
-		<div class="panel-body">Panel content</div>
+		<div class="panel-body">欢迎使用大学生社会实践服务中心平台。</div>
 	</div>
 </div>
 </body>

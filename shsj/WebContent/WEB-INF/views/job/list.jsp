@@ -21,23 +21,24 @@ $('.header-nav li[data-menu-id="${type}"]').addClass('active');
   	<div class="col-md-10">
       	<div style="border:1px solid #DFDFDF;">
           	<h6 style="margin:0; height:32px; line-height:32px; border-bottom:1px solid #DFDFDF; text-indent:20px;">位置：首页 &gt; 全职/兼职工作</h6>
-            <h4 style="text-indent:30px;">[推广链接] <a href="http://www.lssrc.com" target="_blank">www.lssrc.com</a></h4>
+            <h4 style="text-indent:30px;">[推广链接] <a href="http://www.baidu.com" target="_blank">百度</a></h4>
           	<table class="table table-striped" style="text-indent:10px; border-bottom:1px solid #DDDDDD; margin-bottom:0;">
 	            <c:forEach var="job" items="${jobs}">
 	              <tr>
                     <td><input type="checkbox" /></td>
-                    <c:choose>
-                    	<c:when test="${type=='job'}">
-                    		<td style="width:485px;">[${job.jt_name}]<a href="<%=basePath%>/zhaopin/${job.j_id}" target="_blank">${job.j_title}</a></td>
-                    	</c:when>
-                    	<c:when test="${type=='parttime'}">
-                    		<td style="width:485px;">[${job.jt_name}]<a href="<%=basePath%>/jianzhi/${job.j_id}" target="_blank">${job.j_title}</a></td>
-                    	</c:when>
-                    </c:choose>
-                    
-                    <td>${job.jb_name}</td>
-                    <td>${job.j_work_place}</td>
-                    <td>${fn:substring(job.j_datetime_build, 0, 10)}</td>
+                    <td style="width:400px;">
+	                    <c:choose>
+	                    	<c:when test="${type=='job'}">
+	                    		[${job.jt_name}]<a href="<%=basePath%>/zhaopin/${job.j_id}" target="_blank">${job.j_title}</a>
+	                    	</c:when>
+	                    	<c:when test="${type=='parttime'}">
+	                    		[${job.jt_name}]<a href="<%=basePath%>/jianzhi/${job.j_id}" target="_blank">${job.j_title}</a>
+	                    	</c:when>
+	                    </c:choose>
+                    </td>
+                    <td class="text-center">${job.jb_name}</td>
+                    <td style="width:180px;" class="text-center">${job.j_work_place}</td>
+                    <td class="text-center">${fn:substring(job.j_datetime_build, 0, 10)}</td>
                   </tr>
 	            </c:forEach>
               </table>

@@ -117,11 +117,11 @@
             </script>
             <ul class="list-inline" style="margin-top:25px;">
               <li><a href="#">忘记密码</a></li>
-              <li><a href="#">升级教程</a></li>
-              <li><a href="#">会员条款</a></li>
-              <li><a href="#">发布兼职</a></li>
-              <li><a href="<%=basePath%>/user/">管理中心</a></li>
-              <li><a href="#">申请代理</a></li>
+              <li><a href="<%=basePath%>/user/rizhi">我的日志</a></li>
+              <li><a href="<%=basePath%>/user/jianli">我的简历</a></li>
+              <li><a href="<%=basePath%>/user/ziliao">个人资料</a></li>
+              <li><a href="<%=basePath%>/user/xgmm">修改密码</a></li>
+              <li><a href="<%=basePath%>/login/logout">退出登录</a></li>
             </ul>
           </div>
         </div>
@@ -211,7 +211,7 @@
       		<h5 style="background:url('<%=basePath %>/images/title.png') -1px -106px repeat-x; margin:0; text-indent:35px; height:33px; line-height:28px; color:#FFF;">求职宝典<a href="<%=basePath%>/baodian" style="float:right; margin-right:15px; color:#fff;">更多&gt;&gt;</a></h5>
             <ul class="list-unstyled qzbd" style=" margin:0 15px; height:366px; overflow:hidden; ">
               <c:forEach items="${treasures}" var="treasure" begin="0" step="1">
-              	<li><a href="<%=basePath%>/baodian/${treasure.t_id}" target="_blank">${treasure.t_title}</a></li>
+              	<li><a href="<%=basePath%>/baodian/${treasure.n_id}" target="_blank">${treasure.n_title}</a></li>
               </c:forEach>     
             </ul>
             <style type="text/css">
@@ -227,9 +227,11 @@
         	<h5 style=" height:33px; text-indent:35px; line-height:28px; margin:0; background:url('<%=basePath %>/images/title.png') -1px -141px repeat-x; color:#fff;">活动案例<a href="<%=basePath %>/huodong" style="float:right; margin-right:15px; color:#fff;">更多&gt;&gt;</a></h5>
             <ul class="list-inline hdal" style="margin:15px 10px 5px;">
               <c:forEach items="${activits}" var="activit">
-            	<li class="text-center">
-                	<a href="<%=basePath %>/huodong/${activit.a_id}" target="_blank"><img src="<%=basePath %>/images/activit/${activit.a_pic}" title="${activit.a_title}" alt="${activit.a_title}" class="img-responsive" style="height:80px; width:110px;" /></a>
-                    <label><a href="<%=basePath %>/huodong/${activit.a_id}" target="_blank">${activit.a_title}</a></label>
+            	<li class="text-center" >
+                	<a href="<%=basePath %>/huodong/${activit.a_id}" target="_blank">
+                		<img src="<%=basePath %>/${activit.a_pic}" title="${activit.a_title}" alt="${activit.a_title}" class="img-responsive" style="height:80px; width:110px;" />
+                	</a>
+                    <label><a href="<%=basePath %>/huodong/${activit.a_id}" target="_blank">${fn:substring(activit.a_title, 0, 8)}</a></label>
                 </li>
                </c:forEach>
             </ul>
