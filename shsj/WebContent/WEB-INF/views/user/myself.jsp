@@ -38,9 +38,10 @@
 		  			<td style="width:36%;">
 			  			<div>
 			  				<label class="sr-only" for="user-nickname">昵称</label>
-			  				<input type="text" class="form-control" id="user-nickname" value="${myself.nickname}" style="width:90%"
-	 									data-pattern="^[a-z0-9A-Z_]{1,32}$"
-										data-describedby="nickname-description" data-description="nickname"  placeholder="长度1～32"  />
+			  				<input type="text" class="form-control" style="width:90%"
+			  						id="user-nickname" name="nickname" value="${myself.nickname}" 
+	 								data-pattern="^[a-z0-9A-Z_]{1,32}$" placeholder="长度1～32" 
+									data-describedby="nickname-description" data-description="nickname" />
 			 			</div>
 			  		</td>
 			  	</tr>

@@ -63,7 +63,7 @@
          	<tbody>
 	            <c:forEach var="user" items="${users}">
 	              <tr>
-                    <td style="width:25%;"><a href="<%=adminPath %>/user/${user.userId}" target="_blank">${user.username}</a></td>
+                    <td style="width:25%;">${user.username}</td>
                     <td style="width:15%;" class="text-center">${user.qq}</td>
                     <td style="width:15%;" class="text-center">${user.phoneno}</td>
                     <td style="width:15%;" class="text-center">${user.email}</td>

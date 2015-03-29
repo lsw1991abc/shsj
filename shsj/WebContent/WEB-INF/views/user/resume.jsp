@@ -127,11 +127,20 @@
 									<tr>
 										<td>个人照片：</td>
 										<td colspan="3">
-											<div id="fileQueue" style="float:left; margin:10px 10px 10px 0; width:322px; height:242px; border:1px solid #000;">活动图片</div>
+											<div id="fileQueue" style="float:left; margin:10px 10px 10px 0; width:322px; height:242px; border:1px solid #000;">
+												<c:choose>
+													<c:when test="${not empty resume.r_pic}">
+														<img src="<%=basePath %>/${resume.r_pic }" style="height:240px; width:320px;" />
+													</c:when>
+													<c:otherwise>
+														暂无照片
+													</c:otherwise>
+												</c:choose>
+											</div>
 					       					<p style="float:left;margin-top:100px; margin-left:30px;">
-										        <input id="file_upload" name="file_upload" type="file" disabled="disabled"/>
-										        <a href="javascript:$('#file_upload').uploadify('upload');">上传</a>| 
-										        <a href="javascript:$('#file_upload').uploadify('cancel');">取消上传</a>
+										        <input id="file-upload" name="file-upload" type="file" disabled="disabled"/>
+										        <a href="javascript:$('#file-upload').uploadify('upload');">上传</a>| 
+										        <a href="javascript:$('#file-upload').uploadify('cancel');">取消上传</a>
 									        </p>
 									        <input type="hidden" id="imgPath" name="imgPath" value="">
 									        <br style="clear: both;" />
@@ -206,7 +215,7 @@
 				}
 			});
 		setTimeout(function() {
-			$("#file_upload").uploadify({
+			$("#file-upload").uploadify({
 		        'debug' : false,
 		        'auto':false,
 		     	'multi':false,
@@ -250,10 +259,10 @@
 		        'onSelectError':function(file, errorCode, errorMsg){
 		            switch(errorCode) {
 		                case -100:
-		                    alert("上传的文件数量已经超出系统限制的"+$('#file_upload').uploadify('settings','queueSizeLimit')+"个文件！");
+		                    alert("上传的文件数量已经超出系统限制的"+$('#file-upload').uploadify('settings','queueSizeLimit')+"个文件！");
 		                    break;
 		                case -110:
-		                    alert("文件 ["+file.name+"] 大小超出系统限制的"+$('#file_upload').uploadify('settings','fileSizeLimit')+"大小！");
+		                    alert("文件 ["+file.name+"] 大小超出系统限制的"+$('#file-upload').uploadify('settings','fileSizeLimit')+"大小！");
 		                    break;
 		                case -120:
 		                    alert("文件 ["+file.name+"] 大小异常！");
