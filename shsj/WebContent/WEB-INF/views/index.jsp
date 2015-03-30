@@ -85,45 +85,59 @@
         <div style="border:1px solid #BF4D00;">
           <h5 style="background:url('<%=basePath %>/images/title.png') -1px -71px repeat-x; margin:0; text-indent:35px; height:33px; line-height:28px; color:#FFF;">会员中心</h5>
           <div style="height:237px;" class="text-center"> <br />
-            <div style="padding:0 8px; height:142px;" class="index-login-panel">
-            	<c:choose>
-            		<c:when test="${myself != null}">
-            			<h4>大学生社会实践服务中心</h4>
-			               <p>登录用户：${myself.username }</p>
-			              <button type="button" class="btn btn-warning" onclick="javascript:location.href='<%=basePath%>/user'">用户中心</button>
-			              &nbsp;&nbsp;&nbsp;
-			              <button type="button" class="btn btn-default" onclick="javascript:location.href='<%=basePath%>/login/logout'">退出</button>
-            		</c:when>
-            		<c:otherwise>
-            			<form class="form-inline" role="form" action="<%=basePath %>/login/login" method="post">
-            			<div class="form-group" style="margin-bottom:20px;">
-			                <label class="sr-only" for="inputUsername">用户名</label>
-			                <input type="text" class="form-control" id="inputUsername" name="username" placeholder="用户名" style="width:200px;" />
-			              </div>
-			              <div class="form-group" style="margin-bottom:20px;">
-			                <label class="sr-only" for="inputPassword">密码</label>
-			                <input type="password" class="form-control" id="inputPassword" name="password" placeholder="密码"  style="width:200px;" />
-			              </div>
-			              <button type="submit" class="btn btn-warning">登录</button>
-			              &nbsp;&nbsp;&nbsp;
-			              <button type="button" class="btn btn-default" onclick="javascript:location.href='<%=basePath%>/login/register';">注册</button>
-			              </form>
-            		</c:otherwise>
-            	</c:choose>
-              
-            </div>
-            <script type="text/javascript">
-            	//$('.index-login-panel')
-            </script>
-            <ul class="list-inline" style="margin-top:25px;">
-              <li><a href="#">忘记密码</a></li>
-              <li><a href="<%=basePath%>/user/rizhi">我的日志</a></li>
-              <li><a href="<%=basePath%>/user/jianli">我的简历</a></li>
-              <li><a href="<%=basePath%>/user/ziliao">个人资料</a></li>
-              <li><a href="<%=basePath%>/user/xgmm">修改密码</a></li>
-              <li><a href="<%=basePath%>/login/logout">退出登录</a></li>
-            </ul>
-          </div>
+			<c:choose>
+				<c:when test="${myself != null}">
+					<div style="padding: 0 8px; height: 142px;"
+						class="index-login-panel">
+						<h4>大学生社会实践服务中心</h4>
+						<p>登录用户：${myself.username }</p>
+						<button type="button" class="btn btn-warning" onclick="javascript:location.href='<%=basePath%>/user'">用户中心</button>
+						&nbsp;&nbsp;&nbsp;
+						<button type="button" class="btn btn-default" onclick="javascript:location.href='<%=basePath%>/login/logout'">退出</button>
+						<ul class="list-inline" style="margin-top: 25px;">
+							<li><a href="#">忘记密码</a></li>
+							<li><a href="<%=basePath%>/user/rizhi">我的日志</a></li>
+							<li><a href="<%=basePath%>/user/jianli">我的简历</a></li>
+							<li><a href="<%=basePath%>/user/ziliao">个人资料</a></li>
+							<li><a href="<%=basePath%>/user/xgmm">修改密码</a></li>
+							<li><a href="<%=basePath%>/login/logout">退出登录</a></li>
+						</ul>
+					</div>
+				</c:when>
+				<c:otherwise>
+					<div style="padding: 0 8px; height: 142px; margin-top:-13px;" class="index-login-panel">
+						<form class="form-inline" role="form" action="<%=basePath%>/login/login" method="post">
+							<div class="form-group" style="margin-bottom: 10px;">
+								<label class="sr-only" for="inputUsername">用户名</label> 
+								<input type="text" class="form-control" id="inputUsername"
+										name="username" placeholder="用户名" style="width: 200px;" />
+							</div>
+							<div class="form-group" style="margin-bottom: 10px;">
+								<label class="sr-only" for="inputPassword">密码</label> 
+								<input type="password" class="form-control" id="inputPassword"
+										name="password" placeholder="密码" style="width: 200px;" />
+							</div>
+							<div class="form-group" style="margin-bottom: 10px;">
+								<label class="sr-only" for="inputPassword">验证码</label> 
+								<input type="text" class="form-control" id="inputVerifyCode" name="verifyCode"
+										placeholder="验证码长度4" style="width: 200px;" />
+								<img id="verifycode" src="#" alt="验证码" title="点击刷新" style="cursor:pointer;"/>
+							</div>
+							<script type="text/javascript">
+								$("#verifycode").click(function() {
+									var timeNow = new Date().getTime();
+								    this.src="<%=basePath%>/login/verifyCode?time="+timeNow;
+								});
+								$("#verifycode").click();
+							</script>
+							<button type="submit" class="btn btn-warning">登录</button>
+							&nbsp;&nbsp;&nbsp;
+							<button type="button" class="btn btn-default" onclick="javascript:location.href='<%=basePath%>/login/register';">注册</button>
+						</form>
+					</div>
+				</c:otherwise>
+			</c:choose>
+		   </div>
         </div>
       </div>
     </div>
