@@ -142,7 +142,7 @@
 										        <a href="javascript:$('#file-upload').uploadify('upload');">上传</a>| 
 										        <a href="javascript:$('#file-upload').uploadify('cancel');">取消上传</a>
 									        </p>
-									        <input type="hidden" id="imgPath" name="imgPath" value="">
+									        <input type="hidden" id="imgPath" name="imgPath" value="${resume.r_pic }">
 									        <br style="clear: both;" />
 										</td>
 									</tr>
