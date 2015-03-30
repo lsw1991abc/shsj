@@ -30,6 +30,12 @@
 									<c:when test="${msg eq 'error'}">
 										<div class="alert alert-danger">注册失败</div>
 									</c:when>
+									<c:when test="${msg eq 'error1'}">
+										<div class="alert alert-danger">验证码错误</div>
+									</c:when>
+									<c:when test="${msg eq 'error2'}">
+										<div class="alert alert-danger">用户名已存在</div>
+									</c:when>
 								</c:choose>
 							</div>
 							<div id="username-description"></div>
@@ -87,6 +93,17 @@
 								</div>
 							</div>
 							<div class="form-group">
+								<label for="inputPassword" class="col-md-2 control-label">验证码</label>
+								<div class="col-md-5">
+									<input type="text" class="form-control" id="inputVerifyCode" name="verifyCode"
+										data-required="true" data-pattern="^[a-z0-9A-Z_]{4}$"
+										data-describedby="verifyCode-description" data-description="verifyCode" placeholder="验证码长度4" />
+								</div>
+								<div class="col-md-5">
+									<img id="verifycode" src="#" alt="验证码" title="点击刷新" style="cursor:pointer;"/>
+								</div>
+							</div>
+							<div class="form-group">
 								<div class="col-md-offset-2 col-md-10">
 									<button type="submit" class="btn btn-primary">注册</button>
 									&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
@@ -101,7 +118,12 @@
 	</div>
 	<script type="text/javascript" src="<%=basePath%>/script/jquery/jquery-validate.js"></script>
 <script type="text/javascript">
+	$("#verifycode").click(function() {
+		var timeNow = new Date().getTime();
+	    this.src="<%=basePath%>/login/verifyCode?time="+timeNow;
+	});
 	$(function() {
+		$("#verifycode").click();
 		$('#register-form').validate({
 				onKeyup : true,
 				eachValidField : function() {

@@ -35,8 +35,10 @@
 		      	<a href="<%=basePath%>/login/register">注册</a>&nbsp;
 	      	</c:otherwise>
       	</c:choose>
+      	<!-- 
       	<a href="#">收藏本站</a>&nbsp;
       	<a href="#">设为主页</a>
+      	 -->
       </div>
     </div>
   </div>

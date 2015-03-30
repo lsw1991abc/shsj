@@ -22,26 +22,43 @@
 					<div style="width: 600px; margin: 50px auto;">
 						<form class="form-horizontal" id="login-form" role="form" action="<%=basePath%>/login/login" method="post">
 							<div id="result-msg">
-								<c:if test="${msg eq 'error'}">
+								<c:if test="${msg eq 'error1'}">
+									<div class="alert alert-danger">验证码错误</div>
+								</c:if>
+								<c:if test="${msg eq 'error2'}">
 									<div class="alert alert-danger">用户名或密码错误</div>
 								</c:if>
 							</div>
+							<!-- 错误信息提示 -->
 							<div id="username-description"></div>
 							<div id="password-description"></div>
+							<div id="verifyCode-description"></div>
+							
 							<div class="form-group">
 								<label for="inputUsername" class="col-md-2 control-label">用户名</label>
 								<div class="col-md-10">
-									<input type="text" class="form-control" id="inputUsername"
+									<input type="text" class="form-control" id="inputUsername" name="username" 
 										data-required="true" data-pattern="^[a-z0-9A-Z_]{6,32}$"
-										data-describedby="username-description" data-description="username"  placeholder="用户名" name="username" />
+										data-describedby="username-description" data-description="username"  placeholder="用户名" />
 								</div>
 							</div>
 							<div class="form-group">
 								<label for="inputPassword" class="col-md-2 control-label">密码</label>
 								<div class="col-md-10">
-									<input type="password" class="form-control" id="inputPassword"
+									<input type="password" class="form-control" id="inputPassword" name="password" 
 										data-required="true" data-pattern="^[a-z0-9A-Z_]{6,32}$"
-										data-describedby="password-description" data-description="password" placeholder="密码" name="password" />
+										data-describedby="password-description" data-description="password" placeholder="密码" />
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="inputPassword" class="col-md-2 control-label">验证码</label>
+								<div class="col-md-5">
+									<input type="text" class="form-control" id="inputVerifyCode" name="verifyCode"
+										data-required="true" data-pattern="^[a-z0-9A-Z_]{4}$"
+										data-describedby="verifyCode-description" data-description="verifyCode" placeholder="验证码长度4" />
+								</div>
+								<div class="col-md-5">
+									<img id="verifycode" src="#" alt="验证码" title="点击刷新" style="cursor:pointer;"/>
 								</div>
 							</div>
 							<div class="form-group">
@@ -60,7 +77,12 @@
 	</div>
 <script type="text/javascript" src="<%=basePath%>/script/jquery/jquery-validate.js"></script>
 <script type="text/javascript">
+	$("#verifycode").click(function() {
+		var timeNow = new Date().getTime();
+	    this.src="<%=basePath%>/login/verifyCode?time="+timeNow;
+	});
 	$(function() {
+		$("#verifycode").click();
 		$('#login-form').validate({
 				onKeyup : true,
 				eachValidField : function() {
@@ -72,11 +94,15 @@
 				description : {
 					username : {
 						required : '<div class="alert alert-danger">用户名不能为空</div>',
-						pattern : '<div class="alert alert-danger">用户名长度6～32</div>',
+						pattern : '<div class="alert alert-danger">用户名长度6～32</div>'
 					},
 					password : {
 						required : '<div class="alert alert-danger">密码不能为空</div>',
-						pattern : '<div class="alert alert-danger">密码长度长度6～32</div>',
+						pattern : '<div class="alert alert-danger">密码长度6～32</div>'
+					},
+					verifyCode : {
+						required : '<div class="alert alert-danger">验证码不能为空</div>',
+						pattern : '<div class="alert alert-danger">验证码长度4</div>'
 					}
 				}
 			});
