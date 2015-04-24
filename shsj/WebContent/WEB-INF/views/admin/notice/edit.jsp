@@ -47,17 +47,17 @@
 		<div id="title-description"></div>      
       <div class="panel-body">
        	<form role="form" action="<%=adminPath %>/gonggao/save" method="post" id="notice-form">
-       		<input type="hidden" value="${notice.n_id }" name="id" />
+       		<input type="hidden" value="${notice.nId }" name="id" />
 		  <div class="form-group">
 		    <label for="notice-title">标题</label>
 		    <input type="text" class="form-control" 
-		    		id="notice-title" name="title" placeholder="标题长度1～50" value="${notice.n_title }"
+		    		id="notice-title" name="title" placeholder="标题长度1～50" value="${notice.nTitle }"
 		    		data-required="true" data-pattern="^([\u4E00-\u9FA5]|\w){1,50}$"
 					data-describedby="title-description" data-description="title" />
 		  </div>
 		  <div class="form-group">
 		    <label for="notice-content">内容</label>
-		    <textarea class="form-control" rows="3" style="resize:vertical;" id="notice-content" name="content">${notice.n_desc }</textarea>
+		    <textarea class="form-control" rows="3" style="resize:vertical;" id="notice-content" name="content">${notice.nDesc }</textarea>
 		  </div>
 		  <button type="submit" class="btn btn-primary">保存修改</button>
 		</form>

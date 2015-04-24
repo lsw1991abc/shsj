@@ -14,7 +14,7 @@
 <body>
 <script type="text/javascript">
 $('.header-nav li').removeClass('active');
-$('.header-nav li[data-menu-id="avtivit"]').addClass('active');
+$('.header-nav li[data-menu-id="4"]').addClass('active');
 </script>
   <div class="container">
     <div class="row">
@@ -26,14 +26,14 @@ $('.header-nav li[data-menu-id="avtivit"]').addClass('active');
 	                    <li>
 	                    	<div class="row" style="margin:0 0 8px;">
 	                        	<div class="col-md-3" style="padding:5px; border:1px solid #DFDFDF;">
-	                            	<a href="<%=basePath%>/huodong/${activit.a_id}" target="_blank">
-	                            		<img src="<%=basePath%>/${activit.a_pic}" style="height:130px; width:190px;" class="img-responsive" alt="img" />
+	                            	<a href="<%=basePath%>/huodong/${activit.aId}" target="_blank">
+	                            		<img src="<%=basePath%>/${activit.aPic}" style="height:130px; width:190px;" class="img-responsive" alt="img" />
 	                            	</a>
 	                            </div>
 	                            <div class="col-md-9">
-	                            	<h4><a href="<%=basePath%>/huodong/${activit.a_id}" target="_blank">${activit.a_title}</a></h4>
-	                                <div class="lead hdal_item_content">${fn:substring(activit.a_desc, 0, 30) }</div>
-	                                <p style="height:28px; line-height:28px; margin:0;">活动时间：${activit.a_datetime_start} 至 ${activit.a_datetime_end}</p>
+	                            	<h4><a href="<%=basePath%>/huodong/${activit.aId}" target="_blank">${activit.aTitle}</a></h4>
+	                                <div class="lead hdal_item_content">${fn:substring(activit.aDesc, 0, 30) }</div>
+	                                <p style="height:28px; line-height:28px; margin:0;">活动时间：${activit.aDatetimeStart} 至 ${activit.aDatetimeEnd}</p>
 	                            </div>
 	                        </div>
 	                    </li>
@@ -46,11 +46,11 @@ $('.header-nav li[data-menu-id="avtivit"]').addClass('active');
                 <div class="text-center">
                 	<nav>
                       <ul class="pager">
-                      	<li><a href="<%=basePath%>/huodong/?page=1">首页</a></li>
-                        <li><a href="<%=basePath%>/huodong/?page=${navigator.prePageNo}">上一页</a></li>
-                        <li><a href="<%=basePath%>/huodong/?page=${navigator.nextPageNo}">下一页</a></li>
-                        <li><a href="<%=basePath%>/huodong/?page=${navigator.pageCount}">末页</a></li>
-                        <li>&nbsp;当前 ${navigator.nowPageNo}/${navigator.pageCount} 页&nbsp;&nbsp;每页${navigator.pageSize}条&nbsp;&nbsp;共${navigator.count}条</li>
+                      	<li><a href="<%=basePath%>/huodong/?page=${navigator.firstPage}">首页</a></li>
+                        <li><a href="<%=basePath%>/huodong/?page=${navigator.prePage}">上一页</a></li>
+                        <li><a href="<%=basePath%>/huodong/?page=${navigator.nextPage}">下一页</a></li>
+                        <li><a href="<%=basePath%>/huodong/?page=${navigator.lastPage}">末页</a></li>
+                        <li>&nbsp;当前 ${navigator.nowPage}/${navigator.pageCount} 页&nbsp;&nbsp;每页${navigator.pageSize}条&nbsp;&nbsp;共${navigator.count}条</li>
                       </ul>
                     </nav>
                 </div>

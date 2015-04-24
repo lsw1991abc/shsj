@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lssrc.cms.dao.NoticeMapper" >
+  <resultMap id="BaseResultMap" type="com.lssrc.cms.entity.Notice" >
+    <id column="n_id" property="nId" jdbcType="VARCHAR" />
+    <result column="n_title" property="nTitle" jdbcType="VARCHAR" />
+    <result column="n_builder" property="nBuilder" jdbcType="VARCHAR" />
+    <result column="n_datetime_build" property="nDatetimeBuild" jdbcType="VARCHAR" />
+    <result column="n_type" property="nType" jdbcType="INTEGER" />
+    <result column="isdeled" property="isdeled" jdbcType="INTEGER" />
+    <result column="n_desc" property="nDesc" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  
+  <resultMap id="NoticeUserResultMap" type="com.lssrc.cms.dto.NoticeDto" >
+  	<id column="n_id" property="nId" jdbcType="VARCHAR" />
+    <association property="notice" javaType="com.lssrc.cms.entity.Notice">
+    	<id column="n_id" property="nId" jdbcType="VARCHAR" />
+	    <result column="n_title" property="nTitle" jdbcType="VARCHAR" />
+	    <result column="n_builder" property="nBuilder" jdbcType="VARCHAR" />
+	    <result column="n_datetime_build" property="nDatetimeBuild" jdbcType="VARCHAR" />
+	    <result column="n_type" property="nType" jdbcType="INTEGER" />
+	    <result column="isdeled" property="isdeled" jdbcType="INTEGER" />
+	    <result column="n_desc" property="nDesc" jdbcType="LONGVARCHAR" />
+    </association>
+    <association property="user" javaType="com.lssrc.cms.entity.User">
+    	<id column="user_id" property="userId" jdbcType="VARCHAR" />
+	    <result column="user_account" property="userAccount" jdbcType="VARCHAR" />
+	    <result column="user_nickname" property="userNickname" jdbcType="VARCHAR" />
+    </association>
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    n_id, n_title, n_builder, n_datetime_build, n_type, n_desc, isdeled
+  </sql>
+  <sql id="User_Column_List" >
+    user_id, user_account, user_nickname
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="NoticeUserResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="User_Column_List" />
+    from shsj_notice, sys_user where shsj_notice.n_id = #{nId,jdbcType=VARCHAR} and shsj_notice.n_builder=sys_user.user_id
+  </select>
+  <select id="selectByPage" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from shsj_notice where n_type=#{type} and isdeled=0 
+    <if test="userId != null">
+    and n_builder=#{userId}
+    </if>
+    order by n_datetime_build desc, n_title asc limit #{start},#{pageSize}
+  </select>
+  <select id="selectCount" resultType="int" >
+    select count(*) from shsj_notice where n_type=#{type} and isdeled=0 
+    <if test="userId != null">
+    and n_builder=#{userId}
+    </if>  
+  </select>
+  
+  <select id="selectCountByNotice" parameterType="java.lang.String"  resultType="int" >
+    select count(*) from shsj_notice_count where n_id=#{nId}
+  </select>
+  
+  <update id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    update shsj_notice set isdeled=1 where n_id = #{nId,jdbcType=VARCHAR}
+  </update>
+  
+  <insert id="updateCountByNotice" parameterType="com.lssrc.cms.entity.NoticeCount">
+    insert into shsj_notice_count (nc_id, n_id, nc_datetime) values (#{ncId,jdbcType=VARCHAR}, #{nId,jdbcType=VARCHAR}, #{ncDatetime,jdbcType=VARCHAR})
+  </insert>
+  
+  <insert id="insert" parameterType="com.lssrc.cms.entity.Notice" >
+    insert into shsj_notice
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="nId != null" >
+        n_id,
+      </if>
+      <if test="nTitle != null" >
+        n_title,
+      </if>
+      <if test="nBuilder != null" >
+        n_builder,
+      </if>
+      <if test="nDatetimeBuild != null" >
+        n_datetime_build,
+      </if>
+      <if test="nType != null" >
+        n_type,
+      </if>
+      <if test="isdeled != null" >
+        isdeled,
+      </if>
+      <if test="nDesc != null" >
+        n_desc,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="nId != null" >
+        #{nId,jdbcType=VARCHAR},
+      </if>
+      <if test="nTitle != null" >
+        #{nTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="nBuilder != null" >
+        #{nBuilder,jdbcType=VARCHAR},
+      </if>
+      <if test="nDatetimeBuild != null" >
+        #{nDatetimeBuild,jdbcType=TIMESTAMP},
+      </if>
+      <if test="nType != null" >
+        #{nType,jdbcType=INTEGER},
+      </if>
+      <if test="isdeled != null" >
+        #{isdeled,jdbcType=INTEGER},
+      </if>
+      <if test="nDesc != null" >
+        #{nDesc,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.lssrc.cms.entity.Notice" >
+    update shsj_notice
+    <set >
+      <if test="nTitle != null" >
+        n_title = #{nTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="nBuilder != null" >
+        n_builder = #{nBuilder,jdbcType=VARCHAR},
+      </if>
+      <if test="nDatetimeBuild != null" >
+        n_datetime_build = #{nDatetimeBuild,jdbcType=TIMESTAMP},
+      </if>
+      <if test="nType != null" >
+        n_type = #{nType,jdbcType=INTEGER},
+      </if>
+      <if test="isdeled != null" >
+        isdeled = #{isdeled,jdbcType=INTEGER},
+      </if>
+      <if test="nDesc != null" >
+        n_desc = #{nDesc,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where n_id = #{nId,jdbcType=VARCHAR}
+  </update>
+</mapper>

@@ -14,7 +14,7 @@
 <body>
 <script type="text/javascript">
 $('.header-nav li').removeClass('active');
-$('.header-nav li[data-menu-id="${type}"]').addClass('active');
+$('.header-nav li[data-menu-id="3"]').addClass('active');
 </script>
 <div class="container">
 	<div class="row">
@@ -23,33 +23,33 @@ $('.header-nav li[data-menu-id="${type}"]').addClass('active');
           	<h6 style="margin:0; height:32px; line-height:32px; border-bottom:1px solid #DFDFDF; text-indent:20px;">位置：首页 &gt; 全职/兼职工作</h6>
             <h4 style="text-indent:30px;">[推广链接] <a href="http://www.baidu.com" target="_blank">百度</a></h4>
           	<table class="table table-striped" style="text-indent:10px; border-bottom:1px solid #DDDDDD; margin-bottom:0;">
-	            <c:forEach var="job" items="${jobs}">
+	            <c:forEach var="job" items="${jobs}" begin="0" step="1">
 	              <tr>
                     <td><input type="checkbox" /></td>
                     <td style="width:400px;">
 	                    <c:choose>
 	                    	<c:when test="${type=='job'}">
-	                    		[${job.jt_name}]<a href="<%=basePath%>/zhaopin/${job.j_id}" target="_blank">${job.j_title}</a>
+	                    		[${job.jobType.jtName}]<a href="<%=basePath%>/zhaopin/${job.job.jId}" target="_blank">${job.job.jTitle}</a>
 	                    	</c:when>
 	                    	<c:when test="${type=='parttime'}">
-	                    		[${job.jt_name}]<a href="<%=basePath%>/jianzhi/${job.j_id}" target="_blank">${job.j_title}</a>
+	                    		[${job.jobType.jtName}]<a href="<%=basePath%>/jianzhi/${job.job.jId}" target="_blank">${job.job.jTitle}</a>
 	                    	</c:when>
 	                    </c:choose>
                     </td>
-                    <td class="text-center">${job.jb_name}</td>
-                    <td style="width:180px;" class="text-center">${job.j_work_place}</td>
-                    <td class="text-center">${fn:substring(job.j_datetime_build, 0, 10)}</td>
+                    <td class="text-center">${job.jobBelong.jbName}</td>
+                    <td style="width:180px;" class="text-center">${job.job.jWorkPlace}</td>
+                    <td class="text-center">${fn:substring(job.job.jDatetimeBuild, 0, 10)}</td>
                   </tr>
 	            </c:forEach>
               </table>
               <div class="text-center">
               	<nav>
                     <ul class="pager">
-                      <li><a href="<%=basePath%>/${controller}/?page=1">首页</a></li>
-                        <li><a href="<%=basePath%>/${controller}/?page=${navigator.prePageNo}">上一页</a></li>
-                        <li><a href="<%=basePath%>/${controller}/?page=${navigator.nextPageNo}">下一页</a></li>
-                        <li><a href="<%=basePath%>/${controller}/?page=${navigator.pageCount}">末页</a></li>
-                        <li>&nbsp;当前 ${navigator.nowPageNo}/${navigator.pageCount} 页&nbsp;&nbsp;每页${navigator.pageSize}条&nbsp;&nbsp;共${navigator.count}条</li>
+                      <li><a href="<%=basePath%>/${controller}/?page=${navigator.firstPage}">首页</a></li>
+                        <li><a href="<%=basePath%>/${controller}/?page=${navigator.prePage}">上一页</a></li>
+                        <li><a href="<%=basePath%>/${controller}/?page=${navigator.nextPage}">下一页</a></li>
+                        <li><a href="<%=basePath%>/${controller}/?page=${navigator.lastPage}">末页</a></li>
+                        <li>&nbsp;当前 ${navigator.nowPage}/${navigator.pageCount} 页&nbsp;&nbsp;每页${navigator.pageSize}条&nbsp;&nbsp;共${navigator.count}条</li>
                     </ul>
                   </nav>
               </div>

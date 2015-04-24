@@ -7,7 +7,9 @@
 package com.lssrc.cms.service;
 
 import java.util.List;
-import java.util.Map;
+
+import com.lssrc.cms.entity.User;
+import com.lssrc.util.Navigator;
 
 /**
  * @author Carl_Li
@@ -16,23 +18,17 @@ import java.util.Map;
 public interface UserService {
 
 	/**
-	 * @param username
-	 * @return
-	 */
-	Map<String, Object> getByUsername(String username);
-
-	/**
 	 * @param id
 	 * @return
 	 */
-	Map<String, Object> getById(String id);
+	public User getById(String id);
 
 	/**
 	 * 
 	 * @param navigator
 	 * @return
 	 */
-	List<Map<String, Object>> getByPage(Map<String, Integer> navigator, int issys);
+	public List<User> getByPage(Navigator navigator, int issys);
 	
 	/**
 	 * @param pageNo
@@ -40,37 +36,42 @@ public interface UserService {
 	 * @param issys
 	 * @return
 	 */
-	Map<String, Integer> getNavigator(int pageNo, int pageSize, int issys);
+	public Navigator getNavigator(int pageNo, int pageSize, int issys);
 
 	/**
 	 * @param username
 	 * @return
 	 */
-	boolean isNotExist(String username);
-
-	/**
-	 * @param contations
-	 * @return
-	 */
-	boolean save(Map<String, String> contations);
+	public boolean isNotExist(String username);
 
 	/**
 	 * @param user
 	 * @return
 	 */
-	int update(Map<String, Object> user);
+	public boolean save(User user);
 
 	/**
 	 * @param user
 	 * @return
 	 */
-	int changePasswd(Map<String, Object> user);
+	public int update(User user);
 
 	/**
-	 * @param id
-	 * @param issys
+	 * @param user
+	 * @return
 	 */
-	int changeRole(String id, int issys);
+	public int changePasswd(User user);
 
-
+	/**
+	 * @param user
+	 * @return
+	 */
+	public int changeRole(User user);
+	
+	/**
+	 * 
+	 * @param account
+	 * @return
+	 */
+	public User getByAccount(String account);
 }

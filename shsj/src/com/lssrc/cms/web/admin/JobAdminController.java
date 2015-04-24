@@ -6,9 +6,6 @@
  */
 package com.lssrc.cms.web.admin;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -24,8 +21,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.lssrc.cms.common.Constants;
+import com.lssrc.cms.entity.Job;
+import com.lssrc.cms.entity.User;
 import com.lssrc.cms.service.JobService;
+import com.lssrc.util.DateFormater;
 import com.lssrc.util.ErrorCode;
+import com.lssrc.util.Navigator;
+import com.lssrc.util.UUID;
 
 /**
  * @author Carl_Li
@@ -35,7 +37,7 @@ import com.lssrc.util.ErrorCode;
 @RequestMapping(Constants.ADMIN_PATH + "/zhaopin")
 public class JobAdminController {
 	
-	private HashMap<String, Object> myself;
+	private User myself;
 
 	@Autowired
 	private JobService jobService;
@@ -47,7 +49,7 @@ public class JobAdminController {
 			Model model,
 			@RequestParam(value = "page", required = false, defaultValue = "1") int pageNo,
 			@RequestParam(value = "pageSize", required = false, defaultValue = "10") int pageSize) {
-		Map<String, Integer> navigator = jobService.getNavigator(pageNo, pageSize, null);
+		Navigator navigator = jobService.getNavigator(pageNo, pageSize, null);
 
 		model.addAttribute("navigator", navigator);
 		model.addAttribute("jobs", jobService.getByPage(navigator, null));
@@ -63,8 +65,6 @@ public class JobAdminController {
 
 	@RequestMapping(value = { "/save" })
 	public String save(
-			HttpServletRequest request,
-			HttpServletResponse response,
 			ModelMap model,
 			@RequestParam(value = "id", required = false, defaultValue = "") String id,
 			@RequestParam(value = "organizer", required = true) String organizer,
@@ -73,8 +73,8 @@ public class JobAdminController {
 			@RequestParam(value = "place", required = true) String place,
 			@RequestParam(value = "salary", required = false, defaultValue = "0") String salary,
 			@RequestParam(value = "datetime-work", required = false, defaultValue = "") String datetimeWork,
-			@RequestParam(value = "number", required = false, defaultValue = "0") int number,
-			@RequestParam(value = "number-limit", required = false, defaultValue = "0") int numberLimit,
+			@RequestParam(value = "number", required = false, defaultValue = "0") Integer number,
+			@RequestParam(value = "number-limit", required = false, defaultValue = "0") Integer numberLimit,
 			@RequestParam(value = "contact", required = false, defaultValue = "") String contact,
 			@RequestParam(value = "datetime-start", required = false, defaultValue = "") String datetimeStart,
 			@RequestParam(value = "datetime-end", required = false, defaultValue = "") String datetimeEnd,
@@ -82,27 +82,47 @@ public class JobAdminController {
 			@RequestParam(value = "content", required = false, defaultValue = "") String content,
 			@RequestParam(value = "belong", required = true) String belong) {
 
-		String userId = myself.get("userId") + "";
+		String userId = myself.getUserId();
+		Job job = new Job();
 		if (StringUtils.isEmpty(id)) {
-			int count = jobService.save(organizer, title, type, place, salary,
-					datetimeWork, number, numberLimit, contact, datetimeStart,
-					datetimeEnd, auditionPlace, content, belong, userId);
+			job.setjId(UUID.generateRandomUUID());
 		} else {
-			int count = jobService.update(id, organizer, title, type, place, salary,
-					datetimeWork, number, numberLimit, contact, datetimeStart,
-					datetimeEnd, auditionPlace, content, belong, userId);
+			job = jobService.getById(id).getJob();
+		}
+		
+		job.setjTitle(title);
+		job.setjOrganizer(organizer);
+		job.setjType(type);
+		job.setjWorkPlace(place);
+		job.setjSalary(salary);
+		job.setjWorkTime(datetimeWork);
+		job.setjNumber(number);
+		job.setjNumberLimit(numberLimit);
+		job.setjAuditionPlace(auditionPlace);
+		job.setjAuditionTime(datetimeStart);
+		job.setjDatetimeEnd(datetimeEnd);
+		job.setjContact(contact);
+		job.setjContent(content);
+		job.setjBelong(belong);
+		
+		if (StringUtils.isEmpty(id)) {
+			job.setjDatetimeBuild(DateFormater.getDateTime());
+			job.setjBuilder(myself.getUserAccount());
+			int count = jobService.save(job);
+		} else {
+			int count = jobService.update(job);
 		}
 		return "redirect:/admin/zhaopin";
 	}
 	
 	@RequestMapping(value = { "/edit/{id}" })
-	public String edit(
-			ModelMap model,
+	public String edit(ModelMap model,
 			@PathVariable("id")String id) {
-		model.addAttribute("belongs", jobService.getBelong());
-		Map<String, Object> job = jobService.getById(id);
+		Job job = jobService.getById(id).getJob();
 		if(job != null) {
 			model.addAttribute("job", job);
+			model.addAttribute("belongs", jobService.getBelong());
+			model.addAttribute("types", jobService.getType());
 			return Constants.ADMIN_PATH_NAME + "/job/edit";
 		} else {
 			return ErrorCode.OBJECT_NOT_FOUND;
@@ -110,16 +130,14 @@ public class JobAdminController {
 	}
 	
 	@RequestMapping(value = { "/delete/{id}" })
-	public String delete(			
-			@PathVariable("id")String id) {
+	public String delete(@PathVariable("id")String id) {
 		int count = jobService.delete(id);
 		return "redirect:/admin/zhaopin";
 	}
 	
-	@SuppressWarnings("unchecked")
 	@ModelAttribute(value = "myself")
 	public void name(HttpSession session) {
-		myself = (HashMap<String, Object>) session.getAttribute("myself");
+		myself = (User) session.getAttribute("myself");
 	}
 	
 }

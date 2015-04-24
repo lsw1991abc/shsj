@@ -59,13 +59,13 @@
       
       <div class="panel-body">
        	<form role="form" action="<%=basePath%>/admin/zhaopin/save" method="post" id="job-form">
-       	    <input type="hidden" value="${job.j_id }" name="id" />
+       	    <input type="hidden" value="${job.jId }" name="id" />
        		<table style="width: 100%;" class="form-table">
        			<tr style="height:32px; line-height:32px;">
        				<td style="width:10%; padding-bottom:15px;">招聘单位：</td>
        				<td style="width:40%;">
        					<div class="form-group">
-				    		<input type="text" class="form-control" style="width:75%;" value="${job.j_organizer }"
+				    		<input type="text" class="form-control" style="width:75%;" value="${job.jOrganizer }"
 				    		id="job-organizer" name="organizer" placeholder="名称长度1～50"
 				    		data-required="true" data-pattern="^([\u4E00-\u9FA5]|\w){1,50}$" 
 				    		data-describedby="organizer-description" data-description="organizer" />
@@ -74,7 +74,7 @@
        				<td style="width:10%; padding-bottom:15px;">职位名称：</td>
        				<td style="width:40%;">
        					<div class="form-group">
-				    		<input type="text" class="form-control" style="width:75%;" value="${job.j_title }"
+				    		<input type="text" class="form-control" style="width:75%;" value="${job.jTitle }"
 				    		id="job-title" name="title" placeholder="名称长度1～50"
 							data-required="true" data-pattern="^([\u4E00-\u9FA5]|\w){1,50}$" 
 				    		data-describedby="title-description" data-description="title" />
@@ -87,11 +87,11 @@
        					<div class="form-group">
        						<select class="form-control" style="width:75%;" id="job-belong"  name="belong" >
        							<c:forEach items="${belongs}" var="belong">
-       								<option value="${belong.jb_id}">${belong.jb_name}</option>
+       								<option value="${belong.jbId}">${belong.jbName}</option>
        							</c:forEach>
 							</select>
 							<script type="text/javascript">
-								$("#job-belong option[value='${job.j_belong}']").attr("selected", "selected");
+								$("#job-belong option[value='${job.jBelong}']").attr("selected", "selected");
 							</script>
 						 </div>
        				</td>
@@ -99,12 +99,13 @@
        				<td style="width:40%;">
        					<div class="form-group" >
        						<select class="form-control" style="width:75%;" id="job-type"  name="type" >
-							  <option value="1">全职</option>
-							  <option value="2">兼职</option>
+							  <c:forEach items="${types}" var="type">
+    							<option value="${type.jtId}">${type.jtName}</option>
+   							  </c:forEach>
 							</select>
 						 </div>
 						 <script type="text/javascript">
-								$("#job-type option[value='${job.j_type}']").attr("selected", "selected");
+								$("#job-type option[value='${job.jType}']").attr("selected", "selected");
 							</script>
        				</td>
        			</tr>
@@ -112,7 +113,7 @@
        				<td style="width:10%; padding-bottom:15px;">工作区域：</td>
        				<td style="width:90%;" colspan="3">
        					<div class="form-group">
-				    		<input type="text" class="form-control" style="width:89%;" value="${job.j_work_place }"
+				    		<input type="text" class="form-control" style="width:89%;" value="${job.jWorkPlace }"
 				    		id="job-place"  name="place" placeholder="地址长度1～100"
 							data-required="true" data-pattern="^([\u4E00-\u9FA5]|\w){1,100}$" 
 				    		data-describedby="place-description" data-description="place" />
@@ -123,7 +124,7 @@
        				<td style="width:10%; padding-bottom:15px;">工作待遇：</td>
        				<td style="width:40%;">
        					<div class="form-group">
-				    		<input type="text" class="form-control" style="width:75%;" value="${job.j_salary }"
+				    		<input type="text" class="form-control" style="width:75%;" value="${job.jSalary }"
 				    		id="job-salary"  name="salary" placeholder="工作待遇，长度1～50" 
 				    		data-required="true" data-pattern="^([\u4E00-\u9FA5]|\w){1,50}$" 
 				    		data-describedby="salary-description" data-description="salary" />
@@ -132,7 +133,7 @@
        				<td style="width:10%; padding-bottom:15px;">工作时间：</td>
        				<td style="width:40%;">
        					<div class="form-group">
-				    		<input type="text" class="form-control" style="width:75%;" value="${job.j_work_time }"
+				    		<input type="text" class="form-control" style="width:75%;" value="${job.jWorkTime }"
 				    		id="job-datetime-work"  name="datetime-work" placeholder="工作时间，长度1～50"
 				    		data-required="true" data-pattern="^([\u4E00-\u9FA5]|\w){1,50}$" 
 				    		data-describedby="datetime-work-description" data-description="datetimeWork" />
@@ -143,7 +144,7 @@
        				<td style="width:10%; padding-bottom:15px;">招聘人数：</td>
        				<td style="width:40%;">
        					<div class="form-group">
-				    		<input type="text" class="form-control" style="width:75%;" value="${job.j_number }"
+				    		<input type="text" class="form-control" style="width:75%;" value="${job.jNumber }"
 				    		id="job-number"  name="number" placeholder="人数0～999" 
 				    		data-required="true" data-pattern="^[0-9]{1,3}$" 
 							data-describedby="number-description" data-description="number"  />
@@ -152,7 +153,7 @@
        				<td style="width:10%; padding-bottom:15px;">人数限制：</td>
        				<td style="width:40%;">
        					<div class="form-group">
-				    		<input type="text" class="form-control" style="width:75%;" value="${job.j_number_limit }"
+				    		<input type="text" class="form-control" style="width:75%;" value="${job.jNumberLimit }"
 				    		id="job-number-limit"  name="number-limit" placeholder="限制人数0～999" 
 				    		data-required="true" data-pattern="^[0-9]{1,3}$" 
 							data-describedby="number-limit-description" data-description="numberLimit"  />
@@ -163,7 +164,7 @@
        				<td style="width:10%; padding-bottom:15px;">联系电话：</td>
        				<td style="width:40%;">
        					<div class="form-group">
-				    		<input type="text" class="form-control" style="width:75%;" value="${job.j_contact }"
+				    		<input type="text" class="form-control" style="width:75%;" value="${job.jContact }"
 				    		id="job-contact"  name="contact" placeholder="长度11" 
 				    		data-required="true" data-pattern="^[1][3-8][0-9]{9}$" 
 				    		data-describedby="contact-description" data-description="contact"  />
@@ -173,14 +174,14 @@
        				<td style="width:40%;">
        					<div class="form-group" style="margin-top:-15px;">
 				    		<input type="text" class="form-control" style="width:35%; display:block; float:left;" 
-				    		value="${fn:substring(job.j_audition_time, 0, 10) }"
+				    		value="${fn:substring(job.jAuditionTime, 0, 10) }"
 				    		readonly="readonly" id="job-datetime-start"  name="datetime-start" placeholder="开始时间" 
 				    		data-required="true" data-pattern="^[0-9]{4}-[0-9]{2}-[0-9]{2}$" 
 							data-describedby="datetime-start-description" data-description="datetimeStart" />
 				    		
 				    		<span style="display:block; float:left; width:15px; text-align:center;">~</span>
 				    		<input type="text" class="form-control" style="width:35%;display:block; float:left;"
-				    		value="${fn:substring(job.j_datetime_end, 0, 10) }" 
+				    		value="${fn:substring(job.jDatetimeEnd, 0, 10) }" 
 				    		readonly="readonly" id="job-datetime-end"  name="datetime-end" placeholder="结束时间" 
 				    		data-required="true" data-pattern="^[0-9]{4}-[0-9]{2}-[0-9]{2}$" 
 							data-describedby="datetime-end-description" data-description="datetimeEnd" />
@@ -193,7 +194,7 @@
        				<td style="width:10%; padding-bottom:15px;">面试地址：</td>
        				<td style="width:90%;" colspan="3">
        					<div class="form-group">
-				    		<input type="text" class="form-control" style="width:89%;" value="${job.j_audition_place }"
+				    		<input type="text" class="form-control" style="width:89%;" value="${job.jAuditionPlace }"
 				    		id="job-audition-place"  name="audition-place" placeholder="地址长度1～100"
 							data-required="true" data-pattern="^([\u4E00-\u9FA5]|\w){1,100}$" 
 				    		data-describedby="audition-place-description" data-description="auditionPlace" />
@@ -203,7 +204,7 @@
        			<tr>
        				<td style="width:10%; padding-bottom:15px;">工作详情：</td>
        				<td style="width:90%;" colspan="3">
-       					<textarea rows="3" style="width:89%;resize:vertical;" name="content" id="job-content">${job.j_content }</textarea>
+       					<textarea rows="3" style="width:89%;resize:vertical;" name="content" id="job-content">${job.jContent }</textarea>
        				</td>
        			</tr>
        		</table>

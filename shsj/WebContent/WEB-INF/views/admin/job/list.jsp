@@ -65,19 +65,19 @@
 	            <c:forEach var="job" items="${jobs}">
 	              <tr>
 	              	<c:choose>
-	              		<c:when test="${job.j_type == '1' || job.j_type == '3'}">
-	              			<td style="width:40%;">[${job.jt_name}]<a href="<%=basePath%>/zhaopin/${job.j_id}" target="_blank">${job.j_title}</a></td>
+	              		<c:when test="${job.job.jType == '1' || job.job.jType == '3'}">
+	              			<td style="width:40%;">[${job.jobType.jtName}]<a href="<%=basePath%>/zhaopin/${job.job.jId}" target="_blank">${job.job.jTitle}</a></td>
 	              		</c:when>
-	              		<c:when test="${job.j_type == '2'}">
-	              			<td style="width:40%;">[${job.jt_name}]<a href="<%=basePath%>/jianzhi/${job.j_id}" target="_blank">${job.j_title}</a></td>
+	              		<c:when test="${job.job.jType == '2'}">
+	              			<td style="width:40%;">[${job.jobType.jtName}]<a href="<%=basePath%>/jianzhi/${job.job.jId}" target="_blank">${job.job.jTitle}</a></td>
 	              		</c:when>
 	              	</c:choose>
-                    <td style="width:15%;" class="text-center">${job.jb_name}</td>
-                    <td style="width:15%;" class="text-center">${job.j_work_place}</td>
-                    <td style="width:15%;" class="text-center">${fn:substring(job.j_datetime_build, 0, 10)}</td>
+                    <td style="width:15%;" class="text-center">${job.jobBelong.jbName}</td>
+                    <td style="width:15%;" class="text-center">${job.job.jWorkPlace}</td>
+                    <td style="width:15%;" class="text-center">${fn:substring(job.job.jDatetimeBuild, 0, 10)}</td>
                     <td style="width:15%;" class="text-center">
-                    	<a href="<%=adminPath %>/zhaopin/edit/${job.j_id}" title="编辑"><i class="fa fa-pencil"></i></a> 
-						<a href="<%=adminPath %>/zhaopin/delete/${job.j_id}" title="删除"><i class="fa fa-remove"></i></a>
+                    	<a href="<%=adminPath %>/zhaopin/edit/${job.job.jId}" title="编辑"><i class="fa fa-pencil"></i></a> 
+						<a href="<%=adminPath %>/zhaopin/delete/${job.job.jId}" title="删除"><i class="fa fa-remove"></i></a>
 					</td>
                   </tr>
 	            </c:forEach>
@@ -85,12 +85,12 @@
               </table>
            	<nav class="text-center" style="border-top: 1px solid #DDDDDD;">
                  <ul class="pager">
-                   <li><a href="<%=adminPath %>/zhaopin/?page=1">首页</a></li>
-                     <li><a href="<%=adminPath %>/zhaopin/?page=${navigator.prePageNo}">上一页</a></li>
-                     <li><a href="<%=adminPath %>/zhaopin/?page=${navigator.nextPageNo}">下一页</a></li>
-                     <li><a href="<%=adminPath %>/zhaopin/?page=${navigator.pageCount}">末页</a></li>
+                   <li><a href="<%=adminPath %>/zhaopin/?page=${navigator.firstPage}">首页</a></li>
+                     <li><a href="<%=adminPath %>/zhaopin/?page=${navigator.prePage}">上一页</a></li>
+                     <li><a href="<%=adminPath %>/zhaopin/?page=${navigator.nextPage}">下一页</a></li>
+                     <li><a href="<%=adminPath %>/zhaopin/?page=${navigator.lastPage}">末页</a></li>
                      <li>&nbsp;
-                     	当前 ${navigator.nowPageNo}/${navigator.pageCount} 页&nbsp;&nbsp;
+                     	当前 ${navigator.nowPage}/${navigator.pageCount} 页&nbsp;&nbsp;
                      	每页${navigator.pageSize}条&nbsp;&nbsp;
                      	共${navigator.count}条
                      </li>

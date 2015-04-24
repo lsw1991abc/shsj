@@ -7,7 +7,9 @@
 package com.lssrc.cms.service;
 
 import java.util.List;
-import java.util.Map;
+
+import com.lssrc.cms.entity.Resume;
+import com.lssrc.util.Navigator;
 
 /**
  * @author Carl_Li
@@ -20,36 +22,36 @@ public interface ResumeService {
 	 * @param pageSize
 	 * @return
 	 */
-	Map<String, Integer> getNavigator(int pageNo, int pageSize);
+	public Navigator getNavigator(int pageNo, int pageSize);
 
 	/**
 	 * @param id
 	 * @return
 	 */
-	Map<String, Object> getById(String id);
+	public Resume getById(String id);
 
 	/**
 	 * @param navigator
 	 * @return
 	 */
-	List<Map<String, Object>> getByPage(Map<String, Integer> navigator);
+	public List<Resume> getByPage(Navigator navigator);
 
 	/**
 	 * @param string
 	 * @return
 	 */
-	Map<String, Object> getByUserId(String userId);
+	public Resume getByUserId(String userId);
 
 	/**
 	 * @param resume
 	 * @return
 	 */
-	int update(Map<String, Object> resume);
+	public int update(Resume resume);
 
 	/**
 	 * @param resume
 	 * @return
 	 */
-	int save(Map<String, Object> resume);
+	public int save(Resume resume);
 	
 }

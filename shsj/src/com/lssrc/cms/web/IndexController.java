@@ -6,9 +6,6 @@
  */
 package com.lssrc.cms.web;
 
-import java.util.List;
-import java.util.Map;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -18,9 +15,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.support.SessionStatus;
 
-import com.lssrc.cms.dao.NoticeDao;
 import com.lssrc.cms.service.ActivitService;
-import com.lssrc.cms.service.DailyService;
 import com.lssrc.cms.service.JobService;
 import com.lssrc.cms.service.NoticeService;
 
@@ -41,28 +36,19 @@ public class IndexController {
 	@Autowired
 	private ActivitService activitService;
 	
-	@Autowired
-	private DailyService dailyService;
-	
 	@RequestMapping({"", "/", "/index"})
 	public String index(HttpServletRequest request, HttpServletResponse response, SessionStatus session, Model model) {
-		List<Map<String, Object>> notices = noticeService.getByTop(10, NoticeDao.NOTICE);
-		model.addAttribute("notices", notices);
+		model.addAttribute("notices", noticeService.getByTop(10, NoticeService.TYPE_NOTICE));
 		
-		List<Map<String, Object>> jobs = jobService.getByTop(10, "1");
-		model.addAttribute("jobs", jobs);
+		model.addAttribute("jobs", jobService.getByTop(10, JobService.TYPE_JOB));
 		
-		List<Map<String, Object>> partTimes = jobService.getByTop(10, "2");
-		model.addAttribute("partTimes", partTimes);
+		model.addAttribute("partTimes", jobService.getByTop(10, JobService.TYPE_PARTTIME));
 		
-		List<Map<String, Object>> activits = activitService.getByTop(10);
-		model.addAttribute("activits", activits);
+		model.addAttribute("activits", activitService.getByTop(10));
 		
-		List<Map<String, Object>> dailies = dailyService.getByTop(10);
-		model.addAttribute("dailies", dailies);
+		model.addAttribute("dailies", noticeService.getByTop(10, NoticeService.TYPE_DAILY));
 		
-		List<Map<String, Object>> treasures = noticeService.getByTop(10, NoticeDao.TREASURE);
-		model.addAttribute("treasures", treasures);
+		model.addAttribute("treasures", noticeService.getByTop(10, NoticeService.TYPE_TREASURE));
 		
 		return "index";
 	}

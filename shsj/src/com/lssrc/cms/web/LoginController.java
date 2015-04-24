@@ -15,8 +15,6 @@ import java.awt.Graphics2D;
 import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Random;
 
 import javax.imageio.ImageIO;
@@ -35,8 +33,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 
+import com.lssrc.cms.entity.User;
 import com.lssrc.cms.service.UserService;
+import com.lssrc.util.DateFormater;
 import com.lssrc.util.MD5;
+import com.lssrc.util.UUID;
 
 /**
  * @author Carl_Li
@@ -44,7 +45,7 @@ import com.lssrc.util.MD5;
  */
 @Controller
 @RequestMapping("/login")
-@SessionAttributes(types = {HashMap.class}, value = {"myself"})
+@SessionAttributes(types = {User.class}, value = {"myself"})
 public class LoginController {
 
 	@Autowired
@@ -80,9 +81,8 @@ public class LoginController {
 			model.addAttribute("msg", "error1");
 			return "login";
 		}
-		
-		HashMap<String, Object> user = (HashMap<String, Object>) userService.getByUsername(username);
-		if (user != null && user.get("passwd").toString().equals(MD5.getMD5Code(password))) {
+		User user = userService.getByAccount(username);
+		if (user != null && user.getUserPassword().equals(MD5.getMD5Code(password))) {
 				model.addAttribute("myself", user);
 				return "redirect:/user/";
 		} else {
@@ -143,13 +143,17 @@ public class LoginController {
 		if (StringUtils.isNotEmpty(username) && 
 				StringUtils.isNotEmpty(password) &&
 				StringUtils.equals(password, password2)) {
-				Map<String, String> contations = new HashMap<String, String>();
-				contations.put("username", username);
-				contations.put("password", MD5.getMD5Code(password));
-				contations.put("qq", qq);
-				contations.put("phoneno", phoneno);
-				contations.put("email", email);
-				if (userService.save(contations)) {
+				
+				User user = new User();
+				user.setUserId(UUID.generateRandomUUID());
+				user.setUserAccount(username);
+				user.setUserNickname(username);
+				user.setUserPassword(MD5.getMD5Code(password));
+				user.setQq(qq);
+				user.setPhoneno(phoneno);
+				user.setEmail(email);
+				user.setBuildDate(DateFormater.getDateTime());
+				if (userService.save(user)) {
 					model.addAttribute("msg", "success");
 				} else {
 					model.addAttribute("msg", "error");

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lssrc.cms.dao.JobBelongMapper" >
+  <resultMap id="BaseResultMap" type="com.lssrc.cms.entity.JobBelong" >
+    <id column="jb_id" property="jbId" jdbcType="VARCHAR" />
+    <result column="jb_name" property="jbName" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    jb_id, jb_name
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from shsj_job_belong
+    where jb_id = #{jbId,jdbcType=VARCHAR}
+  </select>
+  <select id="selectByPage" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from shsj_job_belong order by jb_id asc
+  </select>
+  <update id="deleteByPrimaryKey" parameterType="java.lang.String" >
+  	update shsj_job_belong set jb_name='' where jb_id = #{jbId,jdbcType=VARCHAR}
+  </update>
+  <insert id="insert" parameterType="com.lssrc.cms.entity.JobBelong" >
+    insert into shsj_job_belong
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="jbId != null" >
+        jb_id,
+      </if>
+      <if test="jbName != null" >
+        jb_name,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="jbId != null" >
+        #{jbId,jdbcType=VARCHAR},
+      </if>
+      <if test="jbName != null" >
+        #{jbName,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.lssrc.cms.entity.JobBelong" >
+    update shsj_job_belong
+    <set >
+      <if test="jbName != null" >
+        jb_name = #{jbName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where jb_id = #{jbId,jdbcType=VARCHAR}
+  </update>
+</mapper>

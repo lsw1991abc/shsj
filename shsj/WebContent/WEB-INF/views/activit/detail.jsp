@@ -8,48 +8,48 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN">
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	<title>${activit.a_title}</title>
+	<title>${activit.activit.aTitle}</title>
 </head>
 
 <body>
 <script type="text/javascript">
 $('.header-nav li').removeClass('active');
-$('.header-nav li[data-menu-id="avtivit"]').addClass('active');
+$('.header-nav li[data-menu-id="4"]').addClass('active');
 </script>
   <div class="container">
     <div class="row">
     	<div class="col-md-10">
         	<div style="border:1px solid #DFDFDF;">
             	<h6 style="margin:0; height:32px; line-height:32px; border-bottom:1px solid #DFDFDF; text-indent:20px;">位置：首页 &gt; 活动案例 &gt; 活动详情</h6>
-            	<h3 class="text-left" style="margin:0; height:70px; line-height:70px; text-indent:30px; font-weight:bolder; border-bottom:1px solid #EFEFEF;">主题：${activit.a_title}</h3>
+            	<h3 class="text-left" style="margin:0; height:70px; line-height:70px; text-indent:30px; font-weight:bolder; border-bottom:1px solid #EFEFEF;">主题：${activit.activit.aTitle}</h3>
             	<div class="row">
             		<h5 style="margin:15px 0; text-indent:30px; font-weight:bolder;">活动简介</h5>
             		<table class="activit-detail">
             			<tr>
             				<td style="width:10%;">主办单位：</td>
-            				<td style="width:20%;">${activit.a_organizer}</td>
+            				<td style="width:20%;">${activit.activit.aOrganizer}</td>
             				<td style="width:10%;">活动策划：</td>
-            				<td style="width:30%;">${activit.a_plotter}</td>
+            				<td style="width:30%;">${activit.activit.aPlotter}</td>
             				<td rowspan="3" style="width:30%">
-            					<img src="<%=basePath%>/${activit.a_pic}" class="img-responsive" style="width:100%; height:135px;" />
+            					<img src="<%=basePath%>/${activit.activit.aPic}" class="img-responsive" style="width:100%; height:135px;" />
             				</td>
             			</tr>
             			<tr>
             				<td>参与人数：</td>
-            				<td>${activit.a_number}人</td>
+            				<td>${activit.activit.aNumber}人</td>
             				<td>活动状态：</td>
-            				<td>${activit.as_name}</td>
+            				<td>${activit.statu.asName}</td>
             			</tr>
             			<tr>
             				<td>活动日期：</td>
-            				<td colspan="3">${activit.a_datetime_start} 至 ${activit.a_datetime_end}</td>
+            				<td colspan="3">${activit.activit.aDatetimeStart} 至 ${activit.activit.aDatetimeEnd}</td>
             			</tr>
             		</table>
             	</div>
             	<div class="row">
             		<h5 style="margin:15px 0; text-indent:30px; font-weight:bolder;">活动详情</h5>
             		<div class="activit-detail">
-            			${activit.a_desc}
+            			${activit.activit.aDesc}
             		</div>
             		
             	</div>

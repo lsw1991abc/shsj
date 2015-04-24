@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lssrc.cms.dao.MenuMapper" >
+  <resultMap id="BaseResultMap" type="com.lssrc.cms.entity.Menu" >
+    <id column="menu_id" property="menuId" jdbcType="VARCHAR" />
+    <result column="menu_name" property="menuName" jdbcType="VARCHAR" />
+    <result column="menu_sort" property="menuSort" jdbcType="INTEGER" />
+    <result column="menu_parent" property="menuParent" jdbcType="VARCHAR" />
+    <result column="menu_type" property="menuType" jdbcType="INTEGER" />
+    <result column="menu_target" property="menuTarget" jdbcType="LONGVARCHAR" />
+    <result column="menu_url" property="menuUrl" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    menu_id, menu_name, menu_sort, menu_parent, menu_type
+  </sql>
+  <sql id="Blob_Column_List" >
+    menu_target, menu_url
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from sys_menu
+    where menu_id = #{menuId,jdbcType=VARCHAR}
+  </select>
+  
+  <select id="selectByPage" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from sys_menu
+    order by menu_sort asc,menu_id desc
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from sys_menu
+    where menu_id = #{menuId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.lssrc.cms.entity.Menu" >
+    insert into sys_menu (menu_id, menu_name, menu_sort, 
+      menu_parent, menu_type, menu_target, 
+      menu_url)
+    values (#{menuId,jdbcType=VARCHAR}, #{menuName,jdbcType=VARCHAR}, #{menuSort,jdbcType=INTEGER}, 
+      #{menuParent,jdbcType=VARCHAR}, #{menuType,jdbcType=INTEGER}, #{menuTarget,jdbcType=LONGVARCHAR}, 
+      #{menuUrl,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.lssrc.cms.entity.Menu" >
+    insert into sys_menu
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="menuId != null" >
+        menu_id,
+      </if>
+      <if test="menuName != null" >
+        menu_name,
+      </if>
+      <if test="menuSort != null" >
+        menu_sort,
+      </if>
+      <if test="menuParent != null" >
+        menu_parent,
+      </if>
+      <if test="menuType != null" >
+        menu_type,
+      </if>
+      <if test="menuTarget != null" >
+        menu_target,
+      </if>
+      <if test="menuUrl != null" >
+        menu_url,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="menuId != null" >
+        #{menuId,jdbcType=VARCHAR},
+      </if>
+      <if test="menuName != null" >
+        #{menuName,jdbcType=VARCHAR},
+      </if>
+      <if test="menuSort != null" >
+        #{menuSort,jdbcType=INTEGER},
+      </if>
+      <if test="menuParent != null" >
+        #{menuParent,jdbcType=VARCHAR},
+      </if>
+      <if test="menuType != null" >
+        #{menuType,jdbcType=INTEGER},
+      </if>
+      <if test="menuTarget != null" >
+        #{menuTarget,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="menuUrl != null" >
+        #{menuUrl,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lssrc.cms.entity.Menu" >
+    update sys_menu
+    <set >
+      <if test="menuName != null" >
+        menu_name = #{menuName,jdbcType=VARCHAR},
+      </if>
+      <if test="menuSort != null" >
+        menu_sort = #{menuSort,jdbcType=INTEGER},
+      </if>
+      <if test="menuParent != null" >
+        menu_parent = #{menuParent,jdbcType=VARCHAR},
+      </if>
+      <if test="menuType != null" >
+        menu_type = #{menuType,jdbcType=INTEGER},
+      </if>
+      <if test="menuTarget != null" >
+        menu_target = #{menuTarget,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="menuUrl != null" >
+        menu_url = #{menuUrl,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where menu_id = #{menuId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.lssrc.cms.entity.Menu" >
+    update sys_menu
+    set menu_name = #{menuName,jdbcType=VARCHAR},
+      menu_sort = #{menuSort,jdbcType=INTEGER},
+      menu_parent = #{menuParent,jdbcType=VARCHAR},
+      menu_type = #{menuType,jdbcType=INTEGER},
+      menu_target = #{menuTarget,jdbcType=LONGVARCHAR},
+      menu_url = #{menuUrl,jdbcType=LONGVARCHAR}
+    where menu_id = #{menuId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lssrc.cms.entity.Menu" >
+    update sys_menu
+    set menu_name = #{menuName,jdbcType=VARCHAR},
+      menu_sort = #{menuSort,jdbcType=INTEGER},
+      menu_parent = #{menuParent,jdbcType=VARCHAR},
+      menu_type = #{menuType,jdbcType=INTEGER}
+    where menu_id = #{menuId,jdbcType=VARCHAR}
+  </update>
+</mapper>

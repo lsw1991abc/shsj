@@ -7,15 +7,20 @@
 package com.lssrc.cms.service.impl;
 
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.IncorrectResultSizeDataAccessException;
 import org.springframework.stereotype.Service;
 
-import com.lssrc.cms.dao.JobDao;
+import com.lssrc.cms.dao.JobBelongMapper;
+import com.lssrc.cms.dao.JobMapper;
+import com.lssrc.cms.dao.JobTypeMapper;
+import com.lssrc.cms.dto.JobDto;
+import com.lssrc.cms.entity.Job;
+import com.lssrc.cms.entity.JobBelong;
+import com.lssrc.cms.entity.JobType;
 import com.lssrc.cms.service.JobService;
-import com.lssrc.util.PageFormater;
+import com.lssrc.util.Navigator;
 
 /**
  * @author Carl_Li
@@ -24,68 +29,65 @@ import com.lssrc.util.PageFormater;
 @Service("jobService")
 public class JobServiceImpl implements JobService {
 
+	
 	@Autowired
-	private JobDao jobDao;
+	private JobMapper jobMapper;
+	
+	@Autowired
+	private JobBelongMapper jobBelongMapper;
+	
+	@Autowired
+	private JobTypeMapper jobTypeMapper;
 
 	@Override
-	public Map<String, Integer> getNavigator(int pageNo, int pageSize,
-			String type) {
-		int count = jobDao.queryCount(type);
-		return PageFormater.getFormatPageNav(pageNo, count, pageSize);
+	public Navigator getNavigator(int pageNo, int pageSize, String type) {
+		int count = jobMapper.selectCount(type);
+		return Navigator.formatPageNavigator(pageNo, count, pageSize);
 	}
 
 	@Override
-	public Map<String, Object> getById(String id) {
+	public JobDto getById(String id) {
 		try {
-			return jobDao.queryById(id);
+			return jobMapper.selectByPrimaryKey(id);
 		} catch (IncorrectResultSizeDataAccessException e) {
 			return null;
 		}
 	}
 
 	@Override
-	public List<Map<String, Object>> getByPage(Map<String, Integer> navigator,
-			String type) {
-		int pageNo = navigator.get("nowPageNo");
-		int pageSize = navigator.get("pageSize");
-		return jobDao.queryByPage((pageNo - 1) * pageSize, pageSize, type);
+	public List<JobDto> getByPage(Navigator navigator, String type) {
+		int pageNo = navigator.getNowPage();
+		int pageSize = navigator.getPageSize();
+		return jobMapper.selectByPage((pageNo - 1) * pageSize, pageSize, type);
 	}
 
 	@Override
-	public List<Map<String, Object>> getByTop(int top, String type) {
-		return jobDao.queryByPage(0, top, type);
+	public List<JobDto> getByTop(int top, String type) {
+		return jobMapper.selectByPage(0, top, type);
 	}
 
 	@Override
-	public int save(String organizer, String title, String type, String place,
-			String salary, String datetimeWork, int number,
-			int numberLimit, String contact, String datetimeStart,
-			String datetimeEnd, String auditionPlace, String content, String belong, 
-			String userId) {
-		return jobDao.save(organizer, title, type, place, salary,
-				datetimeWork, number, numberLimit, contact, datetimeStart,
-				datetimeEnd, auditionPlace, content, belong, userId);
+	public int save(Job job) {
+		return jobMapper.insert(job);
 	}
 	
 	@Override
-	public int update(String id, String organnizer, String title, String type,
-			String place, String salary, String datetimeWork, int number,
-			int numberLimit, String contact, String datetimeStart,
-			String datetimeEnd, String auditionPlace, String content,
-			String belong, String userId) {
-		return jobDao.update(id, organnizer, title, type, place, salary,
-				datetimeWork, number, numberLimit, contact, datetimeStart,
-				datetimeEnd, auditionPlace, content, belong, userId);
+	public int update(Job job) {
+		return jobMapper.updateByPrimaryKey(job);
 	}
 
 	@Override
 	public int delete(String id) {
-		return jobDao.delete(id);
+		return jobMapper.deleteByPrimaryKey(id);
 	}
 
 	@Override
-	public List<Map<String, Object>> getBelong() {
-		return jobDao.queryBelong();
+	public List<JobBelong> getBelong() {
+		return jobBelongMapper.selectByPage();
+	}
+	
+	public List<JobType> getType() {
+		return jobTypeMapper.selectByPage();
 	}
 
 }

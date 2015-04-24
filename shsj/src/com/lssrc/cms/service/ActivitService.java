@@ -9,6 +9,11 @@ package com.lssrc.cms.service;
 import java.util.List;
 import java.util.Map;
 
+import com.lssrc.cms.dto.ActivitDto;
+import com.lssrc.cms.entity.Activit;
+import com.lssrc.cms.entity.ActivitStatu;
+import com.lssrc.util.Navigator;
+
 /**
  * @author Carl_Li
  *
@@ -19,7 +24,7 @@ public interface ActivitService {
 	 * @param id
 	 * @return
 	 */
-	public Map<String, Object> getById(String id);
+	public ActivitDto getById(String id);
 
 	/**
 	 * @param pageNo
@@ -27,20 +32,20 @@ public interface ActivitService {
 	 * @param navigator 
 	 * @return 
 	 */
-	public List<Map<String, Object>> getByPage(Map<String, Integer> navigator);
+	public List<Activit> getByPage(Navigator navigator);
+	
+	/**
+	 * @param i
+	 * @return
+	 */
+	public List<Activit> getByTop(int top);
 
 	/**
 	 * @param pageNo
 	 * @param pageSize
 	 * @return
 	 */
-	public Map<String, Integer> getNavigator(int pageNo, int pageSize);
-
-	/**
-	 * @param i
-	 * @return
-	 */
-	public List<Map<String, Object>> getByTop(int top);
+	public Navigator getNavigator(int pageNo, int pageSize);
 
 	/**
 	 * @param title
@@ -54,9 +59,7 @@ public interface ActivitService {
 	 * @param userId
 	 * @return
 	 */
-	public int save(String title, String organizer, String plotter,
-			String number, String statu, String dateTimeStart,
-			String dateTimeEnd, String content, String imgPath, String userId);
+	public int save(Activit activit);
 	
 	/**
 	 * @param id
@@ -72,9 +75,7 @@ public interface ActivitService {
 	 * @param userId
 	 * @return
 	 */
-	public int update(String id, String title, String organizer, String plotter,
-			String number, String statu, String dateTimeStart,
-			String dateTimeEnd, String content, String imgPath, String userId);
+	public int update(Activit activit);
 
 	/**
 	 * @param id
@@ -85,6 +86,6 @@ public interface ActivitService {
 	/**
 	 * @return
 	 */
-	public List<Map<String, Object>> getStatus();
+	public List<ActivitStatu> getStatus();
 
 }

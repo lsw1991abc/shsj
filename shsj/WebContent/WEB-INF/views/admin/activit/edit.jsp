@@ -22,6 +22,8 @@
 	$('#sidebar-nav #contents-menu').addClass("in");
 	$('#sidebar-nav #contents-menu #contents-huodong').addClass("active");
 </script>
+
+<c:set var="activit" value="${activit.activit}" />
 	<div class="header">
 		<h1 class="page-title">修改活动</h1>
 	</div>
@@ -55,13 +57,13 @@
        
        <div class="panel-body">
        	<form role="form" action="<%=adminPath %>/huodong/save" method="post" id="activit-form">
-       		<input type="hidden" value="${activit.a_id }" name="id" />
+       		<input type="hidden" value="${activit.aId }" name="id" />
 			<table style="width: 100%;" class="form-table">
 				<tr style="height: 32px; line-height: 32px;">
 					<td style="width: 10%; padding-bottom: 15px;">标题：</td>
 					<td style="width: 90%;" colspan="3">
 						<div class="form-group">
-							<input type="text" class="form-control" style="width: 89%;" value="${activit.a_title }"
+							<input type="text" class="form-control" style="width: 89%;" value="${activit.aTitle }"
 								id="activit-title" name="title" placeholder="标题长度1～50" 
 								data-required="true" data-pattern="^([\u4E00-\u9FA5]|\w){1,50}$"
 								data-describedby="title-description" data-description="title" />
@@ -72,7 +74,7 @@
 					<td style="width: 10%; padding-bottom: 15px;">主办单位：</td>
 					<td style="width: 40%;">
 						<div class="form-group">
-							<input type="text" class="form-control" style="width: 85%;" value="${activit.a_organizer }" 
+							<input type="text" class="form-control" style="width: 85%;" value="${activit.aOrganizer }" 
 								id="activit-organizer" name="organizer" placeholder="长度1～50" 
 								data-required="true" data-pattern="^([\u4E00-\u9FA5]|\w){1,50}$"
 								data-describedby="organizer-description" data-description="organizer" />
@@ -81,7 +83,7 @@
 					<td style="width: 10%; padding-bottom: 15px;">活动策划：</td>
 					<td style="width: 40%;">
 						<div class="form-group">
-							<input type="text" class="form-control" style="width: 75%;" value="${activit.a_plotter }" 
+							<input type="text" class="form-control" style="width: 75%;" value="${activit.aPlotter }" 
 								id="activit-plotter" name="plotter" placeholder="长度1～50"
 								data-required="true" data-pattern="^([\u4E00-\u9FA5]|\w){1,50}$"
 								data-describedby="plotter-description" data-description="plotter" />
@@ -92,7 +94,7 @@
 					<td style="width: 10%; padding-bottom: 15px;">参与人数：</td>
 					<td style="width: 40%; padding-bottom: 15px;">
 						<div class="input-group" style="width: 85%;">
-							<input type="text" class="form-control" value="${activit.a_number }"
+							<input type="text" class="form-control" value="${activit.aNumber }"
 							id="activit-number" name="number" placeholder="人数0～999" 
 							data-required="true" data-pattern="^[0-9]{1,3}$" 
 							data-describedby="number-description" data-description="number" />
@@ -104,11 +106,11 @@
 						<div class="form-group">
 							<select class="form-control" style="width: 75%;" id="activit-statu" name="statu">
 								<c:forEach items="${status }" var="statu">
-									<option value="${statu.as_id}">${statu.as_name}</option>
+									<option value="${statu.asId}">${statu.asName}</option>
 								</c:forEach>
 							</select>
 							<script type="text/javascript">
-								$("#activit-statu option[value='${activit.a_statu}']").attr("selected", "selected");
+								$("#activit-statu option[value='${activit.aStatu}']").attr("selected", "selected");
 							</script>
 						</div>
 					</td>
@@ -118,13 +120,13 @@
 					<td style="width: 90%;" colspan="3">
 						<div class="form-group">
 							<input type="text" class="form-control" style="width: 35%; display: block; float: left;"
-								value="${fn:substring(activit.a_datetime_start, 0, 10) }"
+								value="${fn:substring(activit.aDatetimeStart, 0, 10) }"
 								readonly="readonly" id="activit-datetime-start" name="datetime-start" placeholder="开始时间"
 								data-required="true" data-pattern="^[0-9]{4}-[0-9]{2}-[0-9]{2}$" 
 								data-describedby="datetime-start-description" data-description="datetimeStart" /> 
 							<span style="display: block; float: left; width: 15px; text-align: center;">~</span>
 							<input type="text" class="form-control" style="width: 35%; display: block; float: left;"
-								value="${fn:substring(activit.a_datetime_end, 0, 10) }"
+								value="${fn:substring(activit.aDatetimeEnd, 0, 10) }"
 								readonly="readonly" id="activit-datetime-end" name="datetime-end" placeholder="结束时间"
 								data-required="true" data-pattern="^[0-9]{4}-[0-9]{2}-[0-9]{2}$"
 								data-describedby="datetime-end-description" data-description="datetimeEnd" />
@@ -135,21 +137,21 @@
 				<tr>
 					<td style="width: 10%;">活动详情：</td>
 					<td style="width: 90%;" colspan="3"><textarea rows="3"
-							style="resize: vertical;" name="content" id="activit-content">${activit.a_desc }</textarea>
+							style="resize: vertical;" name="content" id="activit-content">${activit.aDesc }</textarea>
 					</td>
 				</tr>
 				<tr>
 					<td style="width: 10%;">图片：</td>
 					<td style="width: 90%;" colspan="3">
 						<div id="fileQueue" style="float: left; margin: 10px 10px 10px 0; width: 322px; height: 242px; border: 1px solid #000;">
-							<img src="<%=basePath %>/${activit.a_pic }" style="height:240px; width:320px;" />
+							<img src="<%=basePath %>/${activit.aPic }" style="height:240px; width:320px;" />
 						</div>
 						<p style="float: left; margin-top: 100px; margin-left: 30px;">
 							<input id="file-upload" name="file-upload" type="file"
 								disabled="disabled" /> <a
 								href="javascript:$('#file-upload').uploadify('upload');">上传</a>|
 							<a href="javascript:$('#file-upload').uploadify('cancel');">取消上传</a>
-						</p> <input type="hidden" id="imgPath" name="imgPath" value="${activit.a_pic }">
+						</p> <input type="hidden" id="imgPath" name="imgPath" value="${activit.aPic }">
 						<br style="clear: both;" />
 					</td>
 				</tr>
@@ -282,29 +284,9 @@
    				}, 10); 
    			});
    		</script>
-       </div>
-			</div>
-
-
-			<div class="modal small hide fade" id="myModal" tabindex="-1"
-				role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal"
-						aria-hidden="true">×</button>
-					<h3 id="myModalLabel">Delete Confirmation</h3>
-				</div>
-				<div class="modal-body">
-					<p class="error-text">
-						<i class="icon-warning-sign modal-icon"></i>Are you sure you want
-						to delete the user?
-					</p>
-				</div>
-				<div class="modal-footer">
-					<button class="btn" data-dismiss="modal" aria-hidden="true">Cancel</button>
-					<button class="btn btn-danger" data-dismiss="modal">Delete</button>
-				</div>
-			</div>
+	       </div>
 		</div>
 	</div>
+</div>
 </body>
 </html>

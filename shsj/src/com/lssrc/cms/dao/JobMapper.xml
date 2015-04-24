@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lssrc.cms.dao.JobMapper" >
+  <resultMap id="BaseResultMap" type="com.lssrc.cms.dto.JobDto" >
+    <id column="j_id" property="jId" jdbcType="VARCHAR" />
+    <result column="j_title" property="jTitle" jdbcType="VARCHAR" />
+    <result column="j_organizer" property="jOrganizer" jdbcType="VARCHAR" />
+    <result column="j_belong" property="jBelong" jdbcType="VARCHAR" />
+    <result column="j_type" property="jType" jdbcType="VARCHAR" />
+    <result column="j_number" property="jNumber" jdbcType="INTEGER" />
+    <result column="j_number_ready" property="jNumberReady" jdbcType="INTEGER" />
+    <result column="j_number_limit" property="jNumberLimit" jdbcType="INTEGER" />
+    <result column="j_work_place" property="jWorkPlace" jdbcType="VARCHAR" />
+    <result column="j_work_time" property="jWorkTime" jdbcType="VARCHAR" />
+    <result column="j_salary" property="jSalary" jdbcType="VARCHAR" />
+    <result column="j_salary_type" property="jSalaryType" jdbcType="VARCHAR" />
+    <result column="j_contact" property="jContact" jdbcType="VARCHAR" />
+    <result column="j_audition_time" property="jAuditionTime" jdbcType="VARCHAR" />
+    <result column="j_datetime_end" property="jDatetimeEnd" jdbcType="VARCHAR" />
+    <result column="j_audition_place" property="jAuditionPlace" jdbcType="VARCHAR" />
+    <result column="j_datetime_build" property="jDatetimeBuild" jdbcType="VARCHAR" />
+    <result column="j_builder" property="jBuilder" jdbcType="VARCHAR" />
+    <result column="isdeled" property="isdeled" jdbcType="INTEGER" />
+    <result column="j_content" property="jContent" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  
+  <resultMap id="JobDtoResultMap" type="com.lssrc.cms.dto.JobDto" >
+  	<id column="j_id" property="jId" jdbcType="VARCHAR" />
+  	<association property="job" javaType="com.lssrc.cms.entity.Job">
+	    <id column="j_id" property="jId" jdbcType="VARCHAR" />
+	    <result column="j_title" property="jTitle" jdbcType="VARCHAR" />
+	    <result column="j_organizer" property="jOrganizer" jdbcType="VARCHAR" />
+	    <result column="j_belong" property="jBelong" jdbcType="VARCHAR" />
+	    <result column="j_type" property="jType" jdbcType="VARCHAR" />
+	    <result column="j_number" property="jNumber" jdbcType="INTEGER" />
+	    <result column="j_number_ready" property="jNumberReady" jdbcType="INTEGER" />
+	    <result column="j_number_limit" property="jNumberLimit" jdbcType="INTEGER" />
+	    <result column="j_work_place" property="jWorkPlace" jdbcType="VARCHAR" />
+	    <result column="j_work_time" property="jWorkTime" jdbcType="VARCHAR" />
+	    <result column="j_salary" property="jSalary" jdbcType="VARCHAR" />
+	    <result column="j_salary_type" property="jSalaryType" jdbcType="VARCHAR" />
+	    <result column="j_contact" property="jContact" jdbcType="VARCHAR" />
+	    <result column="j_audition_time" property="jAuditionTime" jdbcType="VARCHAR" />
+	    <result column="j_datetime_end" property="jDatetimeEnd" jdbcType="VARCHAR" />
+	    <result column="j_audition_place" property="jAuditionPlace" jdbcType="VARCHAR" />
+	    <result column="j_datetime_build" property="jDatetimeBuild" jdbcType="VARCHAR" />
+	    <result column="isdeled" property="isdeled" jdbcType="INTEGER" />
+	    <result column="j_content" property="jContent" jdbcType="LONGVARCHAR" />
+	    <result column="j_builder" property="jBuilder" jdbcType="VARCHAR" />
+    </association>
+    <association property="jobBelong" javaType="com.lssrc.cms.entity.JobBelong">
+    	<id column="jb_id" property="jbId" jdbcType="VARCHAR" />
+    	<result column="jb_name" property="jbName" jdbcType="VARCHAR" />
+    </association>
+    <association property="jobType" javaType="com.lssrc.cms.entity.JobType">
+    	<id column="jt_id" property="jtId" jdbcType="VARCHAR" />
+    	<result column="jt_name" property="jtName" jdbcType="VARCHAR" />
+    </association>
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    j_id, j_title, j_organizer, j_belong, j_type, j_number, j_number_ready, j_number_limit, 
+    j_work_place, j_work_time, j_salary, j_salary_type, j_contact, j_audition_time, j_datetime_end, 
+    j_audition_place, j_datetime_build, j_content, j_builder, isdeled
+  </sql>
+  <sql id="Belong_Column_List" >
+    jb_id, jb_name
+  </sql>
+  <sql id="Type_Column_List" >
+    jt_id, jt_name
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="JobDtoResultMap" >
+    select 
+    <include refid="Base_Column_List" />, <include refid="Belong_Column_List" />, <include refid="Type_Column_List" />
+    from shsj_job, shsj_job_belong, shsj_job_type
+    where j_id = #{jId,jdbcType=VARCHAR} and 
+    shsj_job.j_type=shsj_job_type.jt_id and 
+    shsj_job.j_belong=shsj_job_belong.jb_id
+  </select>
+  
+  <select id="selectCount" resultType="int" >
+    select count(*) from shsj_job where j_type=#{type} and isdeled=0
+  </select>
+  
+  <select id="selectByPage" resultMap="JobDtoResultMap">
+    select 
+    <include refid="Base_Column_List" />, <include refid="Belong_Column_List" />, <include refid="Type_Column_List" />
+    from shsj_job, shsj_job_belong, shsj_job_type
+    where 
+    shsj_job.j_type=shsj_job_type.jt_id and 
+    shsj_job.j_belong=shsj_job_belong.jb_id and isdeled=0 
+    <if test="type != null">
+     and j_type=#{type}  
+    </if>
+    order by j_datetime_build desc, j_audition_time asc
+    limit #{start},#{pageSize}
+  </select>
+  <update id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    update shsj_job set isdeled=1 where j_id = #{jId,jdbcType=VARCHAR}
+  </update>
+  <insert id="insert" parameterType="com.lssrc.cms.entity.Job" >
+    insert into shsj_job
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="jId != null" >
+        j_id,
+      </if>
+      <if test="jTitle != null" >
+        j_title,
+      </if>
+      <if test="jOrganizer != null" >
+        j_organizer,
+      </if>
+      <if test="jBelong != null" >
+        j_belong,
+      </if>
+      <if test="jType != null" >
+        j_type,
+      </if>
+      <if test="jNumber != null" >
+        j_number,
+      </if>
+      <if test="jNumberReady != null" >
+        j_number_ready,
+      </if>
+      <if test="jNumberLimit != null" >
+        j_number_limit,
+      </if>
+      <if test="jWorkPlace != null" >
+        j_work_place,
+      </if>
+      <if test="jWorkTime != null" >
+        j_work_time,
+      </if>
+      <if test="jSalary != null" >
+        j_salary,
+      </if>
+      <if test="jSalaryType != null" >
+        j_salary_type,
+      </if>
+      <if test="jContact != null" >
+        j_contact,
+      </if>
+      <if test="jAuditionTime != null" >
+        j_audition_time,
+      </if>
+      <if test="jDatetimeEnd != null" >
+        j_datetime_end,
+      </if>
+      <if test="jAuditionPlace != null" >
+        j_audition_place,
+      </if>
+      <if test="jDatetimeBuild != null" >
+        j_datetime_build,
+      </if>
+      <if test="isdeled != null" >
+        isdeled,
+      </if>
+      <if test="jContent != null" >
+        j_content,
+      </if>
+      <if test="jBuilder != null" >
+        j_builder,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="jId != null" >
+        #{jId,jdbcType=VARCHAR},
+      </if>
+      <if test="jTitle != null" >
+        #{jTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="jOrganizer != null" >
+        #{jOrganizer,jdbcType=VARCHAR},
+      </if>
+      <if test="jBelong != null" >
+        #{jBelong,jdbcType=VARCHAR},
+      </if>
+      <if test="jType != null" >
+        #{jType,jdbcType=VARCHAR},
+      </if>
+      <if test="jNumber != null" >
+        #{jNumber,jdbcType=INTEGER},
+      </if>
+      <if test="jNumberReady != null" >
+        #{jNumberReady,jdbcType=INTEGER},
+      </if>
+      <if test="jNumberLimit != null" >
+        #{jNumberLimit,jdbcType=INTEGER},
+      </if>
+      <if test="jWorkPlace != null" >
+        #{jWorkPlace,jdbcType=VARCHAR},
+      </if>
+      <if test="jWorkTime != null" >
+        #{jWorkTime,jdbcType=VARCHAR},
+      </if>
+      <if test="jSalary != null" >
+        #{jSalary,jdbcType=VARCHAR},
+      </if>
+      <if test="jSalaryType != null" >
+        #{jSalaryType,jdbcType=VARCHAR},
+      </if>
+      <if test="jContact != null" >
+        #{jContact,jdbcType=VARCHAR},
+      </if>
+      <if test="jAuditionTime != null" >
+        #{jAuditionTime,jdbcType=VARCHAR},
+      </if>
+      <if test="jDatetimeEnd != null" >
+        #{jDatetimeEnd,jdbcType=TIMESTAMP},
+      </if>
+      <if test="jAuditionPlace != null" >
+        #{jAuditionPlace,jdbcType=VARCHAR},
+      </if>
+      <if test="jDatetimeBuild != null" >
+        #{jDatetimeBuild,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isdeled != null" >
+        #{isdeled,jdbcType=INTEGER},
+      </if>
+      <if test="jContent != null" >
+        #{jContent,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="jBuilder != null" >
+        #{jBuilder,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.lssrc.cms.entity.Job" >
+    update shsj_job
+    <set >
+      <if test="jTitle != null" >
+        j_title = #{jTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="jOrganizer != null" >
+        j_organizer = #{jOrganizer,jdbcType=VARCHAR},
+      </if>
+      <if test="jBelong != null" >
+        j_belong = #{jBelong,jdbcType=VARCHAR},
+      </if>
+      <if test="jType != null" >
+        j_type = #{jType,jdbcType=VARCHAR},
+      </if>
+      <if test="jNumber != null" >
+        j_number = #{jNumber,jdbcType=INTEGER},
+      </if>
+      <if test="jNumberReady != null" >
+        j_number_ready = #{jNumberReady,jdbcType=INTEGER},
+      </if>
+      <if test="jNumberLimit != null" >
+        j_number_limit = #{jNumberLimit,jdbcType=INTEGER},
+      </if>
+      <if test="jWorkPlace != null" >
+        j_work_place = #{jWorkPlace,jdbcType=VARCHAR},
+      </if>
+      <if test="jWorkTime != null" >
+        j_work_time = #{jWorkTime,jdbcType=VARCHAR},
+      </if>
+      <if test="jSalary != null" >
+        j_salary = #{jSalary,jdbcType=VARCHAR},
+      </if>
+      <if test="jSalaryType != null" >
+        j_salary_type = #{jSalaryType,jdbcType=VARCHAR},
+      </if>
+      <if test="jContact != null" >
+        j_contact = #{jContact,jdbcType=VARCHAR},
+      </if>
+      <if test="jAuditionTime != null" >
+        j_audition_time = #{jAuditionTime,jdbcType=VARCHAR},
+      </if>
+      <if test="jDatetimeEnd != null" >
+        j_datetime_end = #{jDatetimeEnd,jdbcType=TIMESTAMP},
+      </if>
+      <if test="jAuditionPlace != null" >
+        j_audition_place = #{jAuditionPlace,jdbcType=VARCHAR},
+      </if>
+      <if test="jDatetimeBuild != null" >
+        j_datetime_build = #{jDatetimeBuild,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isdeled != null" >
+        isdeled = #{isdeled,jdbcType=INTEGER},
+      </if>
+      <if test="jContent != null" >
+        j_content = #{jContent,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="jBuilder != null" >
+        j_builder = #{jBuilder,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where j_id = #{jId,jdbcType=VARCHAR}
+  </update>
+</mapper>
