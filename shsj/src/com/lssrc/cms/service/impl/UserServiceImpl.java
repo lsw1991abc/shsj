@@ -7,15 +7,14 @@
 package com.lssrc.cms.service.impl;
 
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.IncorrectResultSizeDataAccessException;
 import org.springframework.stereotype.Service;
 
-import com.lssrc.cms.dao.UserDao;
+import com.lssrc.cms.dao.UserMapper;
+import com.lssrc.cms.entity.User;
 import com.lssrc.cms.service.UserService;
-import com.lssrc.util.PageFormater;
+import com.lssrc.util.Navigator;
 
 /**
  * @author Carl_Li
@@ -25,38 +24,35 @@ import com.lssrc.util.PageFormater;
 public class UserServiceImpl implements UserService {
 	
 	@Autowired
-	private UserDao userDao;
+	private UserMapper userMapper;
 
+	
 	@Override
-	public Map<String, Object> getByUsername(String username) {
-		try {
-			return userDao.queryByUsername(username);
-		} catch (IncorrectResultSizeDataAccessException e) {
-			return null;
-		}
+	public User getByAccount(String account) {
+		return userMapper.selectByAccount(account);
 	}
 
 	@Override
-	public Map<String, Object> getById(String id) {
-		return userDao.queryById(id);
+	public User getById(String id) {
+		return userMapper.selectByPrimaryKey(id);
 	}
 
 	@Override
-	public List<Map<String, Object>> getByPage(Map<String, Integer> navigator, int issys) {
-		int pageNo = navigator.get("nowPageNo");
-		int pageSize = navigator.get("pageSize");
-		return userDao.queryByPage((pageNo - 1) * pageSize, pageSize, issys);
+	public List<User> getByPage(Navigator navigator, int issys) {
+		int pageNo = navigator.getNowPage();
+		int pageSize = navigator.getPageSize();
+		return userMapper.queryByPage((pageNo - 1) * pageSize, pageSize, issys);
 	}
 
 	@Override
-	public Map<String, Integer> getNavigator(int pageNo, int pageSize, int issys) {
-		int count = userDao.queryCountByIssys(issys);
-		return PageFormater.getFormatPageNav(pageNo, count, pageSize);
+	public Navigator getNavigator(int pageNo, int pageSize, int issys) {
+		int count = userMapper.queryCountByIssys(issys);
+		return Navigator.formatPageNavigator(pageNo, count, pageSize);
 	}
 
 	@Override
 	public boolean isNotExist(String username) {
-		if (userDao.queryCountByUsername(username) == 0) {
+		if (userMapper.queryCountByUsername(username) == 0) {
 			return true;
 		} else {
 			return false;
@@ -64,8 +60,8 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public boolean save(Map<String, String> contations) {
-		if (userDao.save(contations) == 1) {
+	public boolean save(User user) {
+		if (userMapper.insert(user) == 1) {
 			return true;
 		} else {
 			return false;
@@ -73,18 +69,18 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public int update(Map<String, Object> user) {
-		return userDao.update(user);
+	public int update(User user) {
+		return userMapper.updateByPrimaryKey(user);
 	}
 
 	@Override
-	public int changePasswd(Map<String, Object> user) {
-		return userDao.changePasswd(user);
+	public int changePasswd(User user) {
+		return userMapper.updateByPrimaryKey(user);
 	}
 
 	@Override
-	public int changeRole(String id, int issys) {
-		return userDao.changeRole(id, issys);
+	public int changeRole(User user) {
+		return userMapper.updateByPrimaryKey(user);
 	}
 
 }

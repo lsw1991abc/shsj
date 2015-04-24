@@ -7,62 +7,55 @@
 package com.lssrc.cms.service;
 
 import java.util.List;
-import java.util.Map;
+
+import com.lssrc.cms.dto.JobDto;
+import com.lssrc.cms.entity.Job;
+import com.lssrc.cms.entity.JobBelong;
+import com.lssrc.cms.entity.JobType;
+import com.lssrc.util.Navigator;
 
 /**
  * @author Carl_Li
  *
  */
 public interface JobService {
+	
+	public static String TYPE_JOB = "1";
+	public static String TYPE_PARTTIME = "2";
 
 	/**
 	 * @param pageNo
 	 * @param pageSize
+	 * @param type
 	 * @return
 	 */
-	public Map<String, Integer> getNavigator(int pageNo, int pageSize, String type);
+	public Navigator getNavigator(int pageNo, int pageSize, String type);
 
 	/**
 	 * @param id
 	 * @return
 	 */
-	public Map<String, Object> getById(String id);
+	public JobDto getById(String id);
 
 	/**
 	 * @param navigator
-	 * @return
-	 */
-	public List<Map<String, Object>> getByPage(Map<String, Integer> navigator, String type);
-
-	/**
-	 * @param i
-	 * @param string
-	 * @return
-	 */
-	public List<Map<String, Object>> getByTop(int top, String type);
-
-	/**
-	 * @param organizer
-	 * @param title
 	 * @param type
-	 * @param place
-	 * @param salary
-	 * @param datetimeWork
-	 * @param number
-	 * @param numberLimit
-	 * @param contact
-	 * @param datetimeStart
-	 * @param datetimeEnd
-	 * @param auditionPlace
-	 * @param content
-	 * @param userId
 	 * @return
 	 */
-	public int save(String organizer, String title, String type, String place,
-			String salary, String datetimeWork, int number,
-			int numberLimit, String contact, String datetimeStart,
-			String datetimeEnd, String auditionPlace, String content, String belong,
-			String userId);
+	public List<JobDto> getByPage(Navigator navigator, String type);
+
+	/**
+	 * @param top
+	 * @param type
+	 * @return
+	 */
+	public List<JobDto> getByTop(int top, String type);
+
+	/**
+	 * @param job
+	 * @return
+	 */
+	public int save(Job job);
 
 	/**
 	 * @param id
@@ -73,31 +66,17 @@ public interface JobService {
 	/**
 	 * @return
 	 */
-	public List<Map<String, Object>>  getBelong();
-
+	public List<JobBelong> getBelong();
+	
 	/**
-	 * @param id
-	 * @param organnizer
-	 * @param title
-	 * @param type
-	 * @param place
-	 * @param salary
-	 * @param datetimeWork
-	 * @param number
-	 * @param numberLimit
-	 * @param contact
-	 * @param datetimeStart
-	 * @param datetimeEnd
-	 * @param auditionPlace
-	 * @param content
-	 * @param belong
-	 * @param userId
 	 * @return
 	 */
-	public int update(String id, String organnizer, String title, String type,
-			String place, String salary, String datetimeWork, int number,
-			int numberLimit, String contact, String datetimeStart,
-			String datetimeEnd, String auditionPlace, String content,
-			String belong, String userId);
+	public List<JobType> getType();
+
+	/**
+	 * @param job
+	 * @return
+	 */
+	public int update(Job job);
 
 }

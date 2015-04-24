@@ -29,22 +29,22 @@
 			<span style="width:15%;" class="text-center">时间</span>
 			<span style="width:15%;" class="text-center">操作</span>
 		</li>
-		<c:forEach items="${dailies }" var="daily" begin="0">
-			<li id="daily-li-${daily.d_id}">
-				<span style="width:70%;"><a href="<%=basePath%>/rizhi/${daily.d_id}" target="_blank">${daily.d_title}</a></span>
-				<span style="width:15%;" class="text-center">${fn:substring(daily.d_datetime_build, 0, 10)}</span>
-				<span style="width:15%;" class="text-center"><a href="<%=basePath%>/user/rizhi/edit?id=${daily.d_id}">编辑</a> | <a href="javascript:delDaily(this, '${daily.d_id}');">删除</a></span>
+		<c:forEach items="${dailies}" var="daily" begin="0">
+			<li id="daily-li-${daily.nId}">
+				<span style="width:70%;"><a href="<%=basePath%>/rizhi/${daily.nId}" target="_blank">${daily.nTitle}</a></span>
+				<span style="width:15%;" class="text-center">${fn:substring(daily.nDatetimeBuild, 0, 10)}</span>
+				<span style="width:15%;" class="text-center"><a href="<%=basePath%>/user/rizhi/edit?id=${daily.nId}">编辑</a> | <a href="javascript:delDaily(this, '${daily.nId}');">删除</a></span>
 			</li>
 		</c:forEach>
 	</ul>
 	<div class="text-center">
 		<nav>
 			<ul class="pager">
-				<li><a href="<%=basePath%>/user/rizhi/?page=1">首页</a></li>
-				<li><a href="<%=basePath%>/user/rizhi/?page=${navigator.prePageNo}">上一页</a></li>
-				<li><a href="<%=basePath%>/user/rizhi/?page=${navigator.nextPageNo}">下一页</a></li>
-				<li><a href="<%=basePath%>/user/rizhi/?page=${navigator.pageCount}">末页</a></li>
-				<li>&nbsp;当前 ${navigator.nowPageNo}/${navigator.pageCount} 页&nbsp;&nbsp; 每页${navigator.pageSize}条&nbsp;&nbsp;共${navigator.count}条</li>
+				<li><a href="<%=basePath%>/user/rizhi/?page=${navigator.firstPage}">首页</a></li>
+				<li><a href="<%=basePath%>/user/rizhi/?page=${navigator.prePage}">上一页</a></li>
+				<li><a href="<%=basePath%>/user/rizhi/?page=${navigator.nextPage}">下一页</a></li>
+				<li><a href="<%=basePath%>/user/rizhi/?page=${navigator.lastPage}">末页</a></li>
+				<li>&nbsp;当前 ${navigator.nowPage}/${navigator.pageCount} 页&nbsp;&nbsp; 每页${navigator.pageSize}条&nbsp;&nbsp;共${navigator.count}条</li>
 			</ul>
 		</nav>
 	</div>

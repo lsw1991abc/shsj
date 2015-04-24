@@ -24,12 +24,12 @@
 		<mvc:interceptor>
 			<mvc:mapping path="/user/**"/>
 			<mvc:mapping path="/user**"/>
-			<bean class="com.lssrc.util.SessionInterceptor" />
+			<bean class="com.lssrc.cms.common.SessionInterceptor" />
 		</mvc:interceptor>
 		<mvc:interceptor>
 			<mvc:mapping path="/admin/**"/>
 			<mvc:mapping path="/admin**"/>
-			<bean class="com.lssrc.util.RoleInterceptor" />
+			<bean class="com.lssrc.cms.common.RoleInterceptor" />
 		</mvc:interceptor>
 	</mvc:interceptors>
 	

@@ -59,11 +59,11 @@
          	<tbody>
 	            <c:forEach var="notice" items="${notices}">
 	              <tr>
-                    <td style="width:70%;"><a href="<%=basePath%>/baodian/${notice.n_id}" target="_blank">${notice.n_title}</a></td>
-                    <td style="width:15%;" class="text-center">${fn:substring(notice.n_datetime_build, 0, 19)}</td>
+                    <td style="width:70%;"><a href="<%=basePath%>/baodian/${notice.nId}" target="_blank">${notice.nTitle}</a></td>
+                    <td style="width:15%;" class="text-center">${fn:substring(notice.nDatetimeBuild, 0, 19)}</td>
                     <td style="width:15%;" class="text-center">
-                    	<a href="<%=adminPath %>/baodian/edit/${notice.n_id}" title="编辑"><i class="fa fa-pencil"></i></a> 
-						<a href="<%=adminPath %>/baodian/delete/${notice.n_id}" title="删除"><i class="fa fa-remove"></i></a>
+                    	<a href="<%=adminPath %>/baodian/edit/${notice.nId}" title="编辑"><i class="fa fa-pencil"></i></a> 
+						<a href="<%=adminPath %>/baodian/delete/${notice.nId}" title="删除"><i class="fa fa-remove"></i></a>
 					</td>
                   </tr>
 	            </c:forEach>
@@ -71,12 +71,12 @@
               </table>
             	<nav class="text-center" style="border-top: 1px solid #DDDDDD;">
                   <ul class="pager">
-                    <li><a href="<%=adminPath %>/baodian/?page=1">首页</a></li>
-                      <li><a href="<%=adminPath %>/baodian/?page=${navigator.prePageNo}">上一页</a></li>
-                      <li><a href="<%=adminPath %>/baodian/?page=${navigator.nextPageNo}">下一页</a></li>
-                      <li><a href="<%=adminPath %>/baodian/?page=${navigator.pageCount}">末页</a></li>
+                    <li><a href="<%=adminPath %>/baodian/?page=${navigator.firstPage}">首页</a></li>
+                      <li><a href="<%=adminPath %>/baodian/?page=${navigator.prePage}">上一页</a></li>
+                      <li><a href="<%=adminPath %>/baodian/?page=${navigator.nextPage}">下一页</a></li>
+                      <li><a href="<%=adminPath %>/baodian/?page=${navigator.lastPage}">末页</a></li>
                       <li>&nbsp;
-	                      当前 ${navigator.nowPageNo}/${navigator.pageCount} 页&nbsp;&nbsp;
+	                      当前 ${navigator.nowPage}/${navigator.pageCount} 页&nbsp;&nbsp;
 	                      每页${navigator.pageSize}条&nbsp;&nbsp;
 	                      共${navigator.count}条
                       </li>

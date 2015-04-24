@@ -103,7 +103,7 @@
 									<select class="form-control" style="width: 75%;"
 										id="activit-statu" name="statu">
 										<c:forEach items="${status }" var="statu">
-											<option value="${statu.as_id}">${statu.as_name}</option>
+											<option value="${statu.asId}">${statu.asName}</option>
 										</c:forEach>
 									</select>
 								</div>

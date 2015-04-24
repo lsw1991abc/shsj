@@ -6,17 +6,22 @@
  */
 package com.lssrc.cms.dto;
 
-import java.util.Map;
+import com.lssrc.cms.entity.Notice;
+import com.lssrc.cms.entity.User;
 
 /**
  * @author Carl_Li
  *
  */
 public class NoticeDto {
+	
+	private String nId;
 
-	private Map<String, Object> notice;
+	private Notice notice;
 	
 	private int noticeCount;
+	
+	private User user;
 
 	/**
 	 * 
@@ -24,28 +29,42 @@ public class NoticeDto {
 	public NoticeDto() {
 		super();
 	}
-
+	
 	/**
 	 * @param notice
 	 * @param noticeCount
 	 */
-	public NoticeDto(Map<String, Object> notice, int noticeCount) {
+	public NoticeDto(Notice notice, int noticeCount) {
 		super();
 		this.notice = notice;
 		this.noticeCount = noticeCount;
 	}
 
 	/**
+	 * @return the nId
+	 */
+	public String getnId() {
+		return nId;
+	}
+
+	/**
+	 * @param nId the nId to set
+	 */
+	public void setnId(String nId) {
+		this.nId = nId;
+	}
+
+	/**
 	 * @return the notice
 	 */
-	public Map<String, Object> getNotice() {
+	public Notice getNotice() {
 		return notice;
 	}
 
 	/**
 	 * @param notice the notice to set
 	 */
-	public void setNotice(Map<String, Object> notice) {
+	public void setNotice(Notice notice) {
 		this.notice = notice;
 	}
 
@@ -61,6 +80,20 @@ public class NoticeDto {
 	 */
 	public void setNoticeCount(int noticeCount) {
 		this.noticeCount = noticeCount;
+	}
+
+	/**
+	 * @return the user
+	 */
+	public User getUser() {
+		return user;
+	}
+
+	/**
+	 * @param user the user to set
+	 */
+	public void setUser(User user) {
+		this.user = user;
 	}
 	
 }

@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lssrc.cms.dao.ResumeMapper" >
+  <resultMap id="BaseResultMap" type="com.lssrc.cms.entity.Resume" >
+    <id column="r_id" property="rId" jdbcType="VARCHAR" />
+    <result column="r_name" property="rName" jdbcType="VARCHAR" />
+    <result column="r_sex" property="rSex" jdbcType="VARCHAR" />
+    <result column="r_age" property="rAge" jdbcType="INTEGER" />
+    <result column="r_college" property="rCollege" jdbcType="VARCHAR" />
+    <result column="r_major" property="rMajor" jdbcType="VARCHAR" />
+    <result column="r_entrance" property="rEntrance" jdbcType="VARCHAR" />
+    <result column="r_height" property="rHeight" jdbcType="DOUBLE" />
+    <result column="r_weight" property="rWeight" jdbcType="DOUBLE" />
+    <result column="r_datetime_update" property="rDatetimeUpdate" jdbcType="VARCHAR" />
+    <result column="r_qq" property="rQq" jdbcType="VARCHAR" />
+    <result column="r_phoneno" property="rPhoneno" jdbcType="VARCHAR" />
+    <result column="r_email" property="rEmail" jdbcType="VARCHAR" />
+    <result column="r_pic" property="rPic" jdbcType="VARCHAR" />
+    <result column="r_hot" property="rHot" jdbcType="INTEGER" />
+    <result column="r_show" property="rShow" jdbcType="INTEGER" />
+    <result column="u_id" property="uId" jdbcType="VARCHAR" />
+    <result column="r_profile" property="rProfile" jdbcType="LONGVARCHAR" />
+    <result column="r_experience" property="rExperience" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    r_id, r_name, r_sex, r_age, r_college, r_major, r_entrance, r_height, r_weight, r_datetime_update, 
+    r_qq, r_phoneno, r_email, r_pic, r_hot, r_show, u_id, r_profile, r_experience
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select <include refid="Base_Column_List" /> from shsj_resume where r_id = #{rId,jdbcType=VARCHAR}
+  </select>
+  <select id="selectByUserId" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select <include refid="Base_Column_List" /> from shsj_resume where u_id = #{userId,jdbcType=VARCHAR}
+  </select>
+  <update id="deleteByPrimaryKey" parameterType="java.lang.String">
+  	update shsj_resume set r_show=0 where r_id = #{rId,jdbcType=VARCHAR}
+  </update>
+  <insert id="insert" parameterType="com.lssrc.cms.entity.Resume" >
+    insert into shsj_resume
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="rId != null" >
+        r_id,
+      </if>
+      <if test="rName != null" >
+        r_name,
+      </if>
+      <if test="rSex != null" >
+        r_sex,
+      </if>
+      <if test="rAge != null" >
+        r_age,
+      </if>
+      <if test="rCollege != null" >
+        r_college,
+      </if>
+      <if test="rMajor != null" >
+        r_major,
+      </if>
+      <if test="rEntrance != null" >
+        r_entrance,
+      </if>
+      <if test="rHeight != null" >
+        r_height,
+      </if>
+      <if test="rWeight != null" >
+        r_weight,
+      </if>
+      <if test="rDatetimeUpdate != null" >
+        r_datetime_update,
+      </if>
+      <if test="rQq != null" >
+        r_qq,
+      </if>
+      <if test="rPhoneno != null" >
+        r_phoneno,
+      </if>
+      <if test="rEmail != null" >
+        r_email,
+      </if>
+      <if test="rPic != null" >
+        r_pic,
+      </if>
+      <if test="rHot != null" >
+        r_hot,
+      </if>
+      <if test="rShow != null" >
+        r_show,
+      </if>
+      <if test="uId != null" >
+        u_id,
+      </if>
+      <if test="rProfile != null" >
+        r_profile,
+      </if>
+      <if test="rExperience != null" >
+        r_experience,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="rId != null" >
+        #{rId,jdbcType=VARCHAR},
+      </if>
+      <if test="rName != null" >
+        #{rName,jdbcType=VARCHAR},
+      </if>
+      <if test="rSex != null" >
+        #{rSex,jdbcType=VARCHAR},
+      </if>
+      <if test="rAge != null" >
+        #{rAge,jdbcType=INTEGER},
+      </if>
+      <if test="rCollege != null" >
+        #{rCollege,jdbcType=VARCHAR},
+      </if>
+      <if test="rMajor != null" >
+        #{rMajor,jdbcType=VARCHAR},
+      </if>
+      <if test="rEntrance != null" >
+        #{rEntrance,jdbcType=VARCHAR},
+      </if>
+      <if test="rHeight != null" >
+        #{rHeight,jdbcType=DOUBLE},
+      </if>
+      <if test="rWeight != null" >
+        #{rWeight,jdbcType=DOUBLE},
+      </if>
+      <if test="rDatetimeUpdate != null" >
+        #{rDatetimeUpdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="rQq != null" >
+        #{rQq,jdbcType=VARCHAR},
+      </if>
+      <if test="rPhoneno != null" >
+        #{rPhoneno,jdbcType=VARCHAR},
+      </if>
+      <if test="rEmail != null" >
+        #{rEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="rPic != null" >
+        #{rPic,jdbcType=VARCHAR},
+      </if>
+      <if test="rHot != null" >
+        #{rHot,jdbcType=INTEGER},
+      </if>
+      <if test="rShow != null" >
+        #{rShow,jdbcType=INTEGER},
+      </if>
+      <if test="uId != null" >
+        #{uId,jdbcType=VARCHAR},
+      </if>
+      <if test="rProfile != null" >
+        #{rProfile,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="rExperience != null" >
+        #{rExperience,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.lssrc.cms.entity.Resume" >
+    update shsj_resume
+    <set >
+      <if test="rName != null" >
+        r_name = #{rName,jdbcType=VARCHAR},
+      </if>
+      <if test="rSex != null" >
+        r_sex = #{rSex,jdbcType=VARCHAR},
+      </if>
+      <if test="rAge != null" >
+        r_age = #{rAge,jdbcType=INTEGER},
+      </if>
+      <if test="rCollege != null" >
+        r_college = #{rCollege,jdbcType=VARCHAR},
+      </if>
+      <if test="rMajor != null" >
+        r_major = #{rMajor,jdbcType=VARCHAR},
+      </if>
+      <if test="rEntrance != null" >
+        r_entrance = #{rEntrance,jdbcType=VARCHAR},
+      </if>
+      <if test="rHeight != null" >
+        r_height = #{rHeight,jdbcType=DOUBLE},
+      </if>
+      <if test="rWeight != null" >
+        r_weight = #{rWeight,jdbcType=DOUBLE},
+      </if>
+      <if test="rDatetimeUpdate != null" >
+        r_datetime_update = #{rDatetimeUpdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="rQq != null" >
+        r_qq = #{rQq,jdbcType=VARCHAR},
+      </if>
+      <if test="rPhoneno != null" >
+        r_phoneno = #{rPhoneno,jdbcType=VARCHAR},
+      </if>
+      <if test="rEmail != null" >
+        r_email = #{rEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="rPic != null" >
+        r_pic = #{rPic,jdbcType=VARCHAR},
+      </if>
+      <if test="rHot != null" >
+        r_hot = #{rHot,jdbcType=INTEGER},
+      </if>
+      <if test="rShow != null" >
+        r_show = #{rShow,jdbcType=INTEGER},
+      </if>
+      <if test="uId != null" >
+        u_id = #{uId,jdbcType=VARCHAR},
+      </if>
+      <if test="rProfile != null" >
+        r_profile = #{rProfile,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="rExperience != null" >
+        r_experience = #{rExperience,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where r_id = #{rId,jdbcType=VARCHAR}
+  </update>
+</mapper>

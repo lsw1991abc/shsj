@@ -6,8 +6,6 @@
  */
 package com.lssrc.cms.web;
 
-import java.util.Map;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -18,10 +16,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.lssrc.cms.dao.NoticeDao;
 import com.lssrc.cms.dto.NoticeDto;
 import com.lssrc.cms.service.NoticeService;
 import com.lssrc.util.ErrorCode;
+import com.lssrc.util.Navigator;
 
 /**
  * @author Carl_Li
@@ -48,10 +46,10 @@ public class NoticeController {
 			@RequestParam(value = "page", required = false, defaultValue = "1")int pageNo,
 			@RequestParam(value = "pageSize", required = false, defaultValue = "10")int pageSize) {
 		
-		Map<String, Integer> navigator = noticeService.getNavigator(pageNo, pageSize, NoticeDao.NOTICE);
+		Navigator navigator = noticeService.getNavigator(pageNo, pageSize, NoticeService.TYPE_NOTICE, null);
 		
 		model.addAttribute("navigator", navigator);
-		model.addAttribute("notices", noticeService.getByPage(navigator, NoticeDao.NOTICE));
+		model.addAttribute("notices", noticeService.getByPage(navigator, NoticeService.TYPE_NOTICE, null));
 		
 		return "notice/list";
 	}

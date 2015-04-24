@@ -6,8 +6,6 @@
  */
 package com.lssrc.cms.web;
 
-import java.util.Map;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -18,10 +16,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.lssrc.cms.dao.NoticeDao;
 import com.lssrc.cms.dto.NoticeDto;
 import com.lssrc.cms.service.NoticeService;
 import com.lssrc.util.ErrorCode;
+import com.lssrc.util.Navigator;
 
 /**
  * @author Carl_Li
@@ -47,10 +45,10 @@ public class TreasureController {
 			@RequestParam(value = "page", required = false, defaultValue = "1")int pageNo,
 			@RequestParam(value = "pageSize", required = false, defaultValue = "10")int pageSize) {
 		
-		Map<String, Integer> navigator = noticeService.getNavigator(pageNo, pageSize, NoticeDao.TREASURE);
+		Navigator navigator = noticeService.getNavigator(pageNo, pageSize, NoticeService.TYPE_TREASURE, null);
 		
 		model.addAttribute("navigator", navigator);
-		model.addAttribute("treasures", noticeService.getByPage(navigator, NoticeDao.TREASURE));
+		model.addAttribute("treasures", noticeService.getByPage(navigator, NoticeService.TYPE_TREASURE, null));
 		
 		return "treasure/list";
 	}

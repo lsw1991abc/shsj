@@ -6,8 +6,6 @@
  */
 package com.lssrc.cms.web;
 
-import java.util.Map;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -18,8 +16,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.lssrc.cms.dto.JobDto;
 import com.lssrc.cms.service.JobService;
 import com.lssrc.util.ErrorCode;
+import com.lssrc.util.Navigator;
 
 /**
  * @author Carl_Li
@@ -46,10 +46,10 @@ public class PartTimeController {
 			@RequestParam(value = "page", required = false, defaultValue = "1")int pageNo,
 			@RequestParam(value = "pageSize", required = false, defaultValue = "10")int pageSize) {
 		
-		Map<String, Integer> navigator = jobService.getNavigator(pageNo, pageSize, "2");
+		Navigator navigator = jobService.getNavigator(pageNo, pageSize, JobService.TYPE_PARTTIME);
 		
 		model.addAttribute("navigator", navigator);
-		model.addAttribute("jobs", jobService.getByPage(navigator, "2"));
+		model.addAttribute("jobs", jobService.getByPage(navigator, JobService.TYPE_PARTTIME));
 		model.addAttribute("controller", "jianzhi");
 		model.addAttribute("type", "parttime");
 		
@@ -63,7 +63,7 @@ public class PartTimeController {
 	@RequestMapping(value = "/{id}")
 	public String detail(HttpServletRequest request, HttpServletResponse response, Model model,
 			@PathVariable("id") String id) {
-		Map<String, Object> partTime = jobService.getById(id);
+		JobDto partTime = jobService.getById(id);
 		if(partTime != null) {
 			model.addAttribute("job", partTime);
 			model.addAttribute("type", "parttime");

@@ -61,7 +61,7 @@
          	<tbody>
 	            <c:forEach var="user" items="${users}">
 	              <tr>
-                    <td style="width:25%;">${user.username}</td>
+                    <td style="width:25%;">${user.userAccount}</td>
                     <td style="width:15%;" class="text-center">${user.qq}</td>
                     <td style="width:15%;" class="text-center">${user.phoneno}</td>
                     <td style="width:15%;" class="text-center">${user.email}</td>
@@ -81,11 +81,11 @@
               </table>
             	<nav class="text-center" style="border-top: 1px solid #DDDDDD;">
                   <ul class="pager">
-                    <li><a href="<%=adminPath %>/user/admin?page=1">首页</a></li>
-                      <li><a href="<%=adminPath %>/user/admin?page=${navigator.prePageNo}">上一页</a></li>
-                      <li><a href="<%=adminPath %>/user/admin?page=${navigator.nextPageNo}">下一页</a></li>
-                      <li><a href="<%=adminPath %>/user/admin?page=${navigator.pageCount}">末页</a></li>
-                      <li>&nbsp;当前 ${navigator.nowPageNo}/${navigator.pageCount} 页&nbsp;&nbsp;每页${navigator.pageSize}条&nbsp;&nbsp;共${navigator.count}条</li>
+                    <li><a href="<%=adminPath %>/user/admin?page=${navigator.firstPage}">首页</a></li>
+                      <li><a href="<%=adminPath %>/user/admin?page=${navigator.prePage}">上一页</a></li>
+                      <li><a href="<%=adminPath %>/user/admin?page=${navigator.nextPage}">下一页</a></li>
+                      <li><a href="<%=adminPath %>/user/admin?page=${navigator.lastPage}">末页</a></li>
+                      <li>&nbsp;当前 ${navigator.nowPage}/${navigator.pageCount} 页&nbsp;&nbsp;每页${navigator.pageSize}条&nbsp;&nbsp;共${navigator.count}条</li>
                   </ul>
                 </nav>
 		</div>

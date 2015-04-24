@@ -87,7 +87,7 @@
        						<select class="form-control" style="width:75%;" 
        						id="job_belong"  name="belong" >
        							<c:forEach items="${belongs}" var="belong">
-       								<option value="${belong.jb_id}">${belong.jb_name}</option>
+       								<option value="${belong.jbId}">${belong.jbName}</option>
        							</c:forEach>
 							</select>
 						 </div>

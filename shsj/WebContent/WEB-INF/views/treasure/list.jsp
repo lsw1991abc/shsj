@@ -22,19 +22,19 @@
 	            <c:forEach var="treasure" items="${treasures}">
 	              <tr>
                     <td style="width:5%;"><input type="checkbox" /></td>
-                    <td style="width:80%;"><a href="<%=basePath%>/baodian/${treasure.t_id}" target="_blank">${treasure.t_title}</a>&nbsp;&nbsp;<span class="label label-danger">NEW</span></td>
-                    <td style="width:15%;">${fn:substring(treasure.t_build_date, 0, 10)}</td>
+                    <td style="width:80%;"><a href="<%=basePath%>/baodian/${treasure.nId}" target="_blank">${treasure.nTitle}</a>&nbsp;&nbsp;<!-- <span class="label label-danger">NEW</span> --></td>
+                    <td style="width:15%;">${fn:substring(treasure.nDatetimeBuild, 0, 10)}</td>
                   </tr>
 	            </c:forEach>
               </table>
               <div class="text-center">
               	<nav>
                     <ul class="pager">
-                      <li><a href="<%=basePath%>/zhaopin/?page=1">首页</a></li>
-                        <li><a href="<%=basePath%>/zhaopin/?page=${navigator.prePageNo}">上一页</a></li>
-                        <li><a href="<%=basePath%>/zhaopin/?page=${navigator.nextPageNo}">下一页</a></li>
-                        <li><a href="<%=basePath%>/zhaopin/?page=${navigator.pageCount}">末页</a></li>
-                        <li>&nbsp;当前 ${navigator.nowPageNo}/${navigator.pageCount} 页&nbsp;&nbsp;每页${navigator.pageSize}条&nbsp;&nbsp;共${navigator.count}条</li>
+                      <li><a href="<%=basePath%>/zhaopin/?page=${navigator.firstPage}">首页</a></li>
+                        <li><a href="<%=basePath%>/zhaopin/?page=${navigator.prePage}">上一页</a></li>
+                        <li><a href="<%=basePath%>/zhaopin/?page=${navigator.nextPage}">下一页</a></li>
+                        <li><a href="<%=basePath%>/zhaopin/?page=${navigator.lastPage}">末页</a></li>
+                        <li>&nbsp;当前 ${navigator.nowPage}/${navigator.pageCount} 页&nbsp;&nbsp;每页${navigator.pageSize}条&nbsp;&nbsp;共${navigator.count}条</li>
                     </ul>
                   </nav>
               </div>

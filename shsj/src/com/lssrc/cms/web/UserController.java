@@ -24,19 +24,20 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.SessionAttributes;
-import org.springframework.web.bind.support.SessionStatus;
-import org.springframework.web.jsf.FacesContextUtils;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.lssrc.cms.dto.DailyDto;
-import com.lssrc.cms.dto.DailyListDto;
 import com.lssrc.cms.dto.FileInfoDto;
-import com.lssrc.cms.service.DailyService;
+import com.lssrc.cms.entity.Notice;
+import com.lssrc.cms.entity.Resume;
+import com.lssrc.cms.entity.User;
+import com.lssrc.cms.service.NoticeService;
 import com.lssrc.cms.service.ResumeService;
 import com.lssrc.cms.service.UserService;
+import com.lssrc.util.DateFormater;
 import com.lssrc.util.FileUtils;
 import com.lssrc.util.MD5;
+import com.lssrc.util.Navigator;
+import com.lssrc.util.UUID;
 
 /**
  * @author Carl_Li
@@ -46,13 +47,13 @@ import com.lssrc.util.MD5;
 @RequestMapping("/user")
 public class UserController {
 	
-	private HashMap<String, Object> myself;
+	private User myself;
 
 	@Autowired
 	private UserService userService;
 	
 	@Autowired
-	private DailyService dailyService;
+	private NoticeService noticeService;
 	
 	@Autowired
 	private ResumeService resumeService;
@@ -85,9 +86,9 @@ public class UserController {
 			@RequestParam(value = "page", required = false, defaultValue = "1")int pageNo,
 			@RequestParam(value = "pageSize", required = false, defaultValue = "10")int pageSize) {
 		
-		String userId = myself.get("userId").toString();
-		Map<String, Integer> navigator = dailyService.getNavigatorByUser(pageNo, pageSize, userId);
-		List<Map<String, Object>> dailies = dailyService.getByPageByUser(navigator, userId);
+		String userId = myself.getUserId();
+		Navigator navigator = noticeService.getNavigator(pageNo, pageSize, NoticeService.TYPE_DAILY, userId);
+		List<Notice> dailies = noticeService.getByPage(navigator, NoticeService.TYPE_DAILY, userId);
 		
 		model.addAttribute("navigator", navigator);
 		model.addAttribute("dailies", dailies);
@@ -106,17 +107,17 @@ public class UserController {
 	@RequestMapping(value = {"/rizhi/edit"})
 	public String dailyEdit(HttpServletRequest request, HttpServletResponse response, ModelMap model,
 			@RequestParam(value = "id", required = false, defaultValue = "")String id){
-		Map<String, Object> daily = new HashMap<String, Object>();
+		Notice notice = new Notice();
 		if (StringUtils.isNotEmpty(id)) {
-			daily = dailyService.getById(id).getDaily();
-			if(!daily.get("d_builder").equals(myself.get("userId"))) {
+			notice = noticeService.getById(id).getNotice();
+			if(!notice.getnBuilder().equals(myself.getUserId())) {
 				return "redirect:/rizhi/" + id;
 			}
 		} else {
-			daily.put("d_title", "");
-			daily.put("d_content", "");
+			notice.setnTitle("");
+			notice.setnDesc("");
 		}
-		model.addAttribute("daily", daily);
+		model.addAttribute("daily", notice);
 		return "daily/edit";
 	}
 	
@@ -136,10 +137,21 @@ public class UserController {
 			@RequestParam(value = "title", required = false, defaultValue = "")String title,
 			@RequestParam(value = "content", required = false, defaultValue = "")String content){
 		int count = 0;
+		Notice notice = new Notice();
 		if (StringUtils.isNotEmpty(id)) {
-			count = dailyService.update(id, title, content);
+			notice = noticeService.getById(id).getNotice();
+			notice.setnTitle(title);
+			notice.setnDesc(content);
+			count = noticeService.update(notice);
 		} else {
-			count = dailyService.save(myself.get("userId") + "", title, content);
+			notice.setnId(UUID.generateRandomUUID());
+			notice.setnBuilder(myself.getUserId());
+			notice.setnTitle(title);
+			notice.setnDesc(content);
+			notice.setnDatetimeBuild(DateFormater.getDateTime());
+			notice.setnType(NoticeService.TYPE_DAILY);
+			notice.setIsdeled(0);
+			count = noticeService.save(notice);
 		}
 		if (count == 1) {
 			return "redirect:/user/rizhi";
@@ -161,11 +173,10 @@ public class UserController {
 	@RequestMapping(value = {"/rizhi/del"}, method = RequestMethod.POST)
 	public Map<String, Object> dailyDelete(HttpServletRequest request, HttpServletResponse response, ModelMap model,
 			@RequestParam(value = "id", required = false, defaultValue = "")String id) {
-		DailyDto daily = new DailyDto();
 		Map<String, Object> result = new HashMap<String, Object>();
 		if (StringUtils.isNotEmpty(id)) {
-			daily = dailyService.getById(id);
-			if(daily.getDaily().get("d_builder").equals(myself.get("userId")) && 1 == dailyService.delete(id)) {
+			Notice notice = noticeService.getById(id).getNotice();
+			if(notice.getnBuilder().equals(myself.getUserId()) && 1 == noticeService.delete(id)) {
 				result.put("result", "success");
 			} else {
 				result.put("result", "error");
@@ -178,13 +189,17 @@ public class UserController {
 	
 	@RequestMapping({"/jianli"})
 	public String resume(HttpServletRequest request, HttpServletResponse response, ModelMap model) {
-		Map<String, Object> resume = resumeService.getByUserId(myself.get("userId").toString());
+		Resume resume = resumeService.getByUserId(myself.getUserId());
 		if (resume == null) {
-			resume = new HashMap<String, Object>();
-			resume.put("user", myself.get("nickname").toString());
-			resume.put("userId", myself.get("userId").toString());
+			resume = new Resume();
+			resume.setrId(UUID.generateRandomUUID());
+			resume.setrDatetimeUpdate(DateFormater.getDateTime());
+			resume.setrName(myself.getUserNickname());
+			resume.setuId(myself.getUserId());
+			resume.setrHot(0);
+			resume.setrShow(0);
 			int count = resumeService.save(resume);
-			resume = resumeService.getByUserId(myself.get("userId").toString());
+			resume = resumeService.getByUserId(myself.getUserId());
 		}
 		model.addAttribute("resume", resume);
 		return "user/resume";
@@ -205,36 +220,36 @@ public class UserController {
 	@RequestMapping(value = {"/jianli/update"}, method = RequestMethod.POST)
 	public String updateResume(HttpServletRequest request, HttpServletResponse response, ModelMap model,
 			@RequestParam(value = "name", required = false, defaultValue = "") String name,
-			@RequestParam(value = "sex", required = false, defaultValue = "1") int sex,
-			@RequestParam(value = "age", required = false, defaultValue = "0") int age,
-			@RequestParam(value = "height", required = false, defaultValue = "0.0") double height,
-			@RequestParam(value = "weight", required = false, defaultValue = "0.0") double weight,
+			@RequestParam(value = "sex", required = false, defaultValue = "1") String sex,
+			@RequestParam(value = "age", required = false, defaultValue = "0") Integer age,
+			@RequestParam(value = "height", required = false, defaultValue = "0.0") Double height,
+			@RequestParam(value = "weight", required = false, defaultValue = "0.0") Double weight,
 			@RequestParam(value = "college", required = false, defaultValue = "") String college,
 			@RequestParam(value = "major", required = false, defaultValue = "") String major,
 			@RequestParam(value = "experience", required = false, defaultValue = "") String experience,
 			@RequestParam(value = "desc", required = false, defaultValue = "") String desc,
 			@RequestParam(value = "imgPath", required = false, defaultValue = "") String imgPath,
-			@RequestParam(value = "show", required = false, defaultValue = "0") int show) {
-		Map<String, Object> resume = resumeService.getByUserId(myself.get("userId").toString());
+			@RequestParam(value = "show", required = false, defaultValue = "0") Integer show) {
+		Resume resume = resumeService.getByUserId(myself.getUserId());
 		if (resume != null) {
 			if (StringUtils.isEmpty(name)) {
-				name = myself.get("nickname") + "";
+				name = myself.getUserNickname();
 			}
-			resume.put("name", name);
-			resume.put("sex", sex);
-			resume.put("age", age);
-			resume.put("height", height);
-			resume.put("weight", weight);
-			resume.put("college", college);
-			resume.put("major", major);
-			resume.put("experience", experience);
-			resume.put("desc", desc);
-			resume.put("imgPath", imgPath);
-			resume.put("show", show);
+			resume.setrName(name);
+			resume.setrSex(sex);
+			resume.setrAge(age);
+			resume.setrHeight(height);
+			resume.setrWeight(weight);
+			resume.setrCollege(college);
+			resume.setrMajor(major);
+			resume.setrExperience(experience);
+			resume.setrProfile(desc);
+			resume.setrPic(imgPath);
+			resume.setrShow(show);
 			int count = resumeService.update(resume);
 			if (count == 1) {
 				model.addAttribute("msg", "success");
-				model.addAttribute("resume", resumeService.getByUserId(myself.get("userId").toString()));
+				model.addAttribute("resume", resumeService.getByUserId(myself.getUserId()));
 			} else {
 				model.addAttribute("msg", "error");
 			}
@@ -254,7 +269,7 @@ public class UserController {
 	 */
 	@RequestMapping({"/ziliao"})
 	public String profile(HttpServletRequest request, HttpServletResponse response, ModelMap model) {
-		model.addAttribute("myself", userService.getById(myself.get("userId").toString()));
+		model.addAttribute("myself", userService.getById(myself.getUserId()));
 		return "user/myself";
 	}
 	
@@ -278,16 +293,18 @@ public class UserController {
 			@RequestParam(value = "email", required = false, defaultValue = "")String email,
 			@RequestParam(value = "userDesc", required = false, defaultValue = "")String userDesc) {
 		
-		Map<String, Object> user = userService.getById(myself.get("userId").toString());
+		//Map<String, Object> user = userService.getById(myself.get("userId").toString());
+		User user = userService.getById(myself.getUserId());
 		if (user != null) {
 				if (StringUtils.isEmpty(nickname)) {
-					nickname = myself.get("nickname").toString();
+					//nickname = myself.get("nickname").toString();
+					nickname = myself.getUserNickname();
 				}
-				user.put("nickname", nickname);
-				user.put("qq", qq);
-				user.put("phoneno", phoneno);
-				user.put("email", email);
-				user.put("userDesc", userDesc);
+				user.setUserNickname(nickname);
+				user.setQq(qq);
+				user.setPhoneno(phoneno);
+				user.setEmail(email);
+				user.setUserDesc(userDesc);
 				int count = userService.update(user);
 				if (count == 1) {
 					model.addAttribute("msg", "success");
@@ -329,9 +346,11 @@ public class UserController {
 			@RequestParam(value = "newPasswd1", required = false, defaultValue = "")String newPasswd1,
 			@RequestParam(value = "newPasswd2", required = false, defaultValue = "")String newPasswd2) {
 		if (StringUtils.isNotEmpty(oldPasswd) && StringUtils.isNotEmpty(newPasswd1) && StringUtils.isNotEmpty(newPasswd2) && newPasswd1.equals(newPasswd2)) {
-			Map<String, Object> user = userService.getById(myself.get("userId") + "");
-			if (user != null && user.get("passwd").equals(MD5.getMD5Code(oldPasswd))) {
-				user.put("passwd", MD5.getMD5Code(newPasswd1));
+			//Map<String, Object> user = userService.getById(myself.get("userId") + "");
+			User user = userService.getById(myself.getUserId());
+			if (user != null && user.getUserPassword().equals(MD5.getMD5Code(oldPasswd))) {
+				//user.put("passwd", MD5.getMD5Code(newPasswd1));
+				user.setUserPassword(MD5.getMD5Code(newPasswd1));
 				if (userService.changePasswd(user) == 1) {
 					model.addAttribute("msg", "success");
 				} else {
@@ -350,10 +369,9 @@ public class UserController {
 	 * 获取当前session
 	 * @param session
 	 */
-	@SuppressWarnings("unchecked")
 	@ModelAttribute(value  = "myself")
 	public void name(HttpSession session ) {
-		myself = (HashMap<String, Object>) session.getAttribute("myself");
+		myself = (User) session.getAttribute("myself");
 	}
 	
 }

@@ -32,17 +32,17 @@
 						<div class="input-group">
 							<div class="input-group-addon">标题</div>
 							<input type="text" class="form-control" id="daily_title"
-								placeholder="标题长度1~50" value="${daily.d_title}" data-required="true"
+								placeholder="标题长度1~50" value="${daily.nTitle}" data-required="true"
 								data-pattern="^\w{1,50}$" name="title"
 								data-describedby="dailyTitle-description"
 								data-description="dailyTitle" />
 						</div>
 					</div>
 					<div class="lead daily_content">
-						<textarea class="form-control" rows="8" cols="100" style="resize: vertical;" id="daily_content" name="content">${daily.d_content}</textarea>
+						<textarea class="form-control" rows="8" cols="100" style="resize: vertical;" id="daily_content" name="content">${daily.nDesc}</textarea>
 					</div>
 					<p class="text-center">
-						<input type="hidden" name="id" value="${daily.d_id}" />
+						<input type="hidden" name="id" value="${daily.nId}" />
 						<button type="submit" class="btn btn-primary">保存</button>
 					</p>
 				</form>

@@ -11,13 +11,13 @@
         http://www.springframework.org/schema/aop
         http://www.springframework.org/schema/aop/spring-aop.xsd">
 
-	<bean id="welcomeToLssrc" init-method="welcomeToLssrc" class="com.lssrc.util.Welcome" />
+	<bean class="com.lssrc.cms.core.Welcome" init-method="welcome" />
 	
 	<context:annotation-config />  
     <context:component-scan base-package="com.lssrc.cms" />  
     <import resource="spring-mybatis.xml"/>  
     
-    <bean id="logInterceptor" class="com.lssrc.util.LogInterceptor" />
+    <bean id="logInterceptor" class="com.lssrc.cms.core.LogInterceptor" />
     
     <aop:config proxy-target-class="true">
     	<aop:aspect id="logAspectSYS" ref="logInterceptor">  

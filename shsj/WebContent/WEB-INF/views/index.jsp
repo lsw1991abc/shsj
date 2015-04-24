@@ -13,6 +13,10 @@
 </head>
 
 <body>
+<script type="text/javascript">
+$('.header-nav li').removeClass('active');
+$('.header-nav li[data-menu-id="1"]').addClass('active');
+</script>
   <div class="container">
     <div class="row">
       <div class="col-md-4"> <a href="#"><img src="<%=basePath %>/images/201310151381836463832.jpg" style="height:100px; width:100%;" class="img-responsive" alt="Responsive image" /></a> </div>
@@ -26,10 +30,10 @@
           <h5 style="background:url('<%=basePath %>/images/title.png') left -35px repeat-x; margin:0; height:33px; line-height:28px;"><a href="<%=basePath %>/gonggao" style="float:right; margin-right:15px; color:#666666;">更多&gt;&gt;</a></h5>
           <div style="padding:0 10px; height:227px;">
           	
-            <h4 style="height:30px; line-height:30px; width:100%; overflow:hidden;"><a href="<%=basePath%>/gonggao/${notices[0].n_id}" target="_blank" style="color:#F00;" title="${notices[0].n_title}">${notices[0].n_title}</a></h4>
+            <h4 style="height:30px; line-height:30px; width:100%; overflow:hidden;"><a href="<%=basePath%>/gonggao/${notices[0].nId}" target="_blank" style="color:#F00;" title="${notices[0].nTitle}">${notices[0].nTitle}</a></h4>
             <ul class="list-unstyled zngg" style="">
               <c:forEach items="${notices}" var="notice" begin="1" step="1" end="6">
-              	<li><a href="<%=basePath%>/gonggao/${notice.n_id}" target="_blank" title="${notice.n_title}">${notice.n_title}</a></li>
+              	<li><a href="<%=basePath%>/gonggao/${notice.nId}" target="_blank" title="${notice.nTitle}">${notice.nTitle}</a></li>
               </c:forEach>  
             </ul>
             <style type="text/css">
@@ -90,7 +94,7 @@
 					<div style="padding: 0 8px; height: 142px;"
 						class="index-login-panel">
 						<h4>大学生社会实践服务中心</h4>
-						<p>登录用户：${myself.username }</p>
+						<p>登录用户：${myself.userAccount }</p>
 						<button type="button" class="btn btn-warning" onclick="javascript:location.href='<%=basePath%>/user'">用户中心</button>
 						&nbsp;&nbsp;&nbsp;
 						<button type="button" class="btn btn-default" onclick="javascript:location.href='<%=basePath%>/login/logout'">退出</button>
@@ -160,11 +164,11 @@
               <tbody>
               	<c:forEach items="${partTimes}" var="partTime" begin="0" step="1">
 	                <tr>
-	                  <td><a href="<%=basePath %>/jianzhi/${partTime.j_id}" target="_blank">${partTime.j_title}</a></td>
-	                  <td class="text-center">${partTime.jb_name}</td>
-	                  <td class="text-center">${partTime.j_salary}${job.j_salary_type}</td>
-	                  <td class="text-center">${partTime.j_work_place}</td>
-	                  <td class="text-center">${partTime.j_audition_time}</td>
+	                  <td><a href="<%=basePath %>/jianzhi/${partTime.job.jId}" target="_blank">${partTime.job.jTitle}</a></td>
+	                  <td class="text-center">${partTime.jobBelong.jbName}</td>
+	                  <td class="text-center">${partTime.job.jSalary}${job.job.jSalaryType}</td>
+	                  <td class="text-center">${partTime.job.jWorkPlace}</td>
+	                  <td class="text-center">${partTime.job.jAuditionTime}</td>
 	                </tr>
                 </c:forEach>
               </tbody>
@@ -177,7 +181,7 @@
       		<h5 style="background:url('<%=basePath %>/images/title.png') -1px -1px repeat-x; margin:0; text-indent:35px; height:33px; line-height:23px; color:#FFF;">校友日志<a href="<%=basePath %>/rizhi" style="float:right; margin-right:15px; color:#fff;">更多&gt;&gt;</a></h5>
             <ul class="list-unstyled xyrz" style=" margin:0 15px; background:url('<%=basePath %>/images/syimgs.png') 0px -468px no-repeat; height:261px; overflow:hidden;">
               <c:forEach items="${dailies}" var="daily" begin="0" step="1">
-	              <li><a href="<%=basePath %>/rizhi/${daily.d_id}" target="_blank">${daily.d_title}</a></li>
+	              <li><a href="<%=basePath %>/rizhi/${daily.nId}" target="_blank">${daily.nTitle}</a></li>
               </c:forEach>
             </ul>
             <style type="text/css">
@@ -208,11 +212,11 @@
               <tbody>
                 <c:forEach items="${jobs}" var="job" begin="0" step="1">
 	                <tr>
-	                  <td><a href="<%=basePath %>/zhaopin/${job.j_id}" target="_blank">${job.j_title}</a></td>
-	                  <td class="text-center">${job.jb_name}</td>
-	                  <td class="text-center">${job.j_salary}${job.j_salary_type}</td>
-	                  <td class="text-center">${job.j_work_place}</td>
-	                  <td class="text-center">${job.j_audition_time}</td>
+	                  <td><a href="<%=basePath %>/zhaopin/${job.job.jId}" target="_blank">${job.job.jTitle}</a></td>
+	                  <td class="text-center">${job.jobBelong.jbName}</td>
+	                  <td class="text-center">${job.job.jSalary}${job.job.jSalaryType}</td>
+	                  <td class="text-center">${job.job.jWorkPlace}</td>
+	                  <td class="text-center">${job.job.jAuditionTime}</td>
 	                </tr>
                 </c:forEach>
               </tbody>
@@ -225,7 +229,7 @@
       		<h5 style="background:url('<%=basePath %>/images/title.png') -1px -106px repeat-x; margin:0; text-indent:35px; height:33px; line-height:28px; color:#FFF;">求职宝典<a href="<%=basePath%>/baodian" style="float:right; margin-right:15px; color:#fff;">更多&gt;&gt;</a></h5>
             <ul class="list-unstyled qzbd" style=" margin:0 15px; height:366px; overflow:hidden; ">
               <c:forEach items="${treasures}" var="treasure" begin="0" step="1">
-              	<li><a href="<%=basePath%>/baodian/${treasure.n_id}" target="_blank">${treasure.n_title}</a></li>
+              	<li><a href="<%=basePath%>/baodian/${treasure.nId}" target="_blank" title="${treasure.nTitle}">${treasure.nTitle}</a></li>
               </c:forEach>     
             </ul>
             <style type="text/css">
@@ -240,12 +244,12 @@
       	<div style="border:1px solid #669900;">
         	<h5 style=" height:33px; text-indent:35px; line-height:28px; margin:0; background:url('<%=basePath %>/images/title.png') -1px -141px repeat-x; color:#fff;">活动案例<a href="<%=basePath %>/huodong" style="float:right; margin-right:15px; color:#fff;">更多&gt;&gt;</a></h5>
             <ul class="list-inline hdal" style="margin:15px 10px 5px;">
-              <c:forEach items="${activits}" var="activit">
+              <c:forEach items="${activits}" var="activit" begin="0" step="1" end="6">
             	<li class="text-center" >
-                	<a href="<%=basePath %>/huodong/${activit.a_id}" target="_blank">
-                		<img src="<%=basePath %>/${activit.a_pic}" title="${activit.a_title}" alt="${activit.a_title}" class="img-responsive" style="height:80px; width:110px;" />
+                	<a href="<%=basePath %>/huodong/${activit.aId}" target="_blank">
+                		<img src="<%=basePath %>/${activit.aPic}" title="${activit.aTitle}" class="img-responsive" style="height:80px; width:110px;" />
                 	</a>
-                    <label><a href="<%=basePath %>/huodong/${activit.a_id}" target="_blank">${fn:substring(activit.a_title, 0, 8)}</a></label>
+                    <label><a href="<%=basePath %>/huodong/${activit.aId}" target="_blank">${fn:substring(activit.aTitle, 0, 8)}</a></label>
                 </li>
                </c:forEach>
             </ul>

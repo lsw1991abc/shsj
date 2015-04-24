@@ -40,15 +40,15 @@
 										<td style="width: 40%;">
 											<div>
 												<label class="sr-only" for="resume-name">姓名</label> 
-												<input type="text" id="resume-name" class="form-control" value="${resume.r_name}" style="width: 80%"
+												<input type="text" id="resume-name" class="form-control" value="${resume.rName}" style="width: 80%"
 															data-required="true" data-pattern="^[\u4E00-\u9FA5]{2,5}$" name="name"
 															data-describedby="name-description" data-description="name"  placeholder="汉字，长度2～5"  />
 											</div>
 										</td>
 										<td style="width: 10%;">简历状态：</td>
 										<td style="width: 40%;">
-											<c:if test="${resume.r_show == 0 }">隐藏</c:if>
-											<c:if test="${resume.r_show == 1 }">显示</c:if>
+											<c:if test="${resume.rShow == 0 }">隐藏</c:if>
+											<c:if test="${resume.rShow == 1 }">显示</c:if>
 										</td>
 									</tr>
 									<tr style="height:45px; line-height:45px;">
@@ -56,15 +56,15 @@
 										<td>
 											<div>
 												<label class="radio-inline"> 
-													<input type="radio" name="sex" value="1" style="height: 37px;"<c:if test="${resume.r_sex == 1 }">checked="checked" </c:if>> 男
+													<input type="radio" name="sex" value="1" style="height: 37px;"<c:if test="${resume.rSex == 1 }">checked="checked" </c:if>> 男
 												</label> 
 												<label class="radio-inline"> 
-													<input type="radio" name="sex" value="0" style="height: 37px;"<c:if test="${resume.r_sex == 0 }">checked="checked" </c:if>> 女
+													<input type="radio" name="sex" value="0" style="height: 37px;"<c:if test="${resume.rSex == 0 }">checked="checked" </c:if>> 女
 												</label>
 											</div>
 										</td>
 										<td>年龄：</td>
-										<td><input type="text" class="form-control" id="resume-age" value="${resume.r_age}" style="width: 78%"
+										<td><input type="text" class="form-control" id="resume-age" value="${resume.rAge}" style="width: 78%"
 															data-pattern="^([0-9]|[0-9]{2}|100)$" name="age"
 															data-describedby="age-description" data-description="age"  placeholder="年龄范围：1～100"  /></td>
 									</tr>
@@ -72,7 +72,7 @@
 										<td>身高：</td>
 										<td>
 											<div class="input-group" style="width: 78%">
-												<input type="text" class="form-control" id="resume-height" value="${resume.r_height}" 
+												<input type="text" class="form-control" id="resume-height" value="${resume.rHeight}" 
 															data-pattern="^[0-9]{3}.[0-9]{1}$" name="height"
 															data-describedby="height-description" data-description="height"  placeholder="范围0～999，格式：175.0" />
 												<div class="input-group-addon">cm</div>
@@ -81,7 +81,7 @@
 										<td>体重：</td>
 										<td>
 											<div class="input-group" style="width: 78%">
-												<input type="text" class="form-control" id="resume-weight" value="${resume.r_weight}" 
+												<input type="text" class="form-control" id="resume-weight" value="${resume.rWeight}" 
 															data-pattern="^[0-9]{2,3}.[0-9]{1}$" name="weight"
 															data-describedby="weight-description" data-description="weight"  placeholder="范围10~999，格式：55.0" />
 												<div class="input-group-addon">kg</div>
@@ -93,7 +93,7 @@
 										<td>
 											<div>
 												<label class="sr-only" for="resume-college">学校</label> 
-												<input type="text" class="form-control" id="resume-college" value="${resume.r_college}" style="width: 78%"
+												<input type="text" class="form-control" id="resume-college" value="${resume.rCollege}" style="width: 78%"
 															data-pattern="^([\u4E00-\u9FA5]|\w){0,40}$" name="college"
 															data-describedby="college-description" data-description="college"  placeholder="长度0~40"  />
 											</div>
@@ -102,7 +102,7 @@
 										<td>
 											<div>
 												<label class="sr-only" for="resume-major">专业</label> 
-												<input type="text" class="form-control" id="resume-major" value="${resume.r_major}" style="width: 78%"
+												<input type="text" class="form-control" id="resume-major" value="${resume.rMajor}" style="width: 78%"
 															data-pattern="^([\u4E00-\u9FA5]|\w){0,40}$" name="major"
 															data-describedby="major-description" data-description="major"  placeholder="长度0~40"  />
 											</div>
@@ -113,14 +113,14 @@
 										<td colspan="3">
 											<textarea class="form-control" rows="3" 
 												id="resume-experience" name="experience"
-												style="width: 80%; resize: vertical;margin:5px 0;">${resume.r_experience}</textarea>
+												style="width: 80%; resize: vertical;margin:5px 0;">${resume.rExperience}</textarea>
 							</td>
 									</tr>
 									<tr>
 										<td>个人评价：</td>
 										<td colspan="3">
 											<textarea class="form-control" rows="3" id="resume-desc" 
-												name="desc" style="width: 90%; resize: vertical;margin:5px 0;">${resume.r_profile}</textarea>
+												name="desc" style="width: 90%; resize: vertical;margin:5px 0;">${resume.rProfile}</textarea>
 							</td>
 									</tr>
 									
@@ -129,8 +129,8 @@
 										<td colspan="3">
 											<div id="fileQueue" style="float:left; margin:10px 10px 10px 0; width:322px; height:242px; border:1px solid #000;">
 												<c:choose>
-													<c:when test="${not empty resume.r_pic}">
-														<img src="<%=basePath %>/${resume.r_pic }" style="height:240px; width:320px;" />
+													<c:when test="${not empty resume.rPic}">
+														<img src="<%=basePath %>/${resume.rPic }" style="height:240px; width:320px;" />
 													</c:when>
 													<c:otherwise>
 														暂无照片
@@ -142,7 +142,7 @@
 										        <a href="javascript:$('#file-upload').uploadify('upload');">上传</a>| 
 										        <a href="javascript:$('#file-upload').uploadify('cancel');">取消上传</a>
 									        </p>
-									        <input type="hidden" id="imgPath" name="imgPath" value="${resume.r_pic }">
+									        <input type="hidden" id="imgPath" name="imgPath" value="${resume.rPic }">
 									        <br style="clear: both;" />
 										</td>
 									</tr>
@@ -150,11 +150,11 @@
 									<tr style="height:45px; line-height:45px;">
 										<td>是否显示：</td>
 										<td>
-											<input type="checkbox" id="resume-show"  data-conditional="isShow" <c:if test="${resume.r_show == 1 }">checked="checked" </c:if> />
+											<input type="checkbox" id="resume-show"  data-conditional="isShow" <c:if test="${resume.rShow == 1 }">checked="checked" </c:if> />
 											<input type="hidden" id="resume-show-value" name="show" />
 										</td>
 										<td>更新时间：</td>
-										<td>${fn:substring(resume.r_datetime_update, 0, 19)}</td>
+										<td>${fn:substring(resume.rDatetimeUpdate, 0, 19)}</td>
 									</tr>
 									<tr style="height:45px; line-height:45px;">
 										<td colspan="4"><button type="submit" class="btn btn-primary">保存</button></td>

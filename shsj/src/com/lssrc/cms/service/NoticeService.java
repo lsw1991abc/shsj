@@ -7,43 +7,49 @@
 package com.lssrc.cms.service;
 
 import java.util.List;
-import java.util.Map;
 
 import com.lssrc.cms.dto.NoticeDto;
+import com.lssrc.cms.entity.Notice;
+import com.lssrc.util.Navigator;
 
 /**
  * @author Carl_Li
  *
  */
 public interface NoticeService {
+	
+	public static int TYPE_NOTICE = 1;
+	public static int TYPE_TREASURE = 2;
+	public static int TYPE_DAILY = 3;
 
 	/**
 	 * @param pageNo
 	 * @param pageSize
-	 * @param type
+	 * @param userId
 	 * @return
 	 */
-	Map<String, Integer> getNavigator(int pageNo, int pageSize, int type);
+	public Navigator getNavigator(int pageNo, int pageSize, int type, String userId);
 
 	/**
 	 * @param navigator
-	 * @param type
+	 * @param typeDaily
+	 * @param userId
 	 * @return
 	 */
-	List<Map<String, Object>> getByPage(Map<String, Integer> navigator, int type);
+	public List<Notice> getByPage(Navigator navigator, int type, String userId);
 
 	/**
 	 * @param id
 	 * @return
 	 */
-	NoticeDto getById(String id);
+	public NoticeDto getById(String id);
 
 	/**
 	 * @param top
 	 * @param type
 	 * @return
 	 */
-	List<Map<String, Object>> getByTop(int top, int type);
+	public List<Notice> getByTop(int top, int type);
 
 	/**
 	 * @param title
@@ -51,21 +57,18 @@ public interface NoticeService {
 	 * @param object
 	 * @return
 	 */
-	int save(String title, String content, String userId, int type);
+	public int save(Notice notice);
 
 	/**
 	 * @param id
 	 * @return
 	 */
-	int delete(String id);
+	public int delete(String id);
 
 	/**
-	 * @param id
-	 * @param title
-	 * @param content
-	 * @param userId
+	 * @param notice
 	 * @return
 	 */
-	int update(String id, String title, String content, String userId);
+	public int update(Notice notice);
 
 }

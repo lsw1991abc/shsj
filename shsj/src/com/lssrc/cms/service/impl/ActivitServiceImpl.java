@@ -7,16 +7,19 @@
 package com.lssrc.cms.service.impl;
 
 import java.util.List;
-import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.IncorrectResultSizeDataAccessException;
 import org.springframework.stereotype.Service;
 
-import com.lssrc.cms.dao.ActivitDao;
+import com.lssrc.cms.dao.ActivitMapper;
+import com.lssrc.cms.dao.ActivitStatuMapper;
+import com.lssrc.cms.dto.ActivitDto;
+import com.lssrc.cms.entity.Activit;
+import com.lssrc.cms.entity.ActivitStatu;
 import com.lssrc.cms.service.ActivitService;
-import com.lssrc.util.PageFormater;
+import com.lssrc.util.Navigator;
 
 /**
  * @author Carl_Li
@@ -26,67 +29,62 @@ import com.lssrc.util.PageFormater;
 public class ActivitServiceImpl implements ActivitService {
 
 	@Autowired
-	private ActivitDao activitDao;
-
+	private ActivitMapper activitMapper;
+	
+	@Autowired
+	private ActivitStatuMapper activitStatuMapper;
+	
 	@Override
-	public Map<String, Object> getById(String id) {
+	public ActivitDto getById(String id) {
 		try {
-			return activitDao.queryById(id);
+			return activitMapper.selectByPrimaryKey(id);
 		} catch (IncorrectResultSizeDataAccessException e) {
 			return null;
 		}
 	}
 
 	@Override
-	public List<Map<String, Object>> getByPage(Map<String, Integer> navigator) {
-		int pageNo = navigator.get("nowPageNo");
-		int pageSize = navigator.get("pageSize");
-		return activitDao.queryByPage((pageNo - 1) * pageSize, pageSize);
+	public List<Activit> getByPage(Navigator navigator) {
+		int pageNo = navigator.getNowPage();
+		int pageSize = navigator.getPageSize();
+		return activitMapper.selectByPage((pageNo - 1) * pageSize, pageSize);
 	}
 
 	@Override
-	public Map<String, Integer> getNavigator(int pageNo, int pageSize) {
-		int count = activitDao.queryCount();
-		return PageFormater.getFormatPageNav(pageNo, count, pageSize);
+	public Navigator getNavigator(int pageNo, int pageSize) {
+		int count = activitMapper.selectCount();
+		return Navigator.formatPageNavigator(pageNo, count, pageSize);
 	}
 
 	@Override
-	public List<Map<String, Object>> getByTop(int top) {
-		return activitDao.queryByPage(0, top);
+	public List<Activit> getByTop(int top) {
+		return activitMapper.selectByPage(0, top);
 	}
 
 	@Override
-	public int save(String title, String organizer, String plotter,
-			String number, String statu, String dateTimeStart,
-			String dateTimeEnd, String content, String imgPath, String userId) {
-		if (StringUtils.isEmpty(imgPath)) {
-			imgPath = "/images/activit/default.jpg";
+	public int save(Activit activit) {
+		if (StringUtils.isEmpty(activit.getaPic())) {
+			activit.setaPic("/images/activit/default.jpg");
 		}
-		return activitDao.save(title, organizer, plotter,
-				number, statu, dateTimeStart,
-				dateTimeEnd, content, imgPath, userId);
+		return activitMapper.insert(activit);
 	}
 	
 	@Override
-	public int update(String id, String title, String organizer,
-			String plotter, String number, String statu, String dateTimeStart,
-			String dateTimeEnd, String content, String imgPath, String userId) {
-		if (StringUtils.isEmpty(imgPath)) {
-			imgPath = "/images/activit/default.jpg";
+	public int update(Activit activit) {
+		if (StringUtils.isEmpty(activit.getaPic())) {
+			activit.setaPic("/images/activit/default.jpg");
 		}
-		return activitDao.update(id, title, organizer, plotter,
-				number, statu, dateTimeStart,
-				dateTimeEnd, content, imgPath, userId);
+		return activitMapper.updateByPrimaryKey(activit);
 	}
 
 	@Override
 	public int delete(String id) {
-		return activitDao.delete(id);
+		return activitMapper.deleteByPrimaryKey(id);
 	}
 
 	@Override
-	public List<Map<String, Object>> getStatus() {
-		return activitDao.queryStatus();
+	public List<ActivitStatu> getStatus() {
+		return activitStatuMapper.selectByPage();
 	}
 
 	

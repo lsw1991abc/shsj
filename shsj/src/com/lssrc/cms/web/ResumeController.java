@@ -6,8 +6,6 @@
  */
 package com.lssrc.cms.web;
 
-import java.util.Map;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -18,8 +16,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.lssrc.cms.entity.Resume;
 import com.lssrc.cms.service.ResumeService;
 import com.lssrc.util.ErrorCode;
+import com.lssrc.util.Navigator;
 
 /**
  * @author Carl_Li
@@ -47,7 +47,7 @@ public class ResumeController {
 			@RequestParam(value = "page", required = false, defaultValue = "1")int pageNo,
 			@RequestParam(value = "pageSize", required = false, defaultValue = "10")int pageSize) {
 		
-		Map<String, Integer> navigator = resumeService.getNavigator(pageNo, pageSize);
+		Navigator navigator = resumeService.getNavigator(pageNo, pageSize);
 		
 		model.addAttribute("navigator", navigator);
 		model.addAttribute("resumes", resumeService.getByPage(navigator));
@@ -62,7 +62,7 @@ public class ResumeController {
 	@RequestMapping(value = "/{id}")
 	public String detail(HttpServletRequest request, HttpServletResponse response, Model model,
 			@PathVariable("id") String id) {
-		Map<String, Object> resume = resumeService.getById(id);
+		Resume resume = resumeService.getById(id);
 		if(resume != null) {
 			model.addAttribute("resume", resume);
 			return "resume/detail";

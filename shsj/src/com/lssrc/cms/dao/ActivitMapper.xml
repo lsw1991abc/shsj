@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lssrc.cms.dao.ActivitMapper" >
+  <resultMap id="BaseResultMap" type="com.lssrc.cms.entity.Activit" >
+    <id column="a_id" property="aId" jdbcType="VARCHAR" />
+    <result column="a_title" property="aTitle" jdbcType="VARCHAR" />
+    <result column="a_organizer" property="aOrganizer" jdbcType="VARCHAR" />
+    <result column="a_plotter" property="aPlotter" jdbcType="VARCHAR" />
+    <result column="a_number" property="aNumber" jdbcType="INTEGER" />
+    <result column="a_datetime_start" property="aDatetimeStart" jdbcType="DATE" />
+    <result column="a_datetime_end" property="aDatetimeEnd" jdbcType="DATE" />
+    <result column="a_statu" property="aStatu" jdbcType="INTEGER" />
+    <result column="a_datetime_build" property="aDatetimeBuild" jdbcType="TIMESTAMP" />
+    <result column="a_builder" property="aBuilder" jdbcType="VARCHAR" />
+    <result column="a_hot" property="aHot" jdbcType="INTEGER" />
+    <result column="isdeled" property="isdeled" jdbcType="INTEGER" />
+    <result column="a_desc" property="aDesc" jdbcType="LONGVARCHAR" />
+    <result column="a_pic" property="aPic" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <resultMap id="ActivitDtoResultMap" type="com.lssrc.cms.dto.ActivitDto" >
+    <id column="a_id" property="aId" jdbcType="VARCHAR" />
+    <association property="activit" javaType="com.lssrc.cms.entity.Activit">
+    	<id column="a_id" property="aId" jdbcType="VARCHAR" />
+	    <result column="a_title" property="aTitle" jdbcType="VARCHAR" />
+	    <result column="a_organizer" property="aOrganizer" jdbcType="VARCHAR" />
+	    <result column="a_plotter" property="aPlotter" jdbcType="VARCHAR" />
+	    <result column="a_number" property="aNumber" jdbcType="INTEGER" />
+	    <result column="a_datetime_start" property="aDatetimeStart" jdbcType="VARCHAR" />
+	    <result column="a_datetime_end" property="aDatetimeEnd" jdbcType="VARCHAR" />
+	    <result column="a_statu" property="aStatu" jdbcType="INTEGER" />
+	    <result column="a_datetime_build" property="aDatetimeBuild" jdbcType="VARCHAR" />
+	    <result column="a_builder" property="aBuilder" jdbcType="VARCHAR" />
+	    <result column="a_hot" property="aHot" jdbcType="INTEGER" />
+	    <result column="isdeled" property="isdeled" jdbcType="INTEGER" />
+	    <result column="a_desc" property="aDesc" jdbcType="LONGVARCHAR" />
+	    <result column="a_pic" property="aPic" jdbcType="LONGVARCHAR" />
+    </association>
+    <association property="statu" javaType="com.lssrc.cms.entity.ActivitStatu">
+	    <id column="as_id" property="asId" jdbcType="INTEGER" />
+    	<result column="as_name" property="asName" jdbcType="VARCHAR" />
+    </association>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    a_id, a_title, a_organizer, a_plotter, a_number, a_datetime_start, a_datetime_end, 
+    a_statu, a_datetime_build, a_builder, a_hot, a_desc, a_pic, isdeled
+  </sql>
+  <sql id="Statu_Column_List" >
+    as_id, as_name
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ActivitDtoResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />, <include refid="Statu_Column_List" />
+    from shsj_activit, shsj_activit_statu
+    where shsj_activit.a_statu=shsj_activit_statu.as_id and
+    a_id = #{aId,jdbcType=VARCHAR}
+  </select>
+  <select id="selectCount" resultType="int">
+    select count(*) from shsj_activit where isdeled=0
+  </select>
+  <select id="selectByPage" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from shsj_activit
+    where isdeled=0
+    order by a_datetime_build desc, a_datetime_start asc, a_datetime_end asc
+    limit #{start},#{pageSize}
+  </select>
+  <update id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    update shsj_activit set isdeled=1 where a_id = #{aId,jdbcType=VARCHAR}
+  </update>
+  <insert id="insert" parameterType="com.lssrc.cms.entity.Activit" >
+    insert into shsj_activit
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="aId != null" >
+        a_id,
+      </if>
+      <if test="aTitle != null" >
+        a_title,
+      </if>
+      <if test="aOrganizer != null" >
+        a_organizer,
+      </if>
+      <if test="aPlotter != null" >
+        a_plotter,
+      </if>
+      <if test="aNumber != null" >
+        a_number,
+      </if>
+      <if test="aDatetimeStart != null" >
+        a_datetime_start,
+      </if>
+      <if test="aDatetimeEnd != null" >
+        a_datetime_end,
+      </if>
+      <if test="aStatu != null" >
+        a_statu,
+      </if>
+      <if test="aDatetimeBuild != null" >
+        a_datetime_build,
+      </if>
+      <if test="aBuilder != null" >
+        a_builder,
+      </if>
+      <if test="aHot != null" >
+        a_hot,
+      </if>
+      <if test="isdeled != null" >
+        isdeled,
+      </if>
+      <if test="aDesc != null" >
+        a_desc,
+      </if>
+      <if test="aPic != null" >
+        a_pic,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="aId != null" >
+        #{aId,jdbcType=VARCHAR},
+      </if>
+      <if test="aTitle != null" >
+        #{aTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="aOrganizer != null" >
+        #{aOrganizer,jdbcType=VARCHAR},
+      </if>
+      <if test="aPlotter != null" >
+        #{aPlotter,jdbcType=VARCHAR},
+      </if>
+      <if test="aNumber != null" >
+        #{aNumber,jdbcType=INTEGER},
+      </if>
+      <if test="aDatetimeStart != null" >
+        #{aDatetimeStart,jdbcType=DATE},
+      </if>
+      <if test="aDatetimeEnd != null" >
+        #{aDatetimeEnd,jdbcType=DATE},
+      </if>
+      <if test="aStatu != null" >
+        #{aStatu,jdbcType=INTEGER},
+      </if>
+      <if test="aDatetimeBuild != null" >
+        #{aDatetimeBuild,jdbcType=TIMESTAMP},
+      </if>
+      <if test="aBuilder != null" >
+        #{aBuilder,jdbcType=VARCHAR},
+      </if>
+      <if test="aHot != null" >
+        #{aHot,jdbcType=INTEGER},
+      </if>
+      <if test="isdeled != null" >
+        #{isdeled,jdbcType=INTEGER},
+      </if>
+      <if test="aDesc != null" >
+        #{aDesc,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="aPic != null" >
+        #{aPic,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.lssrc.cms.entity.Activit" >
+    update shsj_activit
+    <set >
+      <if test="aTitle != null" >
+        a_title = #{aTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="aOrganizer != null" >
+        a_organizer = #{aOrganizer,jdbcType=VARCHAR},
+      </if>
+      <if test="aPlotter != null" >
+        a_plotter = #{aPlotter,jdbcType=VARCHAR},
+      </if>
+      <if test="aNumber != null" >
+        a_number = #{aNumber,jdbcType=INTEGER},
+      </if>
+      <if test="aDatetimeStart != null" >
+        a_datetime_start = #{aDatetimeStart,jdbcType=DATE},
+      </if>
+      <if test="aDatetimeEnd != null" >
+        a_datetime_end = #{aDatetimeEnd,jdbcType=DATE},
+      </if>
+      <if test="aStatu != null" >
+        a_statu = #{aStatu,jdbcType=INTEGER},
+      </if>
+      <if test="aDatetimeBuild != null" >
+        a_datetime_build = #{aDatetimeBuild,jdbcType=TIMESTAMP},
+      </if>
+      <if test="aBuilder != null" >
+        a_builder = #{aBuilder,jdbcType=VARCHAR},
+      </if>
+      <if test="aHot != null" >
+        a_hot = #{aHot,jdbcType=INTEGER},
+      </if>
+      <if test="isdeled != null" >
+        isdeled = #{isdeled,jdbcType=INTEGER},
+      </if>
+      <if test="aDesc != null" >
+        a_desc = #{aDesc,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="aPic != null" >
+        a_pic = #{aPic,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where a_id = #{aId,jdbcType=VARCHAR}
+  </update>
+</mapper>

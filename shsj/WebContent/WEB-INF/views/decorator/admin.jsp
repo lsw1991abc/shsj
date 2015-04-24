@@ -47,7 +47,7 @@
                      -->
                     <li id="fat-menu" class="dropdown">
                         <a href="#" role="button" class="dropdown-toggle" data-toggle="dropdown">
-                            <i class="fa fa-user"></i> ${myself.username}
+                            <i class="fa fa-user"></i> ${myself.userAccount}
                             <i class="fa fa-caret-down"></i>
                         </a>
                         <ul class="dropdown-menu dropdown-menu-right">

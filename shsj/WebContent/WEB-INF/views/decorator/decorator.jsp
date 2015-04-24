@@ -8,8 +8,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title><sitemesh:write property="title">首页</sitemesh:write> - 大学生社会实践</title>
 <link rel="shortcut icon" href="<%=basePath %>/images/favicon.ico" />
+<title><sitemesh:write property="title">首页</sitemesh:write> - 大学生社会实践</title>
 <link rel="stylesheet" href="<%=basePath %>/style/bootstrap/bootstrap.min.css" type="text/css" />
 <script src="<%=basePath %>/script/jquery-1.11.1.js"></script>
 <script src="<%=basePath %>/script/bootstrap/bootstrap.min.js"></script>
@@ -46,17 +46,24 @@
 <div class="header">
   <div class="container">
     <div class="row" style="margin-bottom:10px;">
-      <div class="col-md-3">logo</div>
-      <div class="col-md-9"> <img src="<%=basePath %>/images/201408271409108212749.jpg" style="width:100%; height:95px;" class="img-responsive" alt="Responsive image"  /> </div>
+      <!-- <div class="col-md-3">logo</div> -->
+      <div class="col-md-12"> <img src="<%=basePath %>/images/201408271409108212749.jpg" style="width:100%; height:95px;" class="img-responsive" alt="Responsive image"  /> </div>
     </div>
     <ul class="nav nav-tabs header-nav" role="tablist" style="margin-bottom:10px; background:url('<%=basePath %>/images/syimgs.png') 0px -30px repeat-x; padding:0 20px;">
+    	<c:forEach items="${applicationScope.menus}" var="menu" begin="0">
+    		<li role="presentation" data-menu-id="${menu.menuId }">
+    			<a href="<%=basePath %>${menu.menuUrl}" target="${menu.menuTarget}" title="${menu.menuName}">${menu.menuName}</a>
+    		</li>
+    	</c:forEach>
+    	<!-- 
       <li role="presentation" data-menu-id="index" class="active"><a href="<%=basePath %>/">首页</a></li>
       <li role="presentation" data-menu-id="parttime"><a href="<%=basePath %>/jianzhi">兼职工作</a></li>
       <li role="presentation" data-menu-id="job"><a href="<%=basePath %>/zhaopin">全职工作</a></li>
       <li role="presentation" data-menu-id="resume"><a href="<%=basePath %>/rencai">会员简历</a></li>
-      <!-- <li role="presentation" data-menu-id="candidate"><a href="<%=basePath %>/qiuzhi">会员求职</a></li> -->
       <li role="presentation" data-menu-id="avtivit"><a href="<%=basePath %>/huodong">活动案例</a></li>
       <li role="presentation" data-menu-id="help"><a href="<%=basePath %>/help/gywm">关于我们</a></li>
+       -->
+   			 <!--  class="active" -->
     </ul>
     <style type="text/css">
 		.nav>li>a{ color:#fff;}

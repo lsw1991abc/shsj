@@ -16,6 +16,17 @@
 		<property name="password" value="${jdbc.password}" />
 	</bean>
 	
+	<!-- MyBatis文件 -->
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="typeAliasesPackage" value="com.lssrc.cms.entity" />
+	</bean>
+	<!--MapperScannerConfigurer配置-->
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="basePackage" value="com.lssrc.cms.dao"/>
+	</bean>
+	
+	<!-- 配置事务管理器 -->
 	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
 		<property name="dataSource" ref="dataSource" />
 	</bean>
