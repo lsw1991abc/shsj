@@ -12,8 +12,6 @@
     <result column="enabled" property="enabled" jdbcType="INTEGER" />
     <result column="build_date" property="buildDate" jdbcType="VARCHAR" />
     <result column="issys" property="issys" jdbcType="INTEGER" />
-  </resultMap>
-  <resultMap id="ResultMapWithBLOBs" type="com.lssrc.cms.entity.User" extends="BaseResultMap" >
     <result column="email" property="email" jdbcType="LONGVARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
@@ -21,14 +19,14 @@
     build_date, email, issys
   </sql>
   
-  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.String" >
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 
     <include refid="Base_Column_List" />
     from sys_user
     where user_id = #{userId,jdbcType=VARCHAR}
   </select>
   
-  <select id="queryByPage" resultMap="ResultMapWithBLOBs">
+  <select id="queryByPage" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
     from sys_user
@@ -37,7 +35,7 @@
     limit #{start},#{pageSize} 
   </select>
   
-  <select id="selectByAccount" resultMap="ResultMapWithBLOBs" parameterType="java.lang.String" >
+  <select id="selectByAccount" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 
     <include refid="Base_Column_List" />
     from sys_user where user_account = #{account,jdbcType=VARCHAR}
@@ -50,10 +48,6 @@
   <select id="queryCountByUsername" resultType="int" parameterType="java.lang.String" >
    	select count(*) from sys_user where user_account = #{username,jdbcType=VARCHAR}
   </select>
-  
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
-    delete from sys_user where user_id = #{userId,jdbcType=VARCHAR}
-  </delete>
   
   <update id="deleteByPrimaryKey" parameterType="java.lang.String" >
   	update sys_user set enabled=0 where user_id=#{userId,jdbcType=VARCHAR}
