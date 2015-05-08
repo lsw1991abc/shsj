@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lssrc.cms.dao.LinkMapper" >
+  <resultMap id="BaseResultMap" type="com.lssrc.cms.entity.Link" >
+    <id column="l_id" property="lId" jdbcType="VARCHAR" />
+    <result column="l_name" property="lName" jdbcType="VARCHAR" />
+    <result column="l_sort" property="lSort" jdbcType="INTEGER" />
+    <result column="l_parent" property="lParent" jdbcType="VARCHAR" />
+    <result column="l_type" property="lType" jdbcType="INTEGER" />
+    <result column="l_target" property="lTarget" jdbcType="VARCHAR" />
+    <result column="l_url" property="lUrl" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    l_id, l_name, l_sort, l_parent, l_type, l_target, l_url
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from sys_link where l_id = #{lId,jdbcType=VARCHAR}
+  </select>
+  <select id="selectByPage" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from sys_link
+    where l_type=#{type}
+    order by l_sort asc, l_name asc
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from sys_link where l_id = #{lId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.lssrc.cms.entity.Link" >
+    insert into sys_link
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="lId != null" >
+        l_id,
+      </if>
+      <if test="lName != null" >
+        l_name,
+      </if>
+      <if test="lSort != null" >
+        l_sort,
+      </if>
+      <if test="lParent != null" >
+        l_parent,
+      </if>
+      <if test="lType != null" >
+        l_type,
+      </if>
+      <if test="lTarget != null" >
+        l_target,
+      </if>
+      <if test="lUrl != null" >
+        l_url,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="lId != null" >
+        #{lId,jdbcType=VARCHAR},
+      </if>
+      <if test="lName != null" >
+        #{lName,jdbcType=VARCHAR},
+      </if>
+      <if test="lSort != null" >
+        #{lSort,jdbcType=INTEGER},
+      </if>
+      <if test="lParent != null" >
+        #{lParent,jdbcType=VARCHAR},
+      </if>
+      <if test="lType != null" >
+        #{lType,jdbcType=INTEGER},
+      </if>
+      <if test="lTarget != null" >
+        #{lTarget,jdbcType=VARCHAR},
+      </if>
+      <if test="lUrl != null" >
+        #{lUrl,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.lssrc.cms.entity.Link" >
+    update sys_link
+    <set >
+      <if test="lName != null" >
+        l_name = #{lName,jdbcType=VARCHAR},
+      </if>
+      <if test="lSort != null" >
+        l_sort = #{lSort,jdbcType=INTEGER},
+      </if>
+      <if test="lParent != null" >
+        l_parent = #{lParent,jdbcType=VARCHAR},
+      </if>
+      <if test="lType != null" >
+        l_type = #{lType,jdbcType=INTEGER},
+      </if>
+      <if test="lTarget != null" >
+        l_target = #{lTarget,jdbcType=VARCHAR},
+      </if>
+      <if test="lUrl != null" >
+        l_url = #{lUrl,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where l_id = #{lId,jdbcType=VARCHAR}
+  </update>
+</mapper>
