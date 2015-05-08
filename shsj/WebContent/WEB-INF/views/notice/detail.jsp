@@ -15,7 +15,7 @@
 <body>
 <script type="text/javascript">
 $('.header-nav li').removeClass('active');
-$('.header-nav li[data-menu-id="1"]').addClass('active');
+$('.header-nav li[data-menu-id="7"]').addClass('active');
 </script>
   <div class="container">
     <div class="row">

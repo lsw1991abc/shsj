@@ -66,7 +66,7 @@ public class NoticeController {
 	 * 
 	 * @author Carl_Li
 	 */
-	@RequestMapping(value = "/detail/{id}")
+	@RequestMapping(value = "/{id}")
 	public String detail(HttpServletRequest request, HttpServletResponse response, Model model,
 			@PathVariable("id") String id) {
 		NoticeDto noticeDto = noticeService.getById(id);

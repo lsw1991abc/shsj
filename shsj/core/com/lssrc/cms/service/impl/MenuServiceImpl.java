@@ -25,7 +25,6 @@ public class MenuServiceImpl implements MenuService {
 	
 	@Override
 	public List<Menu> list() {
-		
 		return menuMapper.selectByPage();
 	}
 
