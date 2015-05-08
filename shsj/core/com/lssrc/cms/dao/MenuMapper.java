@@ -9,18 +9,9 @@ public interface MenuMapper {
 
     int insert(Menu record);
 
-    int insertSelective(Menu record);
-
     Menu selectByPrimaryKey(String menuId);
-
-    int updateByPrimaryKeySelective(Menu record);
-
-    int updateByPrimaryKeyWithBLOBs(Menu record);
 
     int updateByPrimaryKey(Menu record);
 
-	/**
-	 * @return
-	 */
 	List<Menu> selectByPage();
 }
