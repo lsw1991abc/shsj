@@ -22,8 +22,8 @@
 	            <c:forEach var="daily" items="${dailies}">
 	              <tr>
                     <td style="width:5%;"><input type="checkbox" /></td>
-                    <td style="width:80%;"><a href="<%=basePath%>/rizhi/${daily.notice.nId}" target="_blank">${daily.notice.nTitle}</a></td>
-                    <td style="width:15%;">${fn:substring(daily.notice.nDatetimeBuild, 0, 10)}</td>
+                    <td style="width:80%;"><a href="<%=basePath%>/rizhi/${daily.nId}" target="_blank">${daily.nTitle}</a></td>
+                    <td style="width:15%;">${fn:substring(daily.nDatetimeBuild, 0, 10)}</td>
                   </tr>
 	            </c:forEach>
               </table>

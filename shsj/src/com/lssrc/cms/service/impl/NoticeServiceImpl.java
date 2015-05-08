@@ -12,9 +12,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.IncorrectResultSizeDataAccessException;
 import org.springframework.stereotype.Service;
 
+import com.lssrc.cms.dao.NoticeCommentMapper;
 import com.lssrc.cms.dao.NoticeMapper;
+import com.lssrc.cms.dto.NoticeCommentDto;
 import com.lssrc.cms.dto.NoticeDto;
 import com.lssrc.cms.entity.Notice;
+import com.lssrc.cms.entity.NoticeComment;
 import com.lssrc.cms.entity.NoticeCount;
 import com.lssrc.cms.service.NoticeService;
 import com.lssrc.util.DateFormater;
@@ -30,6 +33,9 @@ public class NoticeServiceImpl implements NoticeService {
 	
 	@Autowired
 	private NoticeMapper noticeMapper;
+	
+	@Autowired
+	private NoticeCommentMapper noticeCommentMapper;
 
 	@Override
 	public Navigator getNavigator(int pageNo, int pageSize, int type, String userId) {
@@ -74,6 +80,23 @@ public class NoticeServiceImpl implements NoticeService {
 	@Override
 	public int delete(String id) {
 		return noticeMapper.deleteByPrimaryKey(id);
+	}
+
+	@Override
+	public List<NoticeCommentDto> getCommentByNotice(Navigator navigator, int type, String noticeId) {
+		int pageNo = navigator.getNowPage();
+		int pageSize = navigator.getPageSize();
+		return noticeCommentMapper.selectByPage((pageNo - 1) * pageSize, pageSize, type, noticeId);
+	}
+
+	@Override
+	public Navigator getNavigatorComment(int pageNo, int pageSize, int type, String noticeId) {
+		return Navigator.formatPageNavigator(pageNo, noticeCommentMapper.selectCount(type, noticeId), pageSize);
+	}
+
+	@Override
+	public void saveComment(NoticeComment comment) {
+		noticeCommentMapper.insert(comment);
 	}
 
 }

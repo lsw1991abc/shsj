@@ -33,10 +33,12 @@ public class NoticeController {
 	private NoticeService noticeService;
 	
 	/**
-	 * 
+	 * 信息列表
 	 * @param request
 	 * @param response
 	 * @param model
+	 * @param pageNo
+	 * @param pageSize
 	 * @return
 	 * 
 	 * @author Carl_Li
@@ -55,10 +57,16 @@ public class NoticeController {
 	}
 	
 	/**
-	 * 
+	 * 获取详情
+	 * @param request
+	 * @param response
+	 * @param model
+	 * @param id
 	 * @return
+	 * 
+	 * @author Carl_Li
 	 */
-	@RequestMapping(value = "/{id}")
+	@RequestMapping(value = "/detail/{id}")
 	public String detail(HttpServletRequest request, HttpServletResponse response, Model model,
 			@PathVariable("id") String id) {
 		NoticeDto noticeDto = noticeService.getById(id);

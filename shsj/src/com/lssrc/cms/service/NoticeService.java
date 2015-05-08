@@ -8,8 +8,10 @@ package com.lssrc.cms.service;
 
 import java.util.List;
 
+import com.lssrc.cms.dto.NoticeCommentDto;
 import com.lssrc.cms.dto.NoticeDto;
 import com.lssrc.cms.entity.Notice;
+import com.lssrc.cms.entity.NoticeComment;
 import com.lssrc.util.Navigator;
 
 /**
@@ -21,6 +23,7 @@ public interface NoticeService {
 	public static int TYPE_NOTICE = 1;
 	public static int TYPE_TREASURE = 2;
 	public static int TYPE_DAILY = 3;
+	public static int TYPE_POST = 4;
 
 	/**
 	 * @param pageNo
@@ -52,9 +55,7 @@ public interface NoticeService {
 	public List<Notice> getByTop(int top, int type);
 
 	/**
-	 * @param title
-	 * @param content
-	 * @param object
+	 * @param notice
 	 * @return
 	 */
 	public int save(Notice notice);
@@ -70,5 +71,27 @@ public interface NoticeService {
 	 * @return
 	 */
 	public int update(Notice notice);
+	
+	/**
+	 * @param navigator
+	 * @param type
+	 * @param noticeId
+	 * @return
+	 */
+	public List<NoticeCommentDto> getCommentByNotice(Navigator navigator, int type, String noticeId);
+
+	/**
+	 * @param pageNo
+	 * @param pageSize
+	 * @param typePost
+	 * @param noticeId
+	 * @return
+	 */
+	public Navigator getNavigatorComment(int pageNo, int pageSize, int type, String noticeId);
+
+	/**
+	 * @param comment
+	 */
+	public void saveComment(NoticeComment comment);
 
 }

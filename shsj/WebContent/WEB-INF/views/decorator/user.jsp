@@ -52,7 +52,11 @@
     <ul class="nav nav-tabs header-nav" role="tablist" style="margin-bottom:10px; background:url('<%=basePath %>/images/syimgs.png') 0px -30px repeat-x; padding:0 20px;">
       <c:forEach items="${applicationScope.menus}" var="menu" begin="0">
     		<li role="presentation" data-menu-id="${menu.menuId }">
-    			<a href="<%=basePath %>${menu.menuUrl}" target="${menu.menuTarget}" title="${menu.menuName}">${menu.menuName}</a>
+    			<c:if test="${menu.menuType == 1}"><c:set var="tempPath" value="<%=basePath%>" /></c:if>
+    			<c:if test="${menu.menuType == 2}"><c:set var="tempPath" value="" /></c:if>
+    			<a href="${tempPath}${menu.menuUrl}" target="${menu.menuTarget}" title="${menu.menuName}">
+    				${menu.menuName}
+    			</a>
     		</li>
     	</c:forEach>
       <li role="presentation" data-menu-id="myself"  class="active"><a href="<%=basePath %>/user">个人中心</a></li>
