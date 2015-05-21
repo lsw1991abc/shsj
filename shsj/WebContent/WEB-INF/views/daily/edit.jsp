@@ -33,7 +33,7 @@
 							<div class="input-group-addon">标题</div>
 							<input type="text" class="form-control" id="daily_title"
 								placeholder="标题长度1~50" value="${daily.nTitle}" data-required="true"
-								data-pattern="^\w{1,50}$" name="title"
+								data-pattern="^[a-zA-Z0-9_\u4e00-\u9fa5]{1,50}$" name="title"
 								data-describedby="dailyTitle-description"
 								data-description="dailyTitle" />
 						</div>

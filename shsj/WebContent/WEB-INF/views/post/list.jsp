@@ -27,7 +27,6 @@ $('.header-nav li[data-menu-id="5"]').addClass('active');
           	<table class="table table-striped" style="text-indent:10px; border-bottom:1px solid #DDDDDD; margin-bottom:0;">
 	            <c:forEach var="notice" items="${notices}">
 	              <tr>
-                    <td style="width:5%;"><input type="checkbox" /></td>
                     <td style="width:80%;"><a href="<%=basePath%>/tieba/${notice.nId}" target="_blank">${notice.nTitle}</a></td>
                     <td style="width:15%;">${fn:substring(notice.nDatetimeBuild, 0, 10)}</td>
                   </tr>
@@ -51,7 +50,7 @@ $('.header-nav li[data-menu-id="5"]').addClass('active');
               <hr />
               <h4 style="margin-left:15px;">发布召集令</h4>
               <div>
-              	<form class="form-inline" action="<%=basePath %>/tieba/save">
+              	<form class="form-inline" action="<%=basePath %>/tieba/save"  role="form" method="post">
 				  <div class="form-group" style="margin:15px;">
 				    <label for="title" class="col-sm-2 control-label">标题</label>
 				    <div class="col-sm-10">
