@@ -10,7 +10,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title><sitemesh:write property="title">管理平台</sitemesh:write> - 大学生社会实践服务中心</title>
+<title><sitemesh:write property="title">管理平台</sitemesh:write> - ${applicationScope.appname}</title>
 <link rel="shortcut icon" href="<%=basePath %>/images/favicon.ico" />
 <link rel="stylesheet" href="<%=basePath %>/lib/bootstrap/css/bootstrap.css" type="text/css" />
 <link rel="stylesheet" href="<%=basePath %>/lib/font-awesome/css/font-awesome.css" type="text/css" />
@@ -62,7 +62,7 @@
                     </li>
                     
                 </ul>
-                <a class="brand"><span class="second">大学生社会实践服务中心</span> <span class="first">管理平台</span></a>
+                <a class="brand"><span class="second">${applicationScope.appname}</span> <span class="first">管理平台</span></a>
         </div>
     </div>
     
@@ -98,13 +98,13 @@
             <li ><a href="privacy-policy.html">Privacy Policy</a></li>
             <li ><a href="terms-and-conditions.html">Terms and Conditions</a></li>
         </ul>
-
+		-->
         <a href="#options-menu" class="nav-header" data-toggle="collapse"><i class="fa fa-gears"></i>系统管理</a>
         <ul id="options-menu" class="nav nav-list collapse">
-            <li ><a href="privacy-policy.html">基本设置</a></li>
-            <li ><a href="terms-and-conditions.html">Terms and Conditions</a></li>
+            <li id="options-basic"><a href="<%=adminPath %>/setting">基本设置</a></li>
+            <li id="options-link"><a href="<%=adminPath %>/link">链接管理</a></li>
         </ul>
-         -->
+         
 		<!-- 
         <a href="help.html" class="nav-header" ><i class="fa fa-question-circle"></i> 帮助</a>
         <a href="faq.html" class="nav-header" ><i class="fa fa-comment"></i>问答</a>
