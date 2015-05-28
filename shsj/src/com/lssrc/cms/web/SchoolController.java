@@ -47,7 +47,7 @@ public class SchoolController {
 		
 		model.addAttribute("notices", noticeService.getByTop(5, NoticeService.TYPE_NOTICE));
 		model.addAttribute("treasures", noticeService.getByTop(5, NoticeService.TYPE_TREASURE));
-		model.addAttribute("sites", linkService.getByPage(LinkService.TYPE_SITE));
+		model.addAttribute("sites", linkService.getByType(LinkService.TYPE_SITE));
 		
 		return "school/index";
 	}	
