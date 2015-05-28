@@ -103,6 +103,7 @@
         <ul id="options-menu" class="nav nav-list collapse">
             <li id="options-basic"><a href="<%=adminPath %>/setting">基本设置</a></li>
             <li id="options-link"><a href="<%=adminPath %>/link">链接管理</a></li>
+            <li id="options-menu"><a href="<%=adminPath %>/menu">导航管理</a></li>
         </ul>
          
 		<!-- 

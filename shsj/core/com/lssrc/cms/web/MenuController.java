@@ -29,7 +29,7 @@ public class MenuController {
 	
 	@RequestMapping({"", "/"})
 	public String list(HttpServletRequest request, HttpServletResponse response, Model model) {
-		model.addAttribute("menus", menuService.list());
+		model.addAttribute("menus", menuService.getByPage());
 		return "";
 	}
 	
