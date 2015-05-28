@@ -18,12 +18,18 @@
     <include refid="Base_Column_List" />
     from sys_link where l_id = #{lId,jdbcType=VARCHAR}
   </select>
-  <select id="selectByPage" resultMap="BaseResultMap" parameterType="java.lang.String" >
+  <select id="selectByType" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
     from sys_link
     where l_type=#{type}
     order by l_sort asc, l_name asc
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from sys_link
+    order by l_type asc, l_sort asc, l_name asc
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
     delete from sys_link where l_id = #{lId,jdbcType=VARCHAR}

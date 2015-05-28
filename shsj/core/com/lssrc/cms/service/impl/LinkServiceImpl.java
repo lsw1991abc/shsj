@@ -26,8 +26,28 @@ public class LinkServiceImpl implements LinkService {
 	private LinkMapper linkMapper;
 
 	@Override
-	public List<Link> getByPage(int type) {
-		return linkMapper.selectByPage(type);
+	public List<Link> getByType(int type) {
+		return linkMapper.selectByType(type);
+	}
+
+	@Override
+	public List<Link> getAll() {
+		return linkMapper.selectAll();
+	}
+
+	@Override
+	public Link getById(String id) {
+		return linkMapper.selectByPrimaryKey(id);
+	}
+
+	@Override
+	public int save(Link link) {
+		return linkMapper.insert(link);
+	}
+
+	@Override
+	public int update(Link link) {
+		return linkMapper.updateByPrimaryKey(link);
 	}
 
 }

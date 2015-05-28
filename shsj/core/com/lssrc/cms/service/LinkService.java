@@ -16,10 +16,19 @@ import com.lssrc.cms.entity.Link;
  */
 public interface LinkService {
 	
-	public static Integer TYPE_FRIEND = 1;
-	public static Integer TYPE_COPYRIGHT = 2;
-	public static Integer TYPE_SITE = 3;
+	public static int TYPE_ALL = 0;
+	public static int TYPE_FRIEND = 1;
+	public static int TYPE_COPYRIGHT = 2;
+	public static int TYPE_SITE = 3;
 	
-	public List<Link> getByPage(int type);
+	public List<Link> getByType(int type);
+
+	public List<Link> getAll();
+
+	public Link getById(String id);
+
+	public int save(Link link);
+	
+	public int update(Link link);
 
 }

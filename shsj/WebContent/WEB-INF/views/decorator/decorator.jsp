@@ -81,7 +81,7 @@
 	      		<c:if test="${link.lType == 1}"><c:set var="tempPath" value="<%=basePath%>" /></c:if>
     			<c:if test="${link.lType == 2}"><c:set var="tempPath" value="" /></c:if>
 	      		<li data-menu-id="${link.lId }">
-	      			<a href="${tempPath}${link.lUrl }" target="${menu.menuTarget}" title="${link.lName }">${link.lName }</a>
+	      			<a href="${tempPath}${link.lUrl }" target="${link.lTarget}" title="${link.lName }">${link.lName }</a>
 	      		</li>
 	    	</c:forEach>
         </ul>
@@ -94,7 +94,7 @@
 	      		<c:if test="${link.lType == 1}"><c:set var="tempPath" value="<%=basePath%>" /></c:if>
     			<c:if test="${link.lType == 2}"><c:set var="tempPath" value="" /></c:if>
 	      		<li data-menu-id="${link.lId }">
-	      			<a href="${tempPath}${link.lUrl }" target="${menu.menuTarget}" title="${link.lName }">${link.lName }</a>
+	      			<a href="${tempPath}${link.lUrl }" target="${link.lTarget}" title="${link.lName }">${link.lName }</a>
 	      		</li>
 	    	</c:forEach>
         </ul>

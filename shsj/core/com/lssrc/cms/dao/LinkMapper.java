@@ -15,5 +15,7 @@ public interface LinkMapper {
 
     int updateByPrimaryKey(Link record);
 
-	List<Link> selectByPage(@Param("type") int type);
+	List<Link> selectByType(@Param("type") int type);
+
+	List<Link> selectAll();
 }
