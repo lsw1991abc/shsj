@@ -54,7 +54,7 @@ public class OptionAdminController {
 			context.setAttribute(paraName, option.getoValue());
 			
 		}
-		return "redirect:" + Constants.ADMIN_PATH + "/setting";
+		return "redirect:/" + Constants.ADMIN_PATH_NAME + "/setting";
 	}
 	
 }
