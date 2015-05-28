@@ -11,42 +11,23 @@
     <result column="menu_url" property="menuUrl" jdbcType="LONGVARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
-    menu_id, menu_name, menu_sort, menu_parent, menu_type
-  </sql>
-  <sql id="Blob_Column_List" >
-    menu_target, menu_url
+    menu_id, menu_name, menu_sort, menu_parent, menu_type, menu_target, menu_url
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 
     <include refid="Base_Column_List" />
-    ,
-    <include refid="Blob_Column_List" />
-    from sys_menu
-    where menu_id = #{menuId,jdbcType=VARCHAR}
+    from sys_menu where menu_id = #{menuId,jdbcType=VARCHAR}
   </select>
-  
   <select id="selectByPage" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    ,
-    <include refid="Blob_Column_List" />
-    from sys_menu
-    order by menu_sort asc,menu_id desc
+    from sys_menu order by menu_sort asc,menu_id desc
   </select>
   
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
-    delete from sys_menu
-    where menu_id = #{menuId,jdbcType=VARCHAR}
+    delete from sys_menu where menu_id = #{menuId,jdbcType=VARCHAR}
   </delete>
   <insert id="insert" parameterType="com.lssrc.cms.entity.Menu" >
-    insert into sys_menu (menu_id, menu_name, menu_sort, 
-      menu_parent, menu_type, menu_target, 
-      menu_url)
-    values (#{menuId,jdbcType=VARCHAR}, #{menuName,jdbcType=VARCHAR}, #{menuSort,jdbcType=INTEGER}, 
-      #{menuParent,jdbcType=VARCHAR}, #{menuType,jdbcType=INTEGER}, #{menuTarget,jdbcType=LONGVARCHAR}, 
-      #{menuUrl,jdbcType=LONGVARCHAR})
-  </insert>
-  <insert id="insertSelective" parameterType="com.lssrc.cms.entity.Menu" >
     insert into sys_menu
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="menuId != null" >
@@ -95,7 +76,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.lssrc.cms.entity.Menu" >
+  <update id="updateByPrimaryKey" parameterType="com.lssrc.cms.entity.Menu" >
     update sys_menu
     <set >
       <if test="menuName != null" >
@@ -117,24 +98,6 @@
         menu_url = #{menuUrl,jdbcType=LONGVARCHAR},
       </if>
     </set>
-    where menu_id = #{menuId,jdbcType=VARCHAR}
-  </update>
-  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.lssrc.cms.entity.Menu" >
-    update sys_menu
-    set menu_name = #{menuName,jdbcType=VARCHAR},
-      menu_sort = #{menuSort,jdbcType=INTEGER},
-      menu_parent = #{menuParent,jdbcType=VARCHAR},
-      menu_type = #{menuType,jdbcType=INTEGER},
-      menu_target = #{menuTarget,jdbcType=LONGVARCHAR},
-      menu_url = #{menuUrl,jdbcType=LONGVARCHAR}
-    where menu_id = #{menuId,jdbcType=VARCHAR}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.lssrc.cms.entity.Menu" >
-    update sys_menu
-    set menu_name = #{menuName,jdbcType=VARCHAR},
-      menu_sort = #{menuSort,jdbcType=INTEGER},
-      menu_parent = #{menuParent,jdbcType=VARCHAR},
-      menu_type = #{menuType,jdbcType=INTEGER}
     where menu_id = #{menuId,jdbcType=VARCHAR}
   </update>
 </mapper>

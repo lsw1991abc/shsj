@@ -16,6 +16,6 @@ import com.lssrc.cms.entity.Menu;
  */
 public interface MenuService {
 
-	List<Menu> list();
+	public List<Menu> list();
 	
 }

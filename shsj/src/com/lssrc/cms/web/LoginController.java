@@ -92,17 +92,6 @@ public class LoginController {
 	}
 	
 	/**
-	 * 注册页面跳转
-	 * @return
-	 * 
-	 * @author Carl_Li
-	 */
-	@RequestMapping(value = "register")
-	public String register() {
-		return "register";
-	}
-	
-	/**
 	 * 注册
 	 * @param request
 	 * @param response

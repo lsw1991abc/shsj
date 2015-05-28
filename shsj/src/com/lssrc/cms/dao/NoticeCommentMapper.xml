@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lssrc.cms.dao.NoticeCommentMapper" >
+  <resultMap id="BaseResultMap" type="com.lssrc.cms.entity.NoticeComment" >
+    <id column="nc_id" property="ncId" jdbcType="VARCHAR" />
+    <result column="n_id" property="nId" jdbcType="VARCHAR" />
+    <result column="nc_builder" property="ncBuilder" jdbcType="VARCHAR" />
+    <result column="nc_datetime" property="ncDatetime" jdbcType="VARCHAR" />
+    <result column="nc_content" property="ncContent" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <resultMap id="NoticeCommentUserResultMap" type="com.lssrc.cms.dto.NoticeCommentDto" >
+  	<id column="nc_id" property="ncId" jdbcType="VARCHAR" />
+    <association property="noticeComment" javaType="com.lssrc.cms.entity.NoticeComment">
+    	<id column="nc_id" property="ncId" jdbcType="VARCHAR" />
+	    <result column="n_id" property="nId" jdbcType="VARCHAR" />
+	    <result column="nc_builder" property="ncBuilder" jdbcType="VARCHAR" />
+	    <result column="nc_datetime" property="ncDatetime" jdbcType="VARCHAR" />
+	    <result column="nc_content" property="ncContent" jdbcType="LONGVARCHAR" />
+    </association>
+    <association property="user" javaType="com.lssrc.cms.entity.User">
+    	<id column="user_id" property="userId" jdbcType="VARCHAR" />
+	    <result column="user_account" property="userAccount" jdbcType="VARCHAR" />
+	    <result column="user_nickname" property="userNickname" jdbcType="VARCHAR" />
+    </association>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    nc_id, n_id, nc_builder, nc_datetime, nc_content
+  </sql>
+  <sql id="User_Column_List" >
+    user_id, user_account, user_nickname
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from shsj_notice_comment
+    where nc_id = #{ncId,jdbcType=VARCHAR}
+  </select>
+  <!--  -->
+  <select id="selectByPage" resultMap="NoticeCommentUserResultMap">
+    select 
+    <include refid="Base_Column_List" />, <include refid="User_Column_List" />
+    from shsj_notice_comment, sys_user
+    where
+    shsj_notice_comment.nc_builder=sys_user.user_id  
+    and n_id=#{noticeId}
+	order by nc_datetime desc, nc_id asc limit #{start},#{pageSize}
+  </select>
+  <!--  -->
+  <!--  -->
+   <select id="selectCount" resultType="int" >
+    select count(*) from shsj_notice_comment where n_id=#{noticeId}
+  </select>
+  <!--  -->
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from shsj_notice_comment where nc_id = #{ncId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.lssrc.cms.entity.NoticeComment" >
+    insert into shsj_notice_comment
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="ncId != null" >
+        nc_id,
+      </if>
+      <if test="nId != null" >
+        n_id,
+      </if>
+      <if test="ncBuilder != null" >
+        nc_builder,
+      </if>
+      <if test="ncDatetime != null" >
+        nc_datetime,
+      </if>
+      <if test="ncContent != null" >
+        nc_content,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="ncId != null" >
+        #{ncId,jdbcType=VARCHAR},
+      </if>
+      <if test="nId != null" >
+        #{nId,jdbcType=VARCHAR},
+      </if>
+      <if test="ncBuilder != null" >
+        #{ncBuilder,jdbcType=VARCHAR},
+      </if>
+      <if test="ncDatetime != null" >
+        #{ncDatetime,jdbcType=VARCHAR},
+      </if>
+      <if test="ncContent != null" >
+        #{ncContent,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.lssrc.cms.entity.NoticeComment" >
+    update shsj_notice_comment
+    <set >
+      <if test="nId != null" >
+        n_id = #{nId,jdbcType=VARCHAR},
+      </if>
+      <if test="ncBuilder != null" >
+        nc_builder = #{ncBuilder,jdbcType=VARCHAR},
+      </if>
+      <if test="ncDatetime != null" >
+        nc_datetime = #{ncDatetime,jdbcType=VARCHAR},
+      </if>
+      <if test="ncContent != null" >
+        nc_content = #{ncContent,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where nc_id = #{ncId,jdbcType=VARCHAR}
+  </update>
+</mapper>

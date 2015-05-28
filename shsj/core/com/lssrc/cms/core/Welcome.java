@@ -41,6 +41,9 @@ package com.lssrc.cms.core;
 public class Welcome {
 
 	public void welcome() {
+		System.out.println("**********************************************");
+		System.out.println("***            欢迎使用WitCms              ***");
+		System.out.println("**********************************************");
 		System.err.println("                   _ooOoo_                    ");
 		System.err.println("                  o8888888o                   ");
 		System.err.println("                  88\" . \"88                 ");
@@ -60,7 +63,11 @@ public class Welcome {
 		System.err.println("======`-.____`-.___\\_____/___.-`____.-'======");
 		System.err.println("                   `=---='                    ");
 		System.err.println("............................................. ");
-		System.err.println("           佛祖保佑 永无BUG  LSSRC.COM        ");
+		System.err.println("           佛祖保佑 永无BUG  LSSRC.COM         ");
+		System.out.println("**********************************************");
+		System.out.println("***       Copyright 2014 lssrc.com         ***");
+		System.out.println("***          http://www.lssrc.com          ***");
+		System.out.println("**********************************************");
 	}
 	
 }
